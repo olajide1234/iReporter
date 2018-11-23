@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Citizen journalism for Africa">
+  <meta name="keyword" content="corruption, citizen journalism, reporting, public, activism">
+  <meta name="author" content="Ayinla Olajide">
+  <title>iReporter | Red-Flag record</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script type="text/javascript" src="./js/ireporter.js"></script>
+</head>
+
+<body class="body">
+  <header class="header">
+    <div class="container">
+      <div class="header_branding">
+        <h1 class="header_branding--text"><a class="header_branding--url" href="index.html"><span class="header_branding--highlight">i</span>Reporter</a></h1>
+    </div>
+    <nav class="header_nav">
+      <a class="header_branding--url header_branding--url-signout" href="index.html">Sign Out</a>
+    </nav>
+    </div>
+  </header>
+
+  <section class="introduction introduction_profile">
+    <div class="container">
+      <div class="introduction_signup_and_signin">
+        <h4 class="introduction_signup_and_signin--header introduction_signup_and_signin--header_profile">Create a new red-flag record to report an incident linked to corruption</h4>
+      </div>
+    </div>
+  </section>
+
+  <section class="introduction">
+
+    <div class="container">
+      <div class="introduction_signup_and_signin">
+        <p class="introduction_signup_and_signin--body">Posterity will thank you for this!</p>
+      </div>
+
+      <div class="container_form container_form_red-flag container_form_red-flag--redflagform">
+        <form class="container_formfield">
+          <p class="container_formfield_label">Date of incident </p>
+          <input class="container_formfield--text" type="date" placeholder="Date of incident" />
+          <p class="container_formfield_label">Title of incident</p>
+          <input class="container_formfield--text" type="text" placeholder="Give a short title" />
+          <p class="container_formfield_label">Narration of incident</p>
+          <textarea class="container_formfield--text container_formfield--text--narration" type="text" placeholder="Tell us what happened"></textarea>
+          <p class="container_formfield_label">Upload image</p>
+          <input class="container_formfield--text container_formfield--file" type="file" placeholder="Add an image" />
+          <p class="container_formfield_label">Upload video</p>
+          <input class="container_formfield--text container_formfield--file" type="file" placeholder="Add a video" />
+          <p class="container_formfield_label">Give location of incident</p>
+          <input class="container_formfield--location" type="text" placeholder="Type the location" onFocus="geolocate()" />
+          <input class="introduction_buttons introduction_buttons--signup-form" onclick="redFlagSubmission()" type="submit" value="Submit" />
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCp5Z2T4kKCpAEOEspttHePLoAkZns_c8w&libraries=places&callback=initAutocomplete"
+  async defer></script>
+
+<footer class="footer">
+  <p> iReporter &copy; 2018</p>
+</footer>
+</body>
+
+</html>
