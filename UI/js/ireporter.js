@@ -44,6 +44,18 @@ function redFlagSubmission () {
 }
 //maps
 
+var map;
+
+function initMap () {
+  map = new google.maps.Map(document.getElementsByClassName('map')[0], {
+    center: {
+      lat: 6.553844,
+      lng: 3.366475
+    },
+    zoom: 15
+  });
+}
+
 function initAutocomplete () {
   var input = document.getElementsByClassName('container_formfield--location')[0];
   var autocomplete = new google.maps.places.Autocomplete(input);
