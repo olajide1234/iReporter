@@ -276,3 +276,54 @@ html, .body {
 .map {
   height: 70%;
 }
+
+/*Responsiveness*/
+
+@media screen and (max-width: 800px) {
+  .introduction_buttons {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .motivation_box {
+    width: 100%;
+    padding: 2px;
+    padding-top: 40px;
+    padding-right: 10px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .container_form {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .motivation_box_profile {
+    width: 80%;
+    padding: 2%;
+    float: none;
+    margin-left: 8%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .motivation {
+    margin-top: 0%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .motivation_record_list_table--td, .motivation_record_list_table--th {
+    font-size: 70%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .motivation_record_list_table {
+    table-layout: auto;
+    width: 800px;
+  }
+}
