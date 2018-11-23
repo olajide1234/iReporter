@@ -42,3 +42,9 @@ function redFlagSubmission () {
     window.location.href = 'profile.html'
   }, 5000);
 }
+//maps
+
+function initAutocomplete () {
+  var input = document.getElementsByClassName('container_formfield--location')[0];
+  var autocomplete = new google.maps.places.Autocomplete(input);
+}
