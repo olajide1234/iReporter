@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Citizen journalism for Africa">
+  <meta name="keyword" content="corruption, citizen journalism, reporting, public, activism">
+  <meta name="author" content="Ayinla Olajide">
+  <title>iReporter | All record</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script type="text/javascript" src="./js/ireporter.js"></script>
+</head>
+
+<body class="body">
+  <header class="header">
+    <div class="container">
+      <div class="header_branding">
+        <h1 class="header_branding--text"><a class="header_branding--url" href="index.html"><span class="header_branding--highlight">i</span>Reporter</a></h1>
+      </div>
+      <nav class="header_nav">
+        <a class="header_branding--url header_branding--url-signout" href="index.html">Sign Out</a>
+      </nav>
+    </div>
+    </div>
+  </header>
+
+  <section class="introduction introduction_profile">
+    <div class="container">
+      <div class="introduction_signup_and_signin">
+        <h4 class="introduction_signup_and_signin--header introduction_signup_and_signin--header_profile">Let's review what you have done so far; you can do more!</h4>
+      </div>
+    </div>
+  </section>
+
+  <section class="introduction introduction_create-record introduction_create-record_record-page">
+    <div class="container">
+      <div>
+        <button class="introduction_buttons introduction_buttons--redflag" onclick="redirectToProfile()">Back to profile</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="motivation">
+    <div class="container">
+      <div class="container motivation_record_list motivation_record_list_view-record" style="overflow-x:auto;">
+        <!-- Red-flag record table begins here -->
+        <table class="motivation_record_list_table">
+          <tr class="motivation_record_list_table--tr">
+            <th class="motivation_record_list_table--th motivation_record_list_table--th--heading" colspan="9">Here are details of your red-flag records</th>
+          </tr>
+          <tr class="motivation_record_list_table--tr">
+            <th class="motivation_record_list_table--th">No</th>
+            <th class="motivation_record_list_table--th">Date</th>
+            <th class="motivation_record_list_table--th">Title</th>
+            <th class="motivation_record_list_table--th">Narration</th>
+            <th class="motivation_record_list_table--th">Image</th>
+            <th class="motivation_record_list_table--th">Video</th>
+            <th class="motivation_record_list_table--th">Location</th>
+            <th class="motivation_record_list_table--th">Status</th>
+            <th class="motivation_record_list_table--th">Action</th>
+          </tr>
+          <tr class="motivation_record_list_table--tr">
+            <td class="motivation_record_list_table--td">1</td>
+            <td class="motivation_record_list_table--td">31 Sept. 2018</td>
+            <td class="motivation_record_list_table--td">Gandollar</td>
+            <td class="motivation_record_list_table--td">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.</td>
+            <td class="motivation_record_list_table--td">Image link</td>
+            <td class="motivation_record_list_table--td">Video link</td>
+            <td class="motivation_record_list_table--td">Location link</td>
+            <td class="motivation_record_list_table--td">Default</td>
+            <td class="motivation_record_list_table--td"> <select> <option value="Default"> Default</option><option value="Edit"> Edit</option><option value="Delete">Delete</option></select></td>
+          </tr>
+          <tr class="motivation_record_list_table--tr">
+            <td class="motivation_record_list_table--td">2</td>
+            <td class="motivation_record_list_table--td">31 Sept. 2018</td>
+            <td class="motivation_record_list_table--td">Gandollar</td>
+            <td class="motivation_record_list_table--td">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.</td>
+            <td class="motivation_record_list_table--td">Image link</td>
+            <td class="motivation_record_list_table--td">Video link</td>
+            <td class="motivation_record_list_table--td">Location link</td>
+            <td class="motivation_record_list_table--td">Default</td>
+            <td class="motivation_record_list_table--td"> <select> <option value="Default"> Default</option><option value="Edit"> Edit</option><option value="Delete">Delete</option></select></td>
+          </tr>
+          </tr>
+          <tr class="motivation_record_list_table--tr">
+            <td class="motivation_record_list_table--td">3</td>
+            <td class="motivation_record_list_table--td">31 Sept. 2018</td>
+            <td class="motivation_record_list_table--td">Gandollar</td>
+            <td class="motivation_record_list_table--td">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.</td>
+            <td class="motivation_record_list_table--td">Image link</td>
+            <td class="motivation_record_list_table--td">Video link</td>
+            <td class="motivation_record_list_table--td">Location link</td>
+            <td class="motivation_record_list_table--td">Default</td>
+            <td class="motivation_record_list_table--td"> <select> <option value="Default"> Default</option><option value="Edit"> Edit</option><option value="Delete">Delete</option></select></td>
+          </tr>
+        </table>
+      </div>
+
+        <!-- Intervention record table begins here -->
+        <div class="container motivation_record_list motivation_record_list_view-record" style="overflow-x:auto;">
+        <table class="motivation_record_list_table">
+          <tr class="motivation_record_list_table--tr">
+            <th class="motivation_record_list_table--th motivation_record_list_table--th--heading" colspan="9">Here are details of your intervention records</th>
+          </tr>
+          <tr class="motivation_record_list_table--tr">
+            <th class="motivation_record_list_table--th">No</th>
+            <th class="motivation_record_list_table--th">Date</th>
+            <th class="motivation_record_list_table--th">Title</th>
+            <th class="motivation_record_list_table--th">Details</th>
+            <th class="motivation_record_list_table--th">Image</th>
+            <th class="motivation_record_list_table--th">Video</th>
+            <th class="motivation_record_list_table--th">Location</th>
+            <th class="motivation_record_list_table--th">Status</th>
+            <th class="motivation_record_list_table--th">Action</th>
+          <tr class="motivation_record_list_table--tr">
+            <td class="motivation_record_list_table--td">1</td>
+            <td class="motivation_record_list_table--td">31 Sept. 2018</td>
+            <td class="motivation_record_list_table--td">Lagos-Ibadan Expressway</td>
+            <td class="motivation_record_list_table--td">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.</td>
+            <td class="motivation_record_list_table--td">Image link</td>
+            <td class="motivation_record_list_table--td">Video link</td>
+            <td class="motivation_record_list_table--td">Location link</td>
+            <td class="motivation_record_list_table--td">Default</td>
+            <td class="motivation_record_list_table--td"> <select> <option value="Default"> Default</option><option value="Edit"> Edit</option><option value="Delete">Delete</option></select></td>
+          </tr>
+          <tr class="motivation_record_list_table--tr">
+            <td class="motivation_record_list_table--td">2</td>
+            <td class="motivation_record_list_table--td">31 Sept. 2018</td>
+            <td class="motivation_record_list_table--td">Benin-ore Expressway</td>
+            <td class="motivation_record_list_table--td">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.</td>
+            <td class="motivation_record_list_table--td">Image link</td>
+            <td class="motivation_record_list_table--td">Video link</td>
+            <td class="motivation_record_list_table--td">Location link</td>
+            <td class="motivation_record_list_table--td">Default</td>
+            <td class="motivation_record_list_table--td"> <select> <option value="Default"> Default</option><option value="Edit"> Edit</option><option value="Delete">Delete</option></select></td>
+          </tr>
+          </tr>
+          <tr class="motivation_record_list_table--tr">
+            <td class="motivation_record_list_table--td">3</td>
+            <td class="motivation_record_list_table--td">31 Sept. 2018</td>
+            <td class="motivation_record_list_table--td">Eko Bridge robbery</td>
+            <td class="motivation_record_list_table--td">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.</td>
+            <td class="motivation_record_list_table--td">Image link</td>
+            <td class="motivation_record_list_table--td">Video link</td>
+            <td class="motivation_record_list_table--td">Location link</td>
+            <td class="motivation_record_list_table--td">Default</td>
+            <td class="motivation_record_list_table--td"> <select> <option value="Default"> Default</option><option value="Edit"> Edit</option><option value="Delete">Delete</option></select></td>
+          </tr>
+        </table>
+        <!-- Intervention record table ends here -->
+      </div>
+    </div>
+  </section>
+
+
+  <div class="map"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCp5Z2T4kKCpAEOEspttHePLoAkZns_c8w&callback=initMap"
+  async defer></script>
+
+  <footer class="footer">
+    <p> iReporter &copy; 2018</p>
+  </footer>
+
+</body>
+
+</html>

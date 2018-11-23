@@ -263,5 +263,16 @@ color: white;
   margin-top: 5px;
   color: white;
   background-color: #575559
+}
 
+/*map*/
+
+html, .body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.map {
+  height: 70%;
 }
