@@ -10,6 +10,11 @@ general public. Users can also report on things that needs government interventi
 
 [![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/ayinlaolajide)   [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
+# Access the UI for this project here:
+https://olajide1234.github.io/iReporter/UI/index.html
+
+# Access the active Git repo here:
+https://github.com/olajide1234/iReporter/tree/develop
 
 # Author
 Ayinla Olajide
