@@ -110,6 +110,41 @@ margin-bottom: 5px;
   color: #575559
 }
 
+.introduction_create-record {
+  padding: 50px;
+  min-height:50px;
+}
+
+.introduction_create-record_record-page {
+  padding-bottom: 0px;
+}
+
+.introduction_signin_page{
+  min-height: 550px;
+}
+
+.introduction_profile{
+  min-height: 75px;
+  background-color: #EEF0F5;
+}
+
+.introduction_signup_and_signin--header {
+  margin-top: 70px;
+  font-size: 25px;
+  margin-bottom: 30px;
+}
+
+.introduction_signup_and_signin--header_profile {
+  margin-top: 20px;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+
+.introduction_signup_and_signin--body {
+  font-size: 18px;
+  margin-bottom: 50px;
+}
 
 /* Buttons */
 .introduction_buttons {
@@ -127,6 +162,11 @@ margin-bottom: 5px;
   margin-left: 0px;
 }
 
+.introduction_buttons--redflag {
+  padding: 14px 20px;
+  background-color: #575559;
+}
+
 .introduction_buttons--signup {}
 
 .introduction_buttons--signin {
@@ -142,6 +182,10 @@ background-color: #575559;
 border: 2px solid #4CAF50;
 }
 
+.introduction_buttons--redflag:hover{
+  background-color: #A5A6A8;
+  border: 2px solid #4CAF50;
+}
 
 /*motivation boxes*/
 
@@ -167,6 +211,50 @@ border: 2px solid #4CAF50;
   width: 70%;
 }
 
+.motivation_box--image--number{
+  font-size: 35px;
+  width: 58%;
+  text-align: right;
+}
+
+/*table*/
+
+.motivation_record_list {
+  overflow: scroll;
+  width: 100%
+}
+
+.motivation_record_list_view-record{
+  height:100%;
+}
+.motivation_record_list_table{
+  border-collapse: collapse;
+  width: inherit;
+  margin: 45px;
+  margin-left: 0px;
+}
+
+.motivation_record_list_table--th{
+  background-color: #EEF0F5;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: #575559;
+}
+
+.motivation_record_list_table--th--heading {
+background-color: #242426;
+color: white;
+}
+
+.motivation_record_list_table--td, .motivation_record_list_table--th{
+  border: 1px solid #737075;
+  padding: 8px;
+}
+
+.motivation_record_list_table--tr:hover{
+  background-color: #C4C6C9;
+}
 
 /* footer */
 .footer {
