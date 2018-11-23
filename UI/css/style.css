@@ -76,7 +76,12 @@
   float: left;
   display: inline;
   padding: 0 10px 0 10px
-  padding: 0;
+}
+
+.header_branding--url-signout-prefooter {
+  font-size: 15px;
+  color: black;
+  margin-left: 4px;
 }
 
 .header_branding {
@@ -257,6 +262,17 @@ color: white;
 }
 
 /* footer */
+
+.pre-footer--social{
+ float: right;
+ padding-bottom: 7px;
+}
+
+.pre-footer-list {
+padding: 20px;
+
+}
+
 .footer {
   text-align: center;
   padding:5px;
