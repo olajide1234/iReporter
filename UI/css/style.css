@@ -1,0 +1,132 @@
+.body{
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 0;
+  margin: 0;
+  background-color: #f4f4f4;
+}
+/* Global */
+.container{
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+
+/* Header */
+.header{
+  background: #242426;
+  color: #ffffff;
+  padding-top: 10px;
+  min-width: 60px;
+}
+
+.header_branding--url{
+  color:#ffffff;
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.header_branding--url-signout{
+  font-size: 15px;
+  float: left;
+  display: inline;
+  padding: 0 10px 0 10px
+  padding: 0;
+}
+
+.header_branding {
+  float: left;
+margin-bottom: 5px;
+}
+
+.header_branding--text {
+  margin: 0;
+}
+
+.header_nav {
+  float: right;
+    margin-top: 10px;
+}
+
+.header_branding--highlight{
+  color: #DDDFE3;
+}
+
+.header_branding--url-signout:hover, .header_branding--url:hover{
+  color:#cccccc;
+}
+
+/*Introduction*/
+
+.introduction{
+  min-height: 400px;
+/* background-color: #F3F2D1; */
+  text-align: center;
+  color: #575559
+}
+
+
+/* Buttons */
+.introduction_buttons {
+  background-color: #00BC0A;
+  border: 2px solid #00BC0A;
+  color: white;
+  width: 30%;
+  padding: 14px 40px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 8px;
+  outline: 0px;
+  margin: 10px;
+  margin-left: 0px;
+}
+
+.introduction_buttons--signup {}
+
+.introduction_buttons--signin {
+  background-color: #A5A6A8;
+}
+
+.introduction_buttons--signup:hover, .introduction_buttons--signin:hover, .introduction_buttons--signup-form:hover {
+background-color: #575559;
+border: 2px solid #4CAF50;
+}
+
+
+/*motivation boxes*/
+
+.motivation {
+  margin-top: 60px;
+}
+
+.motivation_box {
+  float:left;
+  width: 30%;
+  padding: 15px;
+  text-align: center;
+}
+
+.motivation_box_profile {
+  border: 2px solid #C4C6C9;
+  margin: 3px;
+  width: 27%;
+  height: 200px;
+}
+
+.motivation_box--image {
+  width: 70%;
+}
+
+
+/* footer */
+.footer {
+  text-align: center;
+  padding:5px;
+  margin-top: 5px;
+  color: white;
+  background-color: #575559
+
+}
