@@ -272,6 +272,124 @@ app.delete('/api/v1/red-flags/:id', (req, res) => {
   });
 });
 
+//   Update a record
+app.put('/api/v1/red-flags/:id', (req, res) => {
+  const requestId = parseInt(req.params.id, 10);
+  const recordFound = ([...redFlagRecords.keys()].includes(requestId)
+  && redFlagRecords.get(requestId) !== null);
+
+  //  Require all for a put request, different for patch
+  // Check request body for completeness
+  if (Number.isNaN(parseInt(req.params.id, 10))) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Bad request: Include numeric ID of record in parameter',
+    });
+  }
+
+  if (!req.body.createdBy) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Bad request: Include creator\'s username or null as createdBy in body of request',
+    });
+  }
+  if (!req.body.dateOfIncident) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Bad request: Include date of incident or null as dateOfIncident in body of request',
+    });
+  }
+  if (!req.body.title) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Bad request: Include short title or null as title in body of request',
+    });
+  }
+  if (!req.body.comment) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Bad request: Include narration of incident or null as comment in body of request',
+    });
+  }
+  if (!req.body.images) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Bad request: Specify image locations or null as image in body of request',
+    });
+  }
+  if (!req.body.videos) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Bad request: Specify video locations or null as videos in body of request',
+    });
+  }
+  if (!req.body.location) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Bad request: Specify location of incident or null as location in body of request',
+    });
+  }
+  if (req.body.status) {
+    if (req.body.createdBy !== 'admin') {
+      return res.status(403).send({
+        status: 403,
+        error: 'Forbidden: Only admins can modify record status',
+      });
+    }
+  }
+
+  // Create new record if all parameters above are supplied and record not found
+  if (!recordFound) {
+    const newID = ([...redFlagRecords.keys()].length + 1) || 1;
+    const record = {
+      id: newID,
+      createdOn: Date(),
+      createdBy: req.body.createdBy, // represents the user who created this record
+      type: 'red-flag', // [red-flag, intervention]
+      dateOfIncident: req.body.dateOfIncident,
+      title: req.body.title,
+      comment: req.body.comment,
+      images: req.body.images,
+      videos: req.body.videos,
+      location: req.body.location, // Lat Long coordinates
+      status: 'draft', // [draft, under investigation, resolved, rejected]
+    };
+    redFlagRecords.set(newID, record);
+    return res.status(201).send({
+      status: 201,
+      data: [{
+        id: newID,
+        message: 'Created: Created red-flag record',
+      }],
+    });
+  }
+
+  //  Or update record with details
+  //  Update record with details
+  const updatedRecord = {
+    id: requestId,
+    createdOn: Date(),
+    createdBy: req.body.createdBy, // represents the user who created this record
+    type: 'red-flag', // [red-flag, intervention]
+    dateOfIncident: req.body.dateOfIncident,
+    title: req.body.title,
+    comment: req.body.comment,
+    images: req.body.images,
+    videos: req.body.videos,
+    location: req.body.location, // Lat Long coordinates
+    status: 'draft', // [draft, under investigation, resolved, rejected]
+  };
+
+  redFlagRecords.set(requestId, updatedRecord);
+  return res.status(200).send({
+    status: 200,
+    data: [{
+      id: requestId,
+      message: 'Updated red-flag record successfully',
+    }],
+  });
+});
+
 // Set up port
 const PORT = process.env.PORT || 2000;
 
