@@ -42,6 +42,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
 // Get all red-flag records
 app.get('/api/v1/red-flags', (req, res) => {
   const allRedFlagRecords = [...redFlagRecords.values()];
