@@ -42,7 +42,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 // Get all red-flag records
 app.get('/api/v1/red-flags', (req, res) => {
   const allRedFlagRecords = [...redFlagRecords.values()];
@@ -52,6 +51,20 @@ app.get('/api/v1/red-flags', (req, res) => {
   });
 });
 
+//  Get a single red-flag record
+app.get('/api/v1/red-flags/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if ([...redFlagRecords.keys()].includes(id) && redFlagRecords.get(id) !== null) {
+    return res.status(200).send({
+      status: 200,
+      data: [redFlagRecords.get(id)],
+    });
+  }
+  return res.status(404).send({
+    status: 404,
+    error: 'Not found: Record not found',
+  });
+});
 
 // Set up port
 const PORT = process.env.PORT || 2000;
