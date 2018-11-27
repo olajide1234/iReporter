@@ -8,7 +8,7 @@ any/every citizen to bring any form of corruption to the notice of appropriate a
 general public. Users can also report on things that needs government intervention.
 
 
-[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/ayinlaolajide)   [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
+[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/ayinlaolajide)   [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)  [![Build Status](https://travis-ci.com/olajide1234/iReporter.svg?branch=develop)](https://travis-ci.com/olajide1234/iReporter)
 
 # Access the UI for this project here:
 https://olajide1234.github.io/iReporter/UI/index.html
