@@ -395,7 +395,10 @@ const PORT = process.env.PORT || 2000;
 
 //  Diabled so as not to conflict mocha --watch.
 //  Solution ref: http://www.marcusoft.net/2015/10/eaddrinuse-when-watching-tests-with-mocha-and-supertest.html
-// if (!module.parent) {
+if (!module.parent) {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// Export our app for testing purposes
+module.exports = app.listen(PORT);
