@@ -43,8 +43,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
+// Get all red-flag records
+app.get('/api/v1/red-flags', (req, res) => {
+  const allRedFlagRecords = [...redFlagRecords.values()];
+  res.status(200).send({
+    status: 200,
+    data: allRedFlagRecords,
+  });
+});
+
+
 // Set up port
-const PORT = 2000;
+const PORT = process.env.PORT || 2000;
 
 //  Diabled so as not to conflict mocha --watch.
 //  Solution ref: http://www.marcusoft.net/2015/10/eaddrinuse-when-watching-tests-with-mocha-and-supertest.html
