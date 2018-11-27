@@ -4,7 +4,7 @@
   "description": "iReporter back-end",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --watch --require @babel/register",
+    "test": "mocha --require @babel/register",
     "start": "babel-node index.js"
   },
   "author": "Ayinla Olajide",
