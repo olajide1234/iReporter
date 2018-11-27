@@ -144,6 +144,62 @@ app.post('/api/v1/red-flags', (req, res) => {
   });
 });
 
+//  Patch a red-flag record location
+app.patch('/api/v1/red-flags/:id/location', (req, res) => {
+  const requestId = parseInt(req.params.id, 10);
+  const updatedLocation = req.body.location;
+  const recordFound = ([...redFlagRecords.keys()].includes(requestId)
+  && redFlagRecords.get(requestId) !== null);
+
+  //  Check that a valid record id is supplied
+  if (Number.isNaN(requestId)) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Bad request: Include numeric ID of record in parameter',
+    });
+  }
+
+  //  Confirm if record exists
+  if (!recordFound) {
+    return res.status(404).send({
+      status: 404,
+      error: 'Not found: Record not found',
+    });
+  }
+
+  //  Confirm if new location record is supplied
+  if (!req.body.location) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Bad request: Include new location or null as location in body of request',
+    });
+  }
+
+  //  Update record with details
+  const updatedRecord = {
+    id: requestId,
+    createdOn: redFlagRecords.get(requestId).createdOn,
+    createdBy: redFlagRecords.get(requestId).createdBy,
+    type: 'red-flag', // [red-flag, intervention]
+    dateOfIncident: redFlagRecords.get(requestId).dateOfIncident,
+    title: redFlagRecords.get(requestId).title,
+    comment: redFlagRecords.get(requestId).comment,
+    images: redFlagRecords.get(requestId).images,
+    videos: redFlagRecords.get(requestId).videos,
+    location: updatedLocation, // Lat Long coordinates
+    status: redFlagRecords.get(requestId).status,
+  };
+
+  redFlagRecords.set(requestId, updatedRecord);
+  return res.status(200).send({
+    status: 200,
+    data: [{
+      id: requestId,
+      message: 'Updated red-flag record\'s location',
+    }],
+  });
+});
+
 // Set up port
 const PORT = process.env.PORT || 2000;
 
