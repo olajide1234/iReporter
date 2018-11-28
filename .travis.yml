@@ -2,13 +2,10 @@ language: node_js
 node_js:
   - "11.2.0"
 cache: npm
-
 env:
   global:
     - CC_TEST_REPORTER_ID=034ace5e361c9479e0be470c2128c4f485802fa1816e45d72f91d6ac0088b7f8
 
-addons:
-  chrome: stable
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
