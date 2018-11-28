@@ -12,7 +12,7 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - nyc --reporter=lcov npx run unit
+  - nyc --reporter=lcov npm run unit
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
