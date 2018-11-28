@@ -42,6 +42,23 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Welcome
+app.get('/api/v1', (req, res) => {
+  const welcome = 'Welcome to Andela Bootcamp iReporter Project API';
+  res.status(200).send({
+    status: 200,
+    data: welcome,
+  });
+});
+
+app.get('/', (req, res) => {
+  const welcome = 'Welcome to Andela Bootcamp iReporter Project API';
+  res.status(200).send({
+    status: 200,
+    data: welcome,
+  });
+});
+
 // Get all red-flag records
 app.get('/api/v1/red-flags', (req, res) => {
   const allRedFlagRecords = [...redFlagRecords.values()];
