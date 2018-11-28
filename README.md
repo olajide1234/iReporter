@@ -8,7 +8,7 @@ any/every citizen to bring any form of corruption to the notice of appropriate a
 general public. Users can also report on things that needs government intervention.
 
 
-[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/ayinlaolajide)   [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)  [![Build Status](https://travis-ci.com/olajide1234/iReporter.svg?branch=develop)](https://travis-ci.com/olajide1234/iReporter)  [![Coverage Status](https://coveralls.io/repos/github/olajide1234/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/olajide1234/iReporter?branch=develop)  [![Maintainability](https://api.codeclimate.com/v1/badges/42fe6772918d6bed108c/maintainability)](https://codeclimate.com/github/olajide1234/iReporter/maintainability)
+[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/ayinlaolajide)   [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)  [![Build Status](https://travis-ci.com/olajide1234/iReporter.svg?branch=develop)](https://travis-ci.com/olajide1234/iReporter)  [![Test Coverage](https://api.codeclimate.com/v1/badges/42fe6772918d6bed108c/test_coverage)](https://codeclimate.com/github/olajide1234/iReporter/test_coverage)  [![Maintainability](https://api.codeclimate.com/v1/badges/42fe6772918d6bed108c/maintainability)](https://codeclimate.com/github/olajide1234/iReporter/maintainability)
 
 # Access the UI for this project here:
 https://olajide1234.github.io/iReporter/UI/index.html
