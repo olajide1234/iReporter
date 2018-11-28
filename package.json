@@ -4,7 +4,8 @@
   "description": "iReporter back-end",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require @babel/register",
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "babel-node index.js"
   },
   "author": "Ayinla Olajide",
