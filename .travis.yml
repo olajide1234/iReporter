@@ -7,7 +7,7 @@ env:
     - CC_TEST_REPORTER_ID=034ace5e361c9479e0be470c2128c4f485802fa1816e45d72f91d6ac0088b7f8
 
 before_script:
-  - npm global add nyc
+  - yarn global add nyc
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
