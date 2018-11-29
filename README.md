@@ -17,8 +17,8 @@ https://olajide1234.github.io/iReporter/UI/index.html
 https://github.com/olajide1234/iReporter/tree/develop
 
 ## API related links:
-Access API: https://olajide-ireporter.herokuapp.com/api/v1
-Access API documentation: https://olajideireporter.docs.apiary.io
+- Access API: https://olajide-ireporter.herokuapp.com/api/v1
+- Access API documentation: https://olajideireporter.docs.apiary.io
 
 ## Author
 Ayinla Olajide
