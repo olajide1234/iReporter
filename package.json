@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --exit --require @babel/register",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "start": "babel-node index.js"
   },
   "author": "Ayinla Olajide",
@@ -35,10 +36,4 @@
   },
   "engines": {
     "node": "11.2.0"
-  },
-  "nyc": {
-  "sourceMap": "false",
-  "instrument": "false",
-  "include": ["*/index.js"]
-  }
 }
