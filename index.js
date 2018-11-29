@@ -42,6 +42,23 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Welcome
+app.get('/api/v1', (req, res) => {
+  const welcome = 'Welcome to Andela Bootcamp iReporter Project API';
+  res.status(200).send({
+    status: 200,
+    data: welcome,
+  });
+});
+
+app.get('/', (req, res) => {
+  const welcome = 'Welcome to Andela Bootcamp iReporter Project API';
+  res.status(200).send({
+    status: 200,
+    data: welcome,
+  });
+});
+
 // Get all red-flag records
 app.get('/api/v1/red-flags', (req, res) => {
   const allRedFlagRecords = [...redFlagRecords.values()];
@@ -393,12 +410,11 @@ app.put('/api/v1/red-flags/:id', (req, res) => {
 // Set up port
 const PORT = process.env.PORT || 2000;
 
-//  Diabled so as not to conflict mocha --watch.
-//  Solution ref: http://www.marcusoft.net/2015/10/eaddrinuse-when-watching-tests-with-mocha-and-supertest.html
 if (!module.parent) {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 }
+
 // Export our app for testing purposes
-module.exports = app.listen(PORT);
+module.exports = app;
