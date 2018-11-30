@@ -305,7 +305,7 @@ describe('PATCH /api/v1/red-flags/:id/location', () => {
       .patch('/api/v1/red-flags/1/location')
       .send(newLocation)
       .end((err, res) => {
-        expect(res.body.status).to.be.equal(200);
+        expect(res.body.status).to.be.equal(205);
         expect(res.body.data).to.be.a('Array');
         expect(res.body.data[0].id).to.be.a('Number');
         expect(res.body.data[0].message).to.have.string('Updated');
@@ -347,7 +347,7 @@ describe('PATCH /api/v1/red-flags/:id/comment', () => {
       });
   });
 
-  it('Successfully update red-flag record location', (done) => {
+  it('Successfully update red-flag record comment', (done) => {
     const newComment = {
       comment: 'Make Nigeria great',
     };
@@ -356,7 +356,7 @@ describe('PATCH /api/v1/red-flags/:id/comment', () => {
       .patch('/api/v1/red-flags/1/comment')
       .send(newComment)
       .end((err, res) => {
-        expect(res.body.status).to.be.equal(200);
+        expect(res.body.status).to.be.equal(205);
         expect(res.body.data).to.be.a('Array');
         expect(res.body.data[0].id).to.be.a('Number');
         expect(res.body.data[0].message).to.have.string('Updated');
