@@ -1,14 +1,36 @@
 import express from 'express';
+import bodyParser from 'body-parser';
+import es6mapimplement from 'es6-map/implement';
+
+/**
+ * This is the prmary application file
+ * which sets up the iReporter app.
+ *
+ * @file   This files sets up the port for
+ * the iReporter app.
+ * @param {object} req
+ * @param {object} res
+ *
+ */
+
 
 //  Set up the express app
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+const router = require('./server/routers/router');
 
-// Routers
-const redFlagController = require('./server/controllers/redFlagController');
-const welcomeController = require('./server/controllers/welcomeController');
+// Welcome
+const welcomeMessage = (req, res) => {
+  const welcome = 'Welcome to Andela Bootcamp iReporter Project API, you can view the documentation here: https://olajideireporter.docs.apiary.io/';
+  res.status(200).send({
+    status: 200,
+    data: welcome,
+  });
+};
 
-app.use('/api/v1/red-flags', redFlagController);
-app.use('/', welcomeController);
+app.get('/', welcomeMessage);
+app.use('/api/v1', router);
 
 // Set up port
 const PORT = process.env.PORT || 2000;
