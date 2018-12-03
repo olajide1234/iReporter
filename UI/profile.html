@@ -40,66 +40,81 @@
       <div>
         <button class="introduction_buttons introduction_buttons--redflag" onclick="redirectToRedFlagForm()">Make red-flag record</button></a>
         <button class="introduction_buttons introduction_buttons--redflag" onclick="redirectToInterventionForm()">Make intervention record</button></a>
-        <button class="introduction_buttons introduction_buttons--redflag" onclick="redirectToRecords()">View all records</button></a>
+        <button class="introduction_buttons introduction_buttons--viewall" onclick="redirectToRecords()">View all records</button></a>
       </div>
     </div>
   </section>
 
   <section class="motivation">
-    <div class="container">
-      <div class="motivation_box motivation_box_profile">
-        <p class="motivation_box--image motivation_box--image--number">40</p>
-        <h3>Red-flag records successfully resolved</h3>
-      </div>
-      <div class="motivation_box motivation_box_profile">
-        <p class="motivation_box--image motivation_box--image--number">55</p>
-        <h3>Red-flag records in draft or under-investigation</h3>
-      </div>
-      <div class="motivation_box motivation_box_profile">
-        <p class="motivation_box--image motivation_box--image--number">49</p>
-        <h3>Red-flag records that have been rejected</h3>
-      </div>
-      <div class="motivation_box motivation_box_profile">
-        <p class="motivation_box--image motivation_box--image--number">37</p>
-        <h3>Intervention records successfully resolved</h3>
-      </div>
-      <div class="motivation_box motivation_box_profile">
-        <p class="motivation_box--image motivation_box--image--number">33</p>
-        <h3>Intervention records in draft or under-investigation</h3>
-      </div>
-      <div class="motivation_box motivation_box_profile">
-        <p class="motivation_box--image motivation_box--image--number">20</p>
-        <h3>Intervention records that have been rejected</h3>
+    <div class="container container_profile">
+
+      <div class="motivation_box_profile">
+        <div class="motivation_box_profile_header motivation_box_profile_header--successful">
+          <p class="motivation_box--image motivation_box--image--number">40</p>
+        </div>
+        <div class="motivation_box_profile_body">
+          <h3>Red-flag records successfully resolved</h3>
+          <p class = "motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
       </div>
 
-      <div class="container motivation_record_list">
-        <table class="motivation_record_list_table">
-          <tr class="motivation_record_list_table--tr">
-            <th class="motivation_record_list_table--th motivation_record_list_table--th--heading" colspan="5">Here's a list of your records</th>
-          </tr>
-          <tr class="motivation_record_list_table--tr">
-            <th class="motivation_record_list_table--th">No</th>
-            <th class="motivation_record_list_table--th">Date</th>
-            <th class="motivation_record_list_table--th">Record type</th>
-            <th class="motivation_record_list_table--th">Title</th>
-            <th class="motivation_record_list_table--th">Status</th>
-          </tr>
-          <tr class="motivation_record_list_table--tr">
-            <td class="motivation_record_list_table--td">1</td>
-            <td class="motivation_record_list_table--td">31 Sept. 2018</td>
-            <td class="motivation_record_list_table--td">Intervention</td>
-            <td class="motivation_record_list_table--td">Third mainland bridge</td>
-            <td class="motivation_record_list_table--td">Under investigation</td>
-          </tr>
-          <tr class="motivation_record_list_table--tr">
-            <td class="motivation_record_list_table--td">2</td>
-            <td class="motivation_record_list_table--td">31 Oct. 2018</td>
-            <td class="motivation_record_list_table--td">Red-flag</td>
-            <td class="motivation_record_list_table--td">Gandollar Scandal</td>
-            <td class="motivation_record_list_table--td">Under investigation</td>
-          </tr>
-        </table>
+      <div class="motivation_box_profile">
+        <div class="motivation_box_profile_header motivation_box_profile_header--draft">
+          <p class="motivation_box--image motivation_box--image--number">44</p>
+        </div>
+        <div class="motivation_box_profile_body">
+          <h3>Red-flag records in draft or under-investigation</h3>
+          <p class = "motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
       </div>
+
+      <div class="motivation_box_profile">
+        <div class="motivation_box_profile_header motivation_box_profile_header--rejected">
+          <p class="motivation_box--image motivation_box--image--number">46</p>
+        </div>
+        <div class="motivation_box_profile_body">
+          <h3>Red-flag records that have been rejected</h3>
+          <p class = "motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+      </div>
+
+      <div class="motivation_box_profile">
+        <div class="motivation_box_profile_header motivation_box_profile_header--successful">
+          <p class="motivation_box--image motivation_box--image--number">32</p>
+        </div>
+        <div class="motivation_box_profile_body">
+          <h3>Intervention records successfully resolved</h3>
+          <p class = "motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+      </div>
+
+      <div class="motivation_box_profile">
+        <div class="motivation_box_profile_header motivation_box_profile_header--draft">
+          <p class="motivation_box--image motivation_box--image--number">64</p>
+        </div>
+        <div class="motivation_box_profile_body">
+          <h3>Intervention records in draft or under-investigation</h3>
+          <p class = "motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+      </div>
+
+      <div class="motivation_box_profile">
+        <div class="motivation_box_profile_header motivation_box_profile_header--rejected">
+          <p class="motivation_box--image motivation_box--image--number">55</p>
+        </div>
+        <div class="motivation_box_profile_body">
+          <h3>Intervention records that have been rejected</h3>
+          <p class = "motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+      </div>
+
+    </div>
 
   </section>
 
