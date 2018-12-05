@@ -28,18 +28,17 @@ function redirectToRecords () {
   window.location.href = 'record.html';
 }
 
-//  Submission of forms
-function interventionSubmission () {
-  document.getElementsByClassName('container_form container_form_red-flag container_form_red-flag--interventionform')[0].innerHTML = 'Your intervention record is successfully submitted, you will now be automatically redirected to your profile page.';
-  setTimeout(function () {
-    window.location.href = 'profile.html'
-  }, 5000);
+function redirectToDraftRecords () {
+  window.location.href = 'draft_records.html';
 }
 
+//  Submission of forms
+
 function redFlagSubmission () {
-  document.getElementsByClassName('container_form container_form_red-flag container_form_red-flag--redflagform')[0].innerHTML = 'Your red-flag record is successfully submitted, you will now be automatically redirected to your profile page.';
+  document.getElementsByClassName('autolocate_button')[0].style.visibility = 'hidden';
+  document.getElementsByClassName('container_form container_form_red-flag container_form_red-flag--redflagform')[0].innerHTML = 'Your record is successfully submitted, you will now be automatically redirected to view the record.';
   setTimeout(function () {
-    window.location.href = 'profile.html'
+    window.location.href = 'single_draft_record.html'
   }, 5000);
 }
 //maps
@@ -56,7 +55,40 @@ function initMap () {
   });
 }
 
+function andelaloc () {
+  var andelabuilding = { lat: 6.553844, lng: 3.366475 };
+  map = new google.maps.Map(document.getElementsByClassName('map')[0], {
+    center: {
+      lat: 6.553844,
+      lng: 3.366475
+    },
+    zoom: 15
+  });
+  var marker = new google.maps.Marker({position: andelabuilding, map: map});
+}
+
 function initAutocomplete () {
+  var options = {
+  componentRestrictions: {country: 'ng'}
+};
   var input = document.getElementsByClassName('container_formfield--location')[0];
-  var autocomplete = new google.maps.places.Autocomplete(input);
+  var autocomplete = new google.maps.places.Autocomplete(input, options);
+}
+
+
+// GPS autolocation. Courtesy: https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_geolocation
+
+var x = document.getElementsByClassName('container_formfield--location')[0];
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = 'Geolocation is not supported by this browser, please type location';
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = 'Latitude: ' + position.coords.latitude +
+    '<br>Longitude: ' + position.coords.longitude;
 }

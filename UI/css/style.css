@@ -13,6 +13,11 @@
   overflow: hidden;
 }
 
+.container_button {
+  width: 100%;
+  clear: both;
+}
+
 .container_profile {
 margin-left: 10.5%
 }
@@ -28,11 +33,11 @@ margin-left: 10.5%
 
   .container_form_red-flag{
     width:50%;
-    margin-top:50px;
+    margin-top:20px;
     }
 
   .container_formfield{
-    background:#A5A6A8;
+    background: #D0D1D4;
     padding:6% 4%;
   }
 
@@ -71,6 +76,15 @@ margin-left: 10.5%
   .container_formfield--text--narration {
     height: 100px;
     padding:4%;
+  }
+
+  .remove_text_decor {
+    text-decoration: none;
+  }
+
+  .autolocate_button {
+    margin-bottom: 0px;
+    margin-top: 0;;
   }
 
 /* Header */
@@ -167,7 +181,7 @@ margin-bottom: 5px;
 }
 
 .introduction_profile{
-  min-height: 75px;
+  min-height: 40px;
   background-color: #EEF0F5;
 }
 
@@ -178,9 +192,11 @@ margin-bottom: 5px;
 }
 
 .introduction_signup_and_signin--header_profile {
-  margin-top: 20px;
-  font-size: 20px;
+  margin-top: 10px;
+  font-size: 15px;
   margin-bottom: 10px;
+  text-decoration: none;
+  color: #575559;
 }
 
 
@@ -212,10 +228,14 @@ margin-bottom: 5px;
   background-color: #2ecc71;
 }
 
+.float_left{
+  float: none;
+}
 .introduction_buttons--redflag--createrecord {
   float: left;
-  margin-left: 5.7%;
-  width: 240px;
+  margin: 3%;
+  margin-left: 1.5%;
+  width: 243px;
   height: 40px;
   padding: 2px 30px;
 }
@@ -232,12 +252,16 @@ border: 1px solid #c1c1c1;
 color: black;
 }
 
+.introduction_buttons--redflag--recordcard--info {
+cursor: text;
+}
+
 .introduction_buttons--redflag--recordcard--statusisresolved{
 background-color: #2ecc71;
 }
 
 .introduction_buttons--redflag--recordcard--statusisdraft{
-background-color: #f1c40f;
+background-color: #ffa502;
 }
 
 .introduction_buttons--redflag--recordcard--statusisrejected{
@@ -260,13 +284,18 @@ background-color: #d35400;
 }
 
 .introduction_buttons--signup:hover, .introduction_buttons--viewall:hover, .introduction_buttons--signin:hover, .introduction_buttons--signup-form:hover {
-background-color: #575559;
-transition: background-color 1.5s;
+  color: #48474A;
+  background-color: #A5A6A8;
+  transition: background-color 1.5s;
+  transition: color 1.5s;
 }
 
 .introduction_buttons--redflag:not(.introduction_buttons--redflag--recordcard):hover{
+  color: #48474A;
   background-color: #A5A6A8;
   transition: background-color 1.5s;
+  transition: color 1.5s;
+
 }
 
 
@@ -275,6 +304,10 @@ transition: background-color 1.5s;
 
 .motivation {
   margin-top: 60px;
+}
+
+.motivation_record {
+margin-top: 30px;
 }
 
 .motivation_box {
@@ -305,11 +338,19 @@ transition: background-color 1.5s;
 
   .motivation_box_profile_details {
     float: left;
-    width: 25%;
+    width: 100%;
     border-radius: 5px;
     border: 1px solid #c1c1c1;
     margin-top: 0;
   }
+
+.motivation_box_profile_details_outer{
+  min-height: 50px;
+  width: 25%;
+  border: 0;
+  margin-top: 0;
+}
+
 
   .motivation_box_profile_summary {
     float:right;
@@ -327,7 +368,7 @@ transition: background-color 1.5s;
   /* Profile box text styling */
 
   .motivation_box_profile_details--initials {
-    font-size: 100px;
+    font-size: 50px;
     margin: 0.2%;
     padding: 0;
   }
@@ -341,7 +382,7 @@ transition: background-color 1.5s;
 /* End of profile box text styling */
 
 
-  .motivation_box_profile:not(.motivation_box_profile_details):hover {
+  .motivation_box_profile:not(.motivation_box_profile_details):not(.motivation_box_profile_record--single_record):not(.motivation_box_profile_record_userdraft):not(.motivation_box_profile_summary_inner):hover {
     /* Courtesy W3Schools */
     /* border: 2px solid #C4C6C9*/;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.27);
@@ -373,8 +414,12 @@ transition: background-color 1.5s;
 
 }
 
+.motivation_box_profile_header--userdraft{
+background-color: #575559;
+}
+
 .motivation_box_profile_header--draft{
-background-color: #f1c40f;
+background-color: #ffa502;
 }
 
 .motivation_box_profile_header--rejected{
@@ -383,6 +428,12 @@ background-color: #d35400;
 
 .motivation_box_profile_body{
 padding: 10px;
+}
+
+.motivation_box_profile_body_single_record{
+padding: 10px;
+min-height: 200px;
+overflow: hidden;
 }
 
 .motivation_box--image--number{
@@ -408,17 +459,43 @@ margin-bottom: 0px;
 color: #57606f
 }
 
+.motivation_box_card--header--singlerecord {
+  font-size: 20px;
+}
+
 .motivation_box_card--header--title {
   float: left;
 }
 
-.motivation_box_card--text{
+.motivation_box_card--header--title--single_record {
+  float: none;
+}
+
+.motivation_box_card--text, .motivation_box_card--images, .motivation_box_card--video {
 font-size: 15px;
 padding-top: 1%;
-padding-bottom: 1%;
+padding-bottom: 0;
 margin: 2px;
 text-align: left;
 float: left;
+}
+
+
+.motivation_box_card--innerimages, .motivation_box_card--innervideo  {
+  margin-top: 4%;
+  margin-bottom: 4%;
+  float: left;
+}
+
+/* Bottom borders for single record cards */
+/*Courtesy: https://www.steckinsights.com/shorten-length-border-bottom-pure-css/*/
+.motivation_box_card--text:after, .single_record_buttons:after {
+    content: ""; /* This is necessary for the pseudo element to work. */
+    display: block; /* This will put the pseudo element on its own line. */
+    margin: 0 auto; /* This will center the border. */
+    width: 95%; /* Change this to whatever width you want. */
+    padding-top: 20px; /* This creates some space between the element and the border. */
+    border-bottom: 1px solid #c1c1c1; /* This creates the border. Replace black with whatever color you want. */
 }
 
 
@@ -482,6 +559,13 @@ padding: 20px;
 
 }
 
+.footer_page{
+float: right;
+cursor: pointer;
+margin-top: 0;
+margin-bottom: 20px;
+}
+
 .footer {
   text-align: center;
   padding:5px;
@@ -516,7 +600,12 @@ html, .body {
   }
 }
 
-
+@media screen and (max-width: 800px) {
+.introduction_buttons--redflag--createrecord{
+    width: 200px;
+    margin-left: 6%;
+  }
+}
 
 @media screen and (max-width: 800px) {
   .motivation_box {
@@ -535,11 +624,26 @@ html, .body {
 
 @media screen and (max-width: 800px) {
   .motivation_box_profile {
-    width: 80%;
+    width: 95%;
     padding: 0%;
     float: none;
     margin: 3.5%;
-    margin-left: 9.5%
+    margin-left: 0.5%
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .motivation_box_profile_summary {
+  float: none;
+  margin-top: 130px;
+  width: 87%;
+  padding-left: 10px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .motivation_box_profile_summary_inner {
+  float: none;
   }
 }
 
