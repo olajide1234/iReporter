@@ -18,6 +18,9 @@
       <div class="header_branding">
         <h1 class="header_branding--text"><a class="header_branding--url" href="index.html"><span class="header_branding--highlight">i</span>Reporter</a></h1>
       </div>
+      <nav class="header_nav">
+        <a class="header_branding--url header_branding--url-signout header_branding--url-signin" href="sign_up.html">SIGN UP</a>
+      </nav>
     </div>
   </header>
 
@@ -25,13 +28,14 @@
     <div class="container">
       <div class="introduction_signup_and_signin">
         <h2 class="introduction_signup_and_signin--header">Report injustice, corruption and neglect anywhere across Africa!</h2>
-        <p class="introduction_signup_and_signin--body">Good to have you back; sign in to make a record</p>
+        <p class="introduction_signup_and_signin--body">Sign in to iReporter</p>
       </div>
       <div class="container_form">
         <form class="container_formfield" action="profile.html">
           <input class="container_formfield--email" type="email" placeholder="Your email" />
           <input class="container_formfield--buttons" type="password" placeholder="Password" />
-          <input class="introduction_buttons introduction_buttons--signup-form" type="submit" onclick="redirectToProfile()" value="Sign in" />
+          <input class="introduction_buttons introduction_buttons--signup-form" type="submit" onclick="redirectToRecords()" value="Sign in" />
+          <p class="container_formfield--redirectlinktext"> New to iReporter? <a class ="container_formfield--redirectlinktext container_formfield--redirectlink" href="sign_up.html">Sign up</a> </p>
         </form>
       </div>
 

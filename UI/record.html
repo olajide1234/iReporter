@@ -19,7 +19,7 @@
         <h1 class="header_branding--text"><a class="header_branding--url" href="index.html"><span class="header_branding--highlight">i</span>Reporter</a></h1>
       </div>
       <nav class="header_nav">
-        <a class="header_branding--url header_branding--url-signout" href="index.html">Sign Out</a>
+        <a class="header_branding--url header_branding--url-signout" href="index.html">SIGN OUT</a>
       </nav>
     </div>
     </div>
@@ -28,18 +28,89 @@
   <section class="introduction introduction_profile">
     <div class="container">
       <div class="introduction_signup_and_signin">
-        <h4 class="introduction_signup_and_signin--header introduction_signup_and_signin--header_profile">Let's review what you have done so far; you can do more!</h4>
+        <h4 class="introduction_signup_and_signin--header introduction_signup_and_signin--header_profile">Let's review what you have done so far!</h4>
       </div>
     </div>
   </section>
 
   <section class="introduction introduction_create-record introduction_create-record_record-page">
     <div class="container">
+      <div class="motivation_box_profile motivation_box_profile_details">
+        <h2 class="motivation_box_profile_details--initials">OA</h2>
+        <h4 class="motivation_box_profile_details--text">Olajide Ayinla</h4>
+        <p class="motivation_box_profile_details--text">olajideayinla</p>
+        <p class="motivation_box_profile_details--text">ayinlaolajide@yahoo.com</p>
+        <p class="motivation_box_profile_details--text">08185334904</p>
+        <p class="motivation_box_profile_details--text">Oshodi, Lagos</p>
+      </div>
+
+      <div class="motivation_box_profile_summary">
+        <div class=" motivation_box_profile motivation_box_profile_summary_inner">
+          <div class="motivation_box_profile_header motivation_box_profile_card_header_summary motivation_box_profile_header--successful">
+            <p>35</p>
+          </div>
+          <div>
+            <h4>Red-flag records resolved</h3>
+          </div>
+        </div>
+
+        <div class=" motivation_box_profile motivation_box_profile_summary_inner">
+          <div class="motivation_box_profile_header motivation_box_profile_card_header_summary motivation_box_profile_header--draft">
+            <p>24</p>
+          </div>
+          <div>
+            <h4>Red-flag records under-investigation</h3>
+          </div>
+        </div>
+
+        <div class=" motivation_box_profile motivation_box_profile_summary_inner">
+          <div class="motivation_box_profile_header motivation_box_profile_card_header_summary motivation_box_profile_header--rejected">
+            <p>12</p>
+          </div>
+          <div>
+            <h4>Red-flag records rejected</h3>
+          </div>
+        </div>
+
+        <div class=" motivation_box_profile motivation_box_profile_summary_inner">
+          <div class="motivation_box_profile_header motivation_box_profile_card_header_summary motivation_box_profile_header--successful">
+            <p>35</p>
+          </div>
+          <div>
+            <h4>Intervention records resolved</h3>
+          </div>
+        </div>
+
+        <div class=" motivation_box_profile motivation_box_profile_summary_inner">
+          <div class="motivation_box_profile_header motivation_box_profile_card_header_summary motivation_box_profile_header--draft">
+            <p>24</p>
+          </div>
+          <div>
+            <h4>Intervention records under-investigation</h3>
+          </div>
+        </div>
+
+        <div class=" motivation_box_profile motivation_box_profile_summary_inner">
+          <div class="motivation_box_profile_header motivation_box_profile_card_header_summary motivation_box_profile_header--rejected">
+            <p>12</p>
+          </div>
+          <div>
+            <h4>Intervention records rejected</h3>
+          </div>
+        </div>
+
+    </div>
+  </section>
+
+
+  <section class="introduction introduction_create-record introduction_create-record_profile">
+    <div class="container">
       <div>
-        <button class="introduction_buttons introduction_buttons--redflag" onclick="redirectToProfile()">Back to profile</button>
+        <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--createrecord" onclick="redirectToRedFlagForm()">Create record</button></a>
       </div>
     </div>
   </section>
+
 
   <section class="motivation">
     <div class="container">
@@ -47,103 +118,150 @@
 
         <!-- Record cards begin here-->
 
-        <div class="motivation_box_profile">
+        <div class="motivation_box_profile motivation_box_profile_record">
           <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--successful">
-            <p class="motivation_box_card--status">24 Jan 2018 | Resolved</p>
+            <p class="motivation_box_card--status">24 Jan 2018</p>
+          </div>
+          <div class="motivation_box_card--header--title">
+            <h3 class="motivation_box_card--header">Gandollar Scandal</h3>
           </div>
           <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
             <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
           <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">Red-flag record</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard introduction_buttons--redflag--recordcard--statusisresolved">Resolved</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">2 Images</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">35 Videos</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">20 Places</button>
           </div>
         </div>
 
-        <div class="motivation_box_profile">
+        <div class="motivation_box_profile motivation_box_profile_record">
           <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--draft">
-            <p class="motivation_box_card--status">15 Jan 2018 | Draft</p>
+            <p class="motivation_box_card--status">15 Jan 2018</p>
+          </div>
+          <div class="motivation_box_card--header--title">
+            <h3 class="motivation_box_card--header">Gandollar Scandal</h3>
           </div>
           <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
             <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
           <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">Red-flag record</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard introduction_buttons--redflag--recordcard--statusisdraft">Under-investigation</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">2 Images</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">35 Videos</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">20 Places</button>
           </div>
         </div>
 
-        <div class="motivation_box_profile">
+        <div class="motivation_box_profile motivation_box_profile_record">
+          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--draft">
+            <p class="motivation_box_card--status">5 Jan 2018</p>
+          </div>
+          <div class="motivation_box_card--header--title">
+            <h3 class="motivation_box_card--header">Gandollar Scandal</h3>
+          </div>
+          <div class="motivation_box_profile_body">
+            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+          <div>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">Red-flag record</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard introduction_buttons--redflag--recordcard--statusisdraft">Under-investigation</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">2 Images</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">35 Videos</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">20 Places</button>
+          </div>
+        </div>
+
+        <div class="motivation_box_profile motivation_box_profile_record">
           <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--rejected">
-            <p class="motivation_box_card--status">15 Apr 2018 | Rejected</p>
+            <p class="motivation_box_card--status">20 Dec 2017</p>
+          </div>
+          <div class="motivation_box_card--header--title">
+            <h3 class="motivation_box_card--header">Gandollar Scandal</h3>
           </div>
           <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
             <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
           <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">Red-flag record</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard introduction_buttons--redflag--recordcard--statusisrejected">Rejected</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">2 Images</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">35 Videos</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">20 Places</button>
           </div>
         </div>
 
-        <div class="motivation_box_profile">
+        <div class="motivation_box_profile motivation_box_profile_record">
+          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--rejected">
+            <p class="motivation_box_card--status">15 Dec 2017</p>
+          </div>
+          <div class="motivation_box_card--header--title">
+            <h3 class="motivation_box_card--header">Gandollar Scandal</h3>
+          </div>
+          <div class="motivation_box_profile_body">
+            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+          <div>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">Red-flag record</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard introduction_buttons--redflag--recordcard--statusisrejected">Rejected</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">2 Images</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">35 Videos</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">20 Places</button>
+          </div>
+        </div>
+
+        <div class="motivation_box_profile motivation_box_profile_record">
           <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--successful">
-            <p class="motivation_box_card--status">24 Jan 2018 | Resolved</p>
+            <p class="motivation_box_card--status">25 Sept. 2017</p>
+          </div>
+          <div class="motivation_box_card--header--title">
+            <h3 class="motivation_box_card--header">Gandollar Scandal</h3>
           </div>
           <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
             <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
           <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">Red-flag record</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard introduction_buttons--redflag--recordcard--statusisresolved">Resolved</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">2 Images</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">35 Videos</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">20 Places</button>
           </div>
         </div>
 
-        <div class="motivation_box_profile">
+        <div class="motivation_box_profile motivation_box_profile_record">
           <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--draft">
-            <p class="motivation_box_card--status">15 Jan 2018 | Draft</p>
+            <p class="motivation_box_card--status">10 Sept. 2017</p>
+          </div>
+          <div class="motivation_box_card--header--title">
+            <h3 class="motivation_box_card--header">Gandollar Scandal</h3>
           </div>
           <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
             <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
           <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">Red-flag record</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard introduction_buttons--redflag--recordcard--statusisdraft">Under-investigation</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">2 Images</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">35 Videos</button>
+            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">20 Places</button>
             <select class='introduction_buttons--redflag--recordcard'>
               <option value="Default"> Action</option>
               <option value="Edit"> Edit</option>
@@ -152,221 +270,11 @@
           </div>
         </div>
 
-        <div class="motivation_box_profile">
-          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--rejected">
-            <p class="motivation_box_card--status">15 Apr 2018 | Rejected</p>
-          </div>
-          <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
-            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="motivation_box_profile">
-          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--successful">
-            <p class="motivation_box_card--status">24 January 2018 | Resolved</p>
-          </div>
-          <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
-            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="motivation_box_profile">
-          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--draft">
-            <p class="motivation_box_card--status">15 January 2018 | Draft</p>
-          </div>
-          <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
-            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="motivation_box_profile">
-          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--rejected">
-            <p class="motivation_box_card--status">15 April 2018 | Rejected</p>
-          </div>
-          <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
-            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="motivation_box_profile">
-          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--successful">
-            <p class="motivation_box_card--status">24 January 2018 | Resolved</p>
-          </div>
-          <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
-            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="motivation_box_profile">
-          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--draft">
-            <p class="motivation_box_card--status">15 January 2018 | Draft</p>
-          </div>
-          <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
-            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="motivation_box_profile">
-          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--rejected">
-            <p class="motivation_box_card--status">15 April 2018 | Rejected</p>
-          </div>
-          <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
-            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="motivation_box_profile">
-          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--successful">
-            <p class="motivation_box_card--status">24 January 2018 | Resolved</p>
-          </div>
-          <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
-            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="motivation_box_profile">
-          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--draft">
-            <p class="motivation_box_card--status">15 January 2018 | Draft</p>
-          </div>
-          <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
-            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="motivation_box_profile">
-          <div class="motivation_box_profile_header motivation_box_profile_card_header motivation_box_profile_header--rejected">
-            <p class="motivation_box_card--status">15 April 2018 | Rejected</p>
-          </div>
-          <div class="motivation_box_profile_body">
-            <h3 class="motivation_box_card--header">Red-flag: Gandollar Scandal</h3>
-            <p class="motivation_box_card--text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Image</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Video</button>
-            <button class="introduction_buttons introduction_buttons--redflag introduction_buttons--redflag--recordcard">1 Place</button>
-            <select class='introduction_buttons--redflag--recordcard'>
-              <option value="Default"> Action</option>
-              <option value="Edit"> Edit</option>
-              <option value="Delete">Delete</option>
-            </select>
-          </div>
-        </div>
-
-  <!-- Record cards end here-->
 
 
+
+        <!-- Record cards end here-->
       </div>
-    </div>
     </div>
   </section>
 
