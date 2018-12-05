@@ -27,7 +27,7 @@
   <section class="introduction introduction_profile">
     <div class="container">
       <div class="introduction_signup_and_signin">
-        <h4 class="introduction_signup_and_signin--header introduction_signup_and_signin--header_profile">Create a new red-flag record to report an incident linked to corruption</h4>
+          <p> <a class="introduction_signup_and_signin--header introduction_signup_and_signin--header_profile" href="record.html">HOME</a><a class="introduction_signup_and_signin--header introduction_signup_and_signin--header_profile" href="red-flag_record.html"> / CREATE RECORD</a></p>
       </div>
     </div>
   </section>
@@ -39,12 +39,19 @@
         <p class="introduction_signup_and_signin--body">Posterity will thank you for this!</p>
       </div>
 
+      <button class="autolocate_button" onclick="getLocation()">Click here to auto-fill your location in the form</button>
       <div class="container_form container_form_red-flag container_form_red-flag--redflagform">
         <form class="container_formfield">
           <p class="container_formfield_label">Date of incident </p>
           <input class="container_formfield--text" type="date" placeholder="Date of incident" />
           <p class="container_formfield_label">Title of incident</p>
           <input class="container_formfield--text" type="text" placeholder="Give a short title" />
+          <p class="container_formfield_label">Select record type</p>
+          <select class="container_formfield--text">
+            <option value="Default"> Select record type</option>
+            <option value="Edit"> Red-flag</option>
+            <option value="Delete">Intervention</option>
+          </select>
           <p class="container_formfield_label">Narration of incident</p>
           <textarea class="container_formfield--text container_formfield--text--narration" type="text" placeholder="Tell us what happened"></textarea>
           <p class="container_formfield_label">Upload image</p>
