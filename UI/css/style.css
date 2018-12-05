@@ -36,6 +36,17 @@ margin-left: 10.5%
     padding:6% 4%;
   }
 
+  .container_formfield--redirectlinktext {
+    color: #323133;
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .container_formfield--redirectlink {
+    color: #3742fa;
+    text-decoration: none;
+  }
+
   .container_formfield_label {
     color:black;
     text-align: left;
@@ -83,11 +94,29 @@ margin-left: 10.5%
   padding: 0 10px 0 10px
 }
 
+.header_branding--url-signout--button {
+  background-color: #242426;
+  border: 1px solid white;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  outline: 0px;
+  margin: 0.5%;
+  margin-right: 2px;
+  margin-left: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  width: 100px;
+}
+
 .header_branding--url-signout-prefooter {
   font-size: 15px;
   color: black;
   margin-left: 4px;
+  cursor: pointer;
 }
+
 
 .header_branding {
   float: left;
@@ -107,7 +136,7 @@ margin-bottom: 5px;
   color: #DDDFE3;
 }
 
-.header_branding--url-signout:hover, .header_branding--url:hover{
+.header_branding--url-signout:hover, .header_branding--url:not(.header_branding--url-signout-prefooter):hover{
   color:#cccccc;
 }
 
@@ -127,6 +156,10 @@ margin-bottom: 5px;
 
 .introduction_create-record_record-page {
   padding-bottom: 0px;
+}
+
+.introduction_create-record_profile {
+  padding: 0px;
 }
 
 .introduction_signin_page{
@@ -156,20 +189,22 @@ margin-bottom: 5px;
   margin-bottom: 50px;
 }
 
+
 /* Buttons */
 .introduction_buttons {
   background-color: #2ecc71;
-  border: 2px solid #2ecc71;
   color: white;
-  width: 30%;
-  padding: 14px 40px;
+  width: 25%;
+  padding: 13px 30px;
   text-align: center;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 15px;
   border-radius: 8px;
-  outline: 0px;
+  outline: 0;
   margin: 10px;
   margin-left: 0px;
+  cursor: pointer;
+  text-transform: uppercase;
 }
 
 .introduction_buttons--redflag {
@@ -177,12 +212,36 @@ margin-bottom: 5px;
   background-color: #2ecc71;
 }
 
+.introduction_buttons--redflag--createrecord {
+  float: left;
+  margin-left: 5.7%;
+  width: 240px;
+  height: 40px;
+  padding: 2px 30px;
+}
+
 .introduction_buttons--redflag--recordcard{
-width: 20%;
-margin: 2px;
+width: 15%;
+margin: 0.4%;
 margin-bottom: 8px;
 font-size: 12px;
 padding: 3px;
+cursor: pointer;
+background-color: #f4f4f4;
+border: 1px solid #c1c1c1;
+color: black;
+}
+
+.introduction_buttons--redflag--recordcard--statusisresolved{
+background-color: #2ecc71;
+}
+
+.introduction_buttons--redflag--recordcard--statusisdraft{
+background-color: #f1c40f;
+}
+
+.introduction_buttons--redflag--recordcard--statusisrejected{
+background-color: #d35400;
 }
 
 .introduction_buttons--viewall {
@@ -197,17 +256,17 @@ padding: 3px;
 }
 
 .introduction_buttons--signup-form {
-  width: 100%;
+  width: 70%;
 }
 
 .introduction_buttons--signup:hover, .introduction_buttons--viewall:hover, .introduction_buttons--signin:hover, .introduction_buttons--signup-form:hover {
 background-color: #575559;
-border: 2px solid #2ecc71;
+transition: background-color 1.5s;
 }
 
-.introduction_buttons--redflag:hover{
+.introduction_buttons--redflag:not(.introduction_buttons--redflag--recordcard):hover{
   background-color: #A5A6A8;
-  border: 2px solid #4CAF50;
+  transition: background-color 1.5s;
 }
 
 
@@ -230,22 +289,83 @@ border: 2px solid #2ecc71;
 }
 
 .motivation_box_profile {
-  /* border: 2px solid #C4C6C9*/;
-    width: 30%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 1px solid #575559;
+    border-radius: 18px;
+    width: 95%;
     text-align: center;
-    float:left;
-    margin: 1%;
+    float:none;
+    margin: 2%;
   }
+
+  .motivation_box_profile_record {
+      border: 1px solid #c1c1c1;
+      background-color: #fafafa;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+    }
+
+  .motivation_box_profile_details {
+    float: left;
+    width: 25%;
+    border-radius: 5px;
+    border: 1px solid #c1c1c1;
+    margin-top: 0;
+  }
+
+  .motivation_box_profile_summary {
+    float:right;
+    width: 70%;
+  }
+
+  .motivation_box_profile_summary_inner {
+    float:left;
+    width: 25%;
+    border-radius: 5px;
+    border: 1px solid #c1c1c1;
+    margin-top: 0;
+  }
+
+  /* Profile box text styling */
+
+  .motivation_box_profile_details--initials {
+    font-size: 100px;
+    margin: 0.2%;
+    padding: 0;
+  }
+  .motivation_box_profile_details--text {
+    margin-left: 7%;
+    padding: 0;
+    text-align: left;
+    line-height: 0.6
+  }
+
+/* End of profile box text styling */
+
+
+  .motivation_box_profile:not(.motivation_box_profile_details):hover {
+    /* Courtesy W3Schools */
+    /* border: 2px solid #C4C6C9*/;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.27);
+      cursor: pointer;
+      transition: box-shadow 0.5s;
+    }
+
 
 .motivation_box_profile_header{
   background-color: #2ecc71;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
   color: white;
   padding: 1px;
 }
 
 .motivation_box_profile_card_header{
   height: 15px;
+}
+
+.motivation_box_profile_card_header_summary{
+  height: 30%;
+  border-top-left-radius: 3.5px;
+  border-top-right-radius: 3.5px;
 }
 
 
@@ -276,6 +396,8 @@ padding: 10px;
 font-size: 15px;
 padding-top: 0px;
 color: #747d8c;
+float: right;
+padding-right: 1%;
 }
 
 .motivation_box_card--header{
@@ -286,11 +408,17 @@ margin-bottom: 0px;
 color: #57606f
 }
 
+.motivation_box_card--header--title {
+  float: left;
+}
+
 .motivation_box_card--text{
 font-size: 15px;
-padding-top: 0px;
+padding-top: 1%;
+padding-bottom: 1%;
 margin: 2px;
 text-align: left;
+float: left;
 }
 
 
@@ -378,7 +506,7 @@ html, .body {
 
 @media screen and (max-width: 800px) {
   .introduction_buttons {
-    width: 100%;
+    width: 60%;
   }
 }
 
@@ -432,5 +560,15 @@ html, .body {
     table-layout: auto;
     width: 96%;
     margin-left: 2%
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .header_branding--url-signout--buttonnav {
+    display: none;
+  }
+  .header_branding--url-signout--in{
+    margin-top: 4px;
+
   }
 }
