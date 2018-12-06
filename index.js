@@ -30,7 +30,12 @@ const welcomeMessage = (req, res) => {
 };
 
 app.get('/', welcomeMessage);
-app.use('/api/v1', router);
+app.use('/api/v1/records', router);
+app.all('*', (req, res) => {
+  res.status(404).send({
+    message: 'Incorrect endpoint. We do not support that endpoint yet',
+  });
+});
 
 // Set up port
 const PORT = process.env.PORT || 2000;

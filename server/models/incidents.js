@@ -1,17 +1,21 @@
 const redFlagRecords = new Map([
   [1, {
     id: 1,
-    createdOn: 'Sample date',
-    createdBy: 'Sample Creator', // represents the user who created this record
-    type: 'Sample record type', // [red-flag, intervention]
-    dateOfIncident: 'Sample date',
-    title: 'Sample title',
-    comment: 'Sample comment',
-    Images: ['Sample Image'],
-    Videos: ['Sample Video'],
-    location: 'Sample record location', // Lat Long coordinates
-    status: 'Sample status', // [draft, under investigation, resolved, rejected]
+    createdOn: '24 April 2018',
+    createdBy: '124', // represents the user who created this record
+    type: 'Red-flag', // [red-flag, intervention]
+    dateOfIncident: '23 April 2018',
+    title: 'How police extorted me',
+    comment: 'Despite their recent increase in salary, police extorted me at Unilag Gate',
+    Images: ['https://olajide1234.github.io/iReporter/UI/img/corruption2.jpg', 'https://olajide1234.github.io/iReporter/UI/img/corruption1.jpg'],
+    Videos: ['https://www.youtube.com/watch?v=_e92yME-PHY'],
+    location: 'lat: 6.553844,lng: 3.366475', // Lat Long coordinates
+    status: 'draft', // [draft, under investigation, resolved, rejected]
   }],
 ]);
 
 module.exports = redFlagRecords;
+
+const allRedFlagRecords = [...redFlagRecords.values()]
+console.log(allRedFlagRecords[0].id);
+console.log(redFlagRecords.get(1).comment);

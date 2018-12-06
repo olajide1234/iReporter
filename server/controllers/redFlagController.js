@@ -31,7 +31,7 @@ exports.postSingleRedFlagRecord = (req, res) => {
     id: newID,
     createdOn: Date(),
     createdBy: req.body.createdBy, // represents the user who created this record
-    type: 'red-flag', // [red-flag, intervention]
+    type: req.body.type, // [red-flag, intervention]
     dateOfIncident: req.body.dateOfIncident,
     title: req.body.title,
     comment: req.body.comment,
@@ -45,7 +45,8 @@ exports.postSingleRedFlagRecord = (req, res) => {
     status: 201,
     data: [{
       id: newID,
-      message: 'Created: Created red-flag record',
+      message: 'Created red-flag record',
+      new_record: record,
     }],
   });
 };
@@ -68,7 +69,7 @@ exports.patchRedFlagRecordLocation = (req, res) => {
   if (!req.body.location) {
     return res.status(400).send({
       status: 400,
-      error: 'Bad request: Include new location or null as location in body of request',
+      error: 'Include new location in body of request',
     });
   }
 
@@ -77,7 +78,7 @@ exports.patchRedFlagRecordLocation = (req, res) => {
     id: requestId,
     createdOn: redFlagRecords.get(requestId).createdOn,
     createdBy: redFlagRecords.get(requestId).createdBy,
-    type: 'red-flag', // [red-flag, intervention]
+    type: req.body.type, // [red-flag, intervention]
     dateOfIncident: redFlagRecords.get(requestId).dateOfIncident,
     title: redFlagRecords.get(requestId).title,
     comment: redFlagRecords.get(requestId).comment,
@@ -92,7 +93,7 @@ exports.patchRedFlagRecordLocation = (req, res) => {
     status: 205,
     data: [{
       id: requestId,
-      message: 'Updated red-flag record\'s location',
+      message: 'Successfully updated red-flag record\'s location',
     }],
   });
 };
@@ -106,7 +107,7 @@ exports.patchRedFlagRecordComment = (req, res) => {
   if (!req.body.comment) {
     return res.status(400).send({
       status: 400,
-      error: 'Bad request: Include new comment or null as comment in body of request',
+      error: 'Include new comment as comment in body of request',
     });
   }
 
@@ -115,7 +116,7 @@ exports.patchRedFlagRecordComment = (req, res) => {
     id: requestId,
     createdOn: redFlagRecords.get(requestId).createdOn,
     createdBy: redFlagRecords.get(requestId).createdBy,
-    type: 'red-flag', // [red-flag, intervention]
+    type: req.body.type, // [red-flag, intervention]
     dateOfIncident: redFlagRecords.get(requestId).dateOfIncident,
     title: redFlagRecords.get(requestId).title,
     comment: updatedComment,
@@ -130,7 +131,7 @@ exports.patchRedFlagRecordComment = (req, res) => {
     status: 205,
     data: [{
       id: requestId,
-      message: 'Updated red-flag record\'s comment',
+      message: 'Successfully updated red-flag record\'s comment',
     }],
   });
 };
@@ -141,7 +142,7 @@ exports.deleteRedFlagRecord = (req, res) => {
   redFlagRecords.set(id, null);
   return res.status(200).send({
     status: 200,
-    message: 'No content: Red-flag record has been deleted',
+    message: 'Red-flag record has been successfully deleted',
   });
 };
 
@@ -158,7 +159,7 @@ exports.putRedFlagRecord = (req, res) => {
       id: newID,
       createdOn: Date(),
       createdBy: req.body.createdBy, // represents the user who created this record
-      type: 'red-flag', // [red-flag, intervention]
+      type: req.body.type, // [red-flag, intervention]
       dateOfIncident: req.body.dateOfIncident,
       title: req.body.title,
       comment: req.body.comment,
@@ -172,7 +173,8 @@ exports.putRedFlagRecord = (req, res) => {
       status: 201,
       data: [{
         id: newID,
-        message: 'Created: Created red-flag record',
+        message: 'Created red-flag record',
+        new_record: record,
       }],
     });
   }
@@ -183,7 +185,7 @@ exports.putRedFlagRecord = (req, res) => {
     id: requestId,
     createdOn: Date(),
     createdBy: req.body.createdBy, // represents the user who created this record
-    type: 'red-flag', // [red-flag, intervention]
+    type: req.body.type, // [red-flag, intervention]
     dateOfIncident: req.body.dateOfIncident,
     title: req.body.title,
     comment: req.body.comment,
