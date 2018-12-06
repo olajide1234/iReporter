@@ -30,7 +30,7 @@ The API interface always returns a status code in the body of the response and a
 - 403 `Forbidden` - user does not have permissions for requested operation.
 - 404 `Not Found` - resource was not found.
 
-## Welcome messages [/]
+## Welcome messages [/records]
 
 ### API welcome message [GET]
 
@@ -186,6 +186,7 @@ ID parameter is important, please specify under URI parameters.
 
             {
                 "createdBy": "Tester 1",
+                "type" : "Red-flag",
                 "dateOfIncident" : "Updated date: 1 jan 2017",
                 "title": "Updated title: Atikulate or Buharify",
                 "comment": "Updated comment: Should I Atikulate or Buharify?",
