@@ -43,7 +43,7 @@ This displays the API welcome message.
             "data": "Welcome to Andela Bootcamp iReporter Project API"
         }
 
-## Create new Red-flag record and get all records [/red-flags]
+## Create new Red-flag record and get all records [/records/red-flags]
 
 ### Create a single Red-flag record [POST]
 
@@ -54,6 +54,7 @@ All information listed in the body of the request (e.g. createdBy, dateOfInciden
 
         {
             "createdBy": "Tester 1",
+            "type": "Red-flag",
             "dateOfIncident" : "1 April 2018",
             "title": "Atikulate or Buharify",
             "comment": "Should I Atikulate or Buharify?",
@@ -65,12 +66,25 @@ All information listed in the body of the request (e.g. createdBy, dateOfInciden
 + Response 200 (application/json)
 
         {
-            "status":200,   
-            "data"  : [
-                { 
-                    "id":$,
-                    "message":"Created: Created red-flag record",
-                }   
+            "status": 201,
+            "data": [
+                {
+                "id": 2,
+                "message": "Created red-flag record",
+                "new_record": {
+                    "id": 2,
+                    "createdOn": "Thu Dec 06 2018 03:06:08 GMT+0000 (Coordinated Universal Time)",
+                    "createdBy": "Tester 1",
+                    "type": "Red-flag",
+                    "dateOfIncident": "1 April 2018",
+                    "title": "Atikulate or Buharify",
+                    "comment": "Should I Atikulate or Buharify?",
+                    "images": "testimage.cn",
+                    "videos": "testvideo.cn",
+                    "location": "Abuja",
+                    "status": "draft"
+                }
+                }
             ]
         }
  
@@ -101,7 +115,7 @@ This fetches all Red-flag records available.
         }
 
    
-## Get and edit individual Red-flag records [/red-flags/{id}]
+## Get and edit individual Red-flag records [/records/red-flags/{id}]
 
 ### Get a single Red-flag record [GET]
 
@@ -192,7 +206,7 @@ ID parameter is important, please specify under URI parameters.
             ]
         }
 
-## Edit individual Red-flag record location [/red-flags/{id}/location]
+## Edit individual Red-flag record location [/records/red-flags/{id}/location]
 ### Update a Red-flag record location [PATCH]
 
 This updates a specified Red-flag record's location. 
@@ -222,7 +236,7 @@ ID parameter is important, please specify under URI parameters.
             ]
         } 
 
-## Edit individual Red-flag record comment [/red-flags/{id}/comment]
+## Edit individual Red-flag record comment [/records/red-flags/{id}/comment]
 ### Update a Red-flag record comments [PATCH]
 
 This updates a specified Red-flag record's location.
