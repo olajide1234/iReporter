@@ -15,7 +15,3 @@ const redFlagRecords = new Map([
 ]);
 
 module.exports = redFlagRecords;
-
-const allRedFlagRecords = [...redFlagRecords.values()]
-console.log(allRedFlagRecords[0].id);
-console.log(redFlagRecords.get(1).comment);

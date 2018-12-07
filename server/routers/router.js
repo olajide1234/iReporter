@@ -12,16 +12,16 @@ const router = express.Router();
  * @param {object} res
  */
 
-// Welcome
-const welcomeMessage = (req, res) => {
-  const welcome = 'Welcome to Andela Bootcamp iReporter Project API, you can view the documentation here: https://olajideireporter.docs.apiary.io/';
-  res.status(200).send({
-    status: 200,
-    data: welcome,
-  });
-};
-
-router.get('/', welcomeMessage);
+// // Welcome
+// const welcomeMessage = (req, res) => {
+//   const welcome = 'Welcome to Andela Bootcamp iReporter Project API, you can view the documentation here: https://olajideireporter.docs.apiary.io/';
+//   res.status(200).send({
+//     status: 200,
+//     data: welcome,
+//   });
+// };
+//
+// router.get('/', welcomeMessage);
 
 // // GET Routes:
 // API route to get all Red-flag records
@@ -54,6 +54,7 @@ router.patch(
   '/red-flags/:id/location',
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.checkLocation,
   redFlagController.patchRedFlagRecordLocation,
 );
 
@@ -62,6 +63,7 @@ router.patch(
   '/red-flags/:id/comment',
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.checkComment,
   redFlagController.patchRedFlagRecordComment,
 );
 

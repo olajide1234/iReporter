@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import es6mapimplement from 'es6-map/implement';
 
 /**
  * This is the prmary application file

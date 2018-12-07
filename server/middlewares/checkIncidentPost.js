@@ -112,3 +112,33 @@ exports.findRedFlagRecord = (req, res, next) => {
   }
   return next();
 };
+
+exports.checkLocation = (req, res, next) => {
+  let errorMessage;
+
+  if (!req.body.location) {
+    errorMessage = {
+      status: 400,
+      error: 'Include new location in body of request',
+    };
+  }
+
+  if (errorMessage) return res.status(errorMessage.status).send(errorMessage);
+
+  return next();
+};
+
+exports.checkComment = (req, res, next) => {
+  let errorMessage;
+
+  if (!req.body.comment) {
+    errorMessage = {
+      status: 400,
+      error: 'Include new comment as comment in body of request',
+    };
+  }
+
+  if (errorMessage) return res.status(errorMessage.status).send(errorMessage);
+
+  return next();
+};

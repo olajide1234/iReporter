@@ -2,8 +2,6 @@
 // Require the dev-dependencies
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-
-const should = chai.should();
 const app = require('../index.js');
 
 // During the test the env variable is set to test
@@ -11,7 +9,35 @@ process.env.NODE_ENV = 'test';
 
 // Configure chai
 chai.use(chaiHttp);
-const expect = chai.expect;
+const { expect } = chai;
+
+// Test error handling
+describe('GET /', () => {
+  it('Return incorrect endpoint', (done) => {
+    chai.request(app)
+      .get('/wrong')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res.body.message).to.have.string('Incorrect');
+        done(err);
+      });
+  });
+});
+
+// Test welcome message
+describe('GET /', () => {
+  it('Welcomes you to the API', (done) => {
+    chai.request(app)
+      .get('/')
+      .end((err, res) => {
+        expect(res.body.status).to.be.equal(200);
+        expect(res.body).to.be.a('Object');
+        expect(res.body.data).to.have.string('iReporter Project API');
+        done(err);
+      });
+  });
+});
+
 
 // Test get all red-flag records
 describe('GET /api/v1/records/red-flags', () => {

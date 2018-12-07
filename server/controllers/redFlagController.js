@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import es6mapimplement from 'es6-map/implement';
+import es6mapimplement from 'es6-map/implement'; // eslint-disable-line no-unused-vars
 import redFlagRecords from '../models/incidents';
 
 const router = express.Router();
@@ -15,6 +15,9 @@ const router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
+// Global constants
+const newID = ([...redFlagRecords.keys()].length + 1) || 1;
+
 // // Get all Red-flag records
 exports.getAllRedFlagRecords = (req, res) => {
   const allRedFlagRecords = [...redFlagRecords.values()];
@@ -26,7 +29,6 @@ exports.getAllRedFlagRecords = (req, res) => {
 
 // // Create new Red-flag record
 exports.postSingleRedFlagRecord = (req, res) => {
-  const newID = ([...redFlagRecords.keys()].length + 1) || 1;
   const record = {
     id: newID,
     createdOn: Date(),
@@ -65,14 +67,6 @@ exports.patchRedFlagRecordLocation = (req, res) => {
   const requestId = parseInt(req.params.id, 10);
   const updatedLocation = req.body.location;
 
-  //  Confirm if new location record is supplied
-  if (!req.body.location) {
-    return res.status(400).send({
-      status: 400,
-      error: 'Include new location in body of request',
-    });
-  }
-
   //  Update record with details
   const updatedRecord = {
     id: requestId,
@@ -102,14 +96,6 @@ exports.patchRedFlagRecordLocation = (req, res) => {
 exports.patchRedFlagRecordComment = (req, res) => {
   const requestId = parseInt(req.params.id, 10);
   const updatedComment = req.body.comment;
-
-  //  Confirm if new comment is supplied
-  if (!req.body.comment) {
-    return res.status(400).send({
-      status: 400,
-      error: 'Include new comment as comment in body of request',
-    });
-  }
 
   //  Update record with details
   const updatedRecord = {
@@ -154,8 +140,7 @@ exports.putRedFlagRecord = (req, res) => {
 
   // Create new record if all parameters above are supplied and record not found
   if (!recordFound) {
-    const newID = ([...redFlagRecords.keys()].length + 1) || 1;
-    const record = {
+    const newRecord = {
       id: newID,
       createdOn: Date(),
       createdBy: req.body.createdBy, // represents the user who created this record
@@ -168,13 +153,13 @@ exports.putRedFlagRecord = (req, res) => {
       location: req.body.location, // Lat Long coordinates
       status: 'draft', // [draft, under investigation, resolved, rejected]
     };
-    redFlagRecords.set(newID, record);
+    redFlagRecords.set(newID, newRecord);
     return res.status(201).send({
       status: 201,
       data: [{
         id: newID,
         message: 'Created red-flag record',
-        new_record: record,
+        new_record: newRecord,
       }],
     });
   }
