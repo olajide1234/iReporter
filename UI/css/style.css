@@ -254,6 +254,11 @@ color: black;
 
 .introduction_buttons--redflag--recordcard--info {
 cursor: text;
+float: left;
+background-color: #fafafa;
+border: 0.5px solid #c1c1c1;
+border-radius: 0;
+padding: 2px;
 }
 
 .introduction_buttons--redflag--recordcard--statusisresolved{
@@ -323,7 +328,7 @@ margin-top: 30px;
 
 .motivation_box_profile {
     border: 1px solid #575559;
-    border-radius: 18px;
+    border-radius: 5px;
     width: 95%;
     text-align: center;
     float:none;
@@ -334,6 +339,8 @@ margin-top: 30px;
       border: 1px solid #c1c1c1;
       background-color: #fafafa;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+      min-height: 200px;
+      overflow: hidden;
     }
 
   .motivation_box_profile_details {
@@ -361,14 +368,15 @@ margin-top: 30px;
     float:left;
     width: 25%;
     border-radius: 5px;
-    border: 1px solid #c1c1c1;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+    border: 0px solid #c1c1c1;
     margin-top: 0;
   }
 
   /* Profile box text styling */
 
   .motivation_box_profile_details--initials {
-    font-size: 50px;
+    font-size: 80px;
     margin: 0.2%;
     padding: 0;
   }
@@ -393,8 +401,8 @@ margin-top: 30px;
 
 .motivation_box_profile_header{
   background-color: #2ecc71;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   color: white;
   padding: 1px;
 }
@@ -425,6 +433,38 @@ background-color: #ffa502;
 .motivation_box_profile_header--rejected{
 background-color: #d35400;
 }
+
+.motivation_box_profile_header--summary {
+background-color: #f4f4f4;
+color: #575559;
+padding: 0;
+border-bottom: 1px solid #c1c1c1;
+}
+
+.motivation_box_profile_text--successful {
+  color: #2ecc71;
+}
+
+.motivation_box_profile_text--under_investigation {
+  color: #ffa502;
+}
+
+.motivation_box_profile_text--rejected {
+  color: #d35400;
+}
+
+.motivation_box_profile_summary_divheader {
+  display: block;
+  text-align: left;
+  margin-left: 12px;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.motivation_box_profile_summary_divheader--intervention {
+  margin-top: 10px;
+}
+
 
 .motivation_box_profile_body{
 padding: 10px;
@@ -480,6 +520,14 @@ text-align: left;
 float: left;
 }
 
+.motivation_box_card--cardtext {
+  margin-bottom: 1%;
+}
+
+.motivation_box_card_tagholder {
+  margin-left: 10px;
+}
+
 
 .motivation_box_card--innerimages, .motivation_box_card--innervideo  {
   margin-top: 4%;
@@ -489,7 +537,7 @@ float: left;
 
 /* Bottom borders for single record cards */
 /*Courtesy: https://www.steckinsights.com/shorten-length-border-bottom-pure-css/*/
-.motivation_box_card--text:after, .single_record_buttons:after {
+.motivation_box_card--text:not(.motivation_box_card--cardtext):after {
     content: ""; /* This is necessary for the pseudo element to work. */
     display: block; /* This will put the pseudo element on its own line. */
     margin: 0 auto; /* This will center the border. */
