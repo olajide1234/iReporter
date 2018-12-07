@@ -262,15 +262,15 @@ padding: 2px;
 }
 
 .introduction_buttons--redflag--recordcard--statusisresolved{
-background-color: #2ecc71;
+color: #2ecc71;
 }
 
 .introduction_buttons--redflag--recordcard--statusisdraft{
-background-color: #ffa502;
+color: #ffa502;
 }
 
 .introduction_buttons--redflag--recordcard--statusisrejected{
-background-color: #d35400;
+color: #d35400;
 }
 
 .introduction_buttons--viewall {
@@ -722,5 +722,14 @@ html, .body {
   .header_branding--url-signout--in{
     margin-top: 4px;
 
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .motivation_box_profile_summary--bottom {
+    margin-top: 40px;
+  }
+  .introduction_buttons--redflag--recordcard--info {
+    float: none;
   }
 }
