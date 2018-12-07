@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha --exit --require @babel/register",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "start": "babel-node index.js"
+    "start": "babel-node index.js",
+    "localTest": "nyc --reporter=text --reporter=html mocha --exit --require @babel/register"
   },
   "author": "Ayinla Olajide",
   "license": "ISC",
