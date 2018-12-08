@@ -14,7 +14,7 @@ export default {
   @returns {object} Object
 */
 
-  query(text, params) {
+query(text, params) {
     return new Promise((resolve, reject) => {
       pool.query(text, params)
         .then((res) => {
@@ -24,5 +24,5 @@ export default {
           reject(err);
         })
     });
-  }
+  },
 }
