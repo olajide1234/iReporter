@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import es6mapimplement from 'es6-map/implement'; // eslint-disable-line no-unused-vars
 import redFlagRecords from '../models/incidents';
+import db from '../database/main';
 
 const router = express.Router();
 /**
@@ -19,7 +20,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 const newID = ([...redFlagRecords.keys()].length + 1) || 1;
 
 // // Get all Red-flag records
-exports.getAllRedFlagRecords = (req, res) => {
+const getAllRedFlagRecords = (req, res) => {
   const allRedFlagRecords = [...redFlagRecords.values()];
   res.status(200).send({
     status: 200,
@@ -28,33 +29,47 @@ exports.getAllRedFlagRecords = (req, res) => {
 };
 
 // // Create new Red-flag record
-exports.postSingleRedFlagRecord = (req, res) => {
-  const record = {
-    id: newID,
-    createdOn: Date(),
-    createdBy: req.body.createdBy, // represents the user who created this record
-    type: req.body.type, // [red-flag, intervention]
-    dateOfIncident: req.body.dateOfIncident,
-    title: req.body.title,
-    comment: req.body.comment,
-    images: req.body.images,
-    videos: req.body.videos,
-    location: req.body.location, // Lat Long coordinates
-    status: 'draft', // [draft, under investigation, resolved, rejected]
-  };
-  redFlagRecords.set(newID, record);
-  return res.status(201).send({
-    status: 201,
-    data: [{
-      id: newID,
-      message: 'Created red-flag record',
-      new_record: record,
-    }],
-  });
-};
+async function postSingleRedFlagRecord(req, res) {
+  const values = [
+    newID,
+    Date(),
+    req.body.createdBy,
+    req.body.type,
+    req.body.dateOfIncident,
+    req.body.title,
+    req.body.comment,
+    req.body.images,
+    req.body.videos,
+    req.body.location,
+    'draft',
+  ];
+
+  const text = `INSERT INTO
+     incidents(id, createdOn, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
+     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+     returning *`;
+
+  try {
+    const { rows } = await db.query(text, values);
+    return res.status(201).send(rows[0]);
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
+//   redFlagRecords.set(newID, record);
+//   return res.status(201).send({
+//     status: 201,
+//     data: [{
+//       id: newID,
+//       message: 'Created red-flag record',
+//       new_record: record,
+//     }],
+//   });
+// };
 
 // // Get a single Red-flag record
-exports.getSingleRedFlagRecord = (req, res) => {
+const getSingleRedFlagRecord = (req, res) => {
   const id = parseInt(req.params.id, 10);
   return res.status(200).send({
     status: 200,
@@ -63,7 +78,7 @@ exports.getSingleRedFlagRecord = (req, res) => {
 };
 
 // // Patch a red-flag record location
-exports.patchRedFlagRecordLocation = (req, res) => {
+const patchRedFlagRecordLocation = (req, res) => {
   const requestId = parseInt(req.params.id, 10);
   const updatedLocation = req.body.location;
 
@@ -93,7 +108,7 @@ exports.patchRedFlagRecordLocation = (req, res) => {
 };
 
 // //  Patch a red-flag record comment
-exports.patchRedFlagRecordComment = (req, res) => {
+const patchRedFlagRecordComment = (req, res) => {
   const requestId = parseInt(req.params.id, 10);
   const updatedComment = req.body.comment;
 
@@ -123,7 +138,7 @@ exports.patchRedFlagRecordComment = (req, res) => {
 };
 
 // //  Delete a record
-exports.deleteRedFlagRecord = (req, res) => {
+const deleteRedFlagRecord = (req, res) => {
   const id = parseInt(req.params.id, 10);
   redFlagRecords.set(id, null);
   return res.status(200).send({
@@ -133,7 +148,7 @@ exports.deleteRedFlagRecord = (req, res) => {
 };
 
 // //  Update a record
-exports.putRedFlagRecord = (req, res) => {
+const putRedFlagRecord = (req, res) => {
   const requestId = parseInt(req.params.id, 10);
   const recordFound = ([...redFlagRecords.keys()].includes(requestId)
   && redFlagRecords.get(requestId) !== null);
@@ -188,4 +203,14 @@ exports.putRedFlagRecord = (req, res) => {
       message: 'Updated red-flag record successfully',
     }],
   });
+};
+
+export {
+  getAllRedFlagRecords,
+  postSingleRedFlagRecord,
+  getSingleRedFlagRecord,
+  patchRedFlagRecordLocation,
+  patchRedFlagRecordComment,
+  deleteRedFlagRecord,
+  putRedFlagRecord,
 };

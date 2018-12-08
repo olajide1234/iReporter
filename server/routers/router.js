@@ -1,6 +1,16 @@
 import express from 'express';
 import checkIncidentPost from '../middlewares/checkIncidentPost';
-import redFlagController from '../controllers/redFlagController';
+import {
+  getAllRedFlagRecords,
+  postSingleRedFlagRecord,
+  getSingleRedFlagRecord,
+  patchRedFlagRecordLocation,
+  patchRedFlagRecordComment,
+  deleteRedFlagRecord,
+  putRedFlagRecord,
+} from '../controllers/redFlagController';
+
+import { signUp } from '../controllers/userController';
 
 const router = express.Router();
 
@@ -26,63 +36,69 @@ const router = express.Router();
 // // GET Routes:
 // API route to get all Red-flag records
 router.get(
-  '/red-flags',
-  redFlagController.getAllRedFlagRecords,
+  '/records/red-flags',
+  getAllRedFlagRecords,
 );
 
 //  API route to get single Red-flag record
 router.get(
-  '/red-flags/:id',
+  '/records/red-flags/:id',
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
-  redFlagController.getSingleRedFlagRecord,
+  getSingleRedFlagRecord,
 );
 
 
 // // POST Routes:
 // API route to post a single Red-flag record
 router.post(
-  '/red-flags',
+  '/records/red-flags',
   checkIncidentPost.completeBody,
-  redFlagController.postSingleRedFlagRecord,
+  postSingleRedFlagRecord,
+);
+
+// API route to sign up
+router.post(
+  '/auth/signup',
+  signUp,
 );
 
 
 // // PATCH Routes:
 // API route to update a single Red-flag record location
 router.patch(
-  '/red-flags/:id/location',
+  '/records/red-flags/:id/location',
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
   checkIncidentPost.checkLocation,
-  redFlagController.patchRedFlagRecordLocation,
+  patchRedFlagRecordLocation,
 );
 
 // API route to update a single Red-flag record comment
 router.patch(
-  '/red-flags/:id/comment',
+  '/records/red-flags/:id/comment',
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
   checkIncidentPost.checkComment,
-  redFlagController.patchRedFlagRecordComment,
+  patchRedFlagRecordComment,
 );
 
 // // PUT Routes
 //  API route to update a single Red-flag record
 router.put(
-  '/red-flags/:id',
+  '/records/red-flags/:id',
   checkIncidentPost.validID,
   checkIncidentPost.completeBody,
-  redFlagController.putRedFlagRecord,
+  putRedFlagRecord,
 );
 
 // // DELETE Routes
 // API route to delete a single Red-flag record
 router.delete(
-  '/red-flags/:id',
+  '/records/red-flags/:id',
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
-  redFlagController.deleteRedFlagRecord,
+  deleteRedFlagRecord,
 );
 
 module.exports = router;

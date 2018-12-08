@@ -7,8 +7,8 @@ const redFlagRecords = new Map([
     dateOfIncident: '23 April 2018',
     title: 'How police extorted me',
     comment: 'Despite their recent increase in salary, police extorted me at Unilag Gate',
-    Images: ['https://olajide1234.github.io/iReporter/UI/img/corruption2.jpg', 'https://olajide1234.github.io/iReporter/UI/img/corruption1.jpg'],
-    Videos: ['https://www.youtube.com/watch?v=_e92yME-PHY'],
+    images: ['https://olajide1234.github.io/iReporter/UI/img/corruption2.jpg', 'https://olajide1234.github.io/iReporter/UI/img/corruption1.jpg'],
+    videos: ['https://www.youtube.com/watch?v=_e92yME-PHY'],
     location: 'lat: 6.553844,lng: 3.366475', // Lat Long coordinates
     status: 'draft', // [draft, under investigation, resolved, rejected]
   }],
