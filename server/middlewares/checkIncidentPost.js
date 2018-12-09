@@ -98,21 +98,27 @@ const validID = (req, res, next) => {
   return next();
 };
 
-const findRedFlagRecord = (req, res, next) => {
-  // Find RedFlagRecord
+
+async function findRedFlagRecord(req, res, next) {
+  // Find Intervention Record
   const requestId = parseInt(req.params.id, 10);
 
-  const recordFound = ([...redFlagRecords.keys()].includes(requestId)
-    && redFlagRecords.get(requestId) !== null);
+  const findRedFlagRecordQuery = `SELECT * FROM incidents WHERE type = 'red-flag' AND id=$1`;
 
-  if (!recordFound) {
-    return res.status(404).send({
-      status: 404,
-      error: 'Record not found',
-    });
+  try {
+    const { rows } = await db.query(findRedFlagRecordQuery, [requestId]);
+    if (!rows[0]) {
+      return res.status(404).send({
+        status: 404,
+        error: 'Record not found',
+      });
+    }
+  } catch (err) {
+    return res.status(400).send(err);
   }
+
   return next();
-};
+}
 
 async function findInterventionRecord(req, res, next) {
   // Find Intervention Record
@@ -165,6 +171,58 @@ const checkComment = (req, res, next) => {
   return next();
 };
 
+// // Check valid username
+async function checkUsernameAndPasswordMatch(req, res, next) {
+  const queryUsername = req.body.username;
+  const queryPassword = req.body.password;
+
+  const text = `SELECT * FROM users WHERE username = $1`;
+
+  try {
+    const { rows } = await db.query(text, [queryUsername]);
+
+    if (!rows[0]) {
+      return res.status(401)
+        .send({
+          status: 401,
+          error: 'Please enter a valid username',
+        });
+    }
+
+    if (rows[0].password !== queryPassword) {
+      return res.status(401)
+        .send({
+          status: 401,
+          error: 'Username and password do not match',
+        });
+    }
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+  return next();
+}
+
+// // Check if admin
+async function isAdmin(req, res, next) {
+  const queryUsername = req.body.username;
+
+  const text = `SELECT * FROM users WHERE username = $1`;
+
+  try {
+    const { rows } = await db.query(text, [queryUsername]);
+    if (rows[0].isadmin === false) {
+      return res.status(403)
+        .send({
+          status: 403,
+          data: 'You are not an admin',
+        });
+    }
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+  return next();
+}
+
 export {
   completeBody,
   validID,
@@ -172,4 +230,6 @@ export {
   findInterventionRecord,
   checkLocation,
   checkComment,
+  isAdmin,
+  checkUsernameAndPasswordMatch,
 };

@@ -132,76 +132,48 @@ async function patchInterventionRecordComment(req, res) {
   }
 }
 
-// // // Patch a red-flag record location
-// const patchRedFlagRecordLocation = (req, res) => {
-//   const requestId = parseInt(req.params.id, 10);
-//   const updatedLocation = req.body.location;
-//
-//   //  Update record with details
-//   const updatedRecord = {
-//     id: requestId,
-//     createdOn: redFlagRecords.get(requestId).createdOn,
-//     createdBy: redFlagRecords.get(requestId).createdBy,
-//     type: req.body.type, // [red-flag, intervention]
-//     dateOfIncident: redFlagRecords.get(requestId).dateOfIncident,
-//     title: redFlagRecords.get(requestId).title,
-//     comment: redFlagRecords.get(requestId).comment,
-//     images: redFlagRecords.get(requestId).images,
-//     videos: redFlagRecords.get(requestId).videos,
-//     location: updatedLocation, // Lat Long coordinates
-//     status: redFlagRecords.get(requestId).status,
-//   };
-//
-//   redFlagRecords.set(requestId, updatedRecord);
-//   return res.status(205).send({
-//     status: 205,
-//     data: [{
-//       id: requestId,
-//       message: 'Successfully updated red-flag record\'s location',
-//     }],
-//   });
-// };
-//
-// // //  Patch a red-flag record comment
-// const patchRedFlagRecordComment = (req, res) => {
-//   const requestId = parseInt(req.params.id, 10);
-//   const updatedComment = req.body.comment;
-//
-//   //  Update record with details
-//   const updatedRecord = {
-//     id: requestId,
-//     createdOn: redFlagRecords.get(requestId).createdOn,
-//     createdBy: redFlagRecords.get(requestId).createdBy,
-//     type: req.body.type, // [red-flag, intervention]
-//     dateOfIncident: redFlagRecords.get(requestId).dateOfIncident,
-//     title: redFlagRecords.get(requestId).title,
-//     comment: updatedComment,
-//     images: redFlagRecords.get(requestId).images,
-//     videos: redFlagRecords.get(requestId).videos,
-//     location: redFlagRecords.get(requestId).location,
-//     status: redFlagRecords.get(requestId).status,
-//   };
-//
-//   redFlagRecords.set(requestId, updatedRecord);
-//   return res.status(205).send({
-//     status: 205,
-//     data: [{
-//       id: requestId,
-//       message: 'Successfully updated red-flag record\'s comment',
-//     }],
-//   });
-// };
-//
-// // //  Delete a record
-// const deleteRedFlagRecord = (req, res) => {
-//   const id = parseInt(req.params.id, 10);
-//   redFlagRecords.set(id, null);
-//   return res.status(200).send({
-//     status: 200,
-//     message: 'Red-flag record has been successfully deleted',
-//   });
-// };
-//
+// // Admin patch an intervention record status
+async function patchInterventionRecordStatus(req, res) {
+  const requestId = parseInt(req.params.id, 10);
+  const updatedStatus = req.body.status;
+  const updateInterventionRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'intervention' returning *`;
+  const values = [
+    requestId,
+    updatedStatus,
+  ];
+  try {
+    const response = await db.query(updateInterventionRecord, values);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: [{
+          id: response.rows[0].id,
+          message: 'Updated intervention record’s status',
+        }],
+      });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+}
+
+// // Delete a single intervention record
+async function deleteInterventionRecord(req, res) {
+  const queryId = parseInt(req.params.id, 10);
+  const text = `DELETE FROM incidents WHERE type = 'intervention' AND id = $1 returning * `;
+  try {
+    const { rows } = await db.query(text, [queryId]);
+    return res.status(200)
+      .send({
+        status: 204,
+        data: [{
+          id: rows[0].id,
+          message: 'Intervention record has been deleted',
+        }],
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
 // // //  Update a record
 // const putRedFlagRecord = (req, res) => {
 //   const requestId = parseInt(req.params.id, 10);
@@ -266,4 +238,6 @@ export {
   getSingleInterventionRecord,
   patchInterventionRecordLocation,
   patchInterventionRecordComment,
+  patchInterventionRecordStatus,
+  deleteInterventionRecord,
 };

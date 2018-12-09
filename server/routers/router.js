@@ -3,7 +3,7 @@ import * as checkIncidentPost from '../middlewares/checkIncidentPost';
 import * as redFlagController from '../controllers/redFlagController';
 import * as interventionController from '../controllers/interventionController';
 
-import { signUp, signIn } from '../controllers/userController';
+import * as userController from '../controllers/userController';
 
 const router = express.Router();
 
@@ -26,6 +26,21 @@ const router = express.Router();
 //
 // router.get('/', welcomeMessage);
 
+// user Routes
+// API route to sign up
+router.post(
+  '/auth/signup',
+  userController.signUp,
+);
+
+// API route to sign in
+router.post(
+  '/auth/signin',
+  checkIncidentPost.checkUsernameAndPasswordMatch,
+  userController.signIn,
+);
+
+// Red-flag routes
 // // GET Routes:
 // API route to get all Red-flag records
 router.get(
@@ -41,45 +56,12 @@ router.get(
   redFlagController.getSingleRedFlagRecord,
 );
 
-//  API route to get single intervention record
-router.get(
-  '/records/interventions/:id',
-  checkIncidentPost.validID,
-  interventionController.getSingleInterventionRecord,
-);
-
-//  API route to get all intervention record
-router.get(
-  '/records/interventions',
-  interventionController.getAllInterventionRecords,
-);
-
-
 // // POST Routes:
 // API route to post a single Red-flag record
 router.post(
   '/records/red-flags',
   checkIncidentPost.completeBody,
   redFlagController.postSingleRedFlagRecord,
-);
-
-// API route to sign up
-router.post(
-  '/auth/signup',
-  signUp,
-);
-
-// API route to sign in
-router.post(
-  '/auth/signin',
-  signIn,
-);
-
-// API route to post single intervention record
-router.post(
-  '/records/interventions',
-  checkIncidentPost.completeBody,
-  interventionController.postSingleInterventionRecord,
 );
 
 // // PATCH Routes:
@@ -91,6 +73,68 @@ router.patch(
   checkIncidentPost.checkLocation,
   redFlagController.patchRedFlagRecordLocation,
 );
+
+// API route to update a single Red-flag record comment
+router.patch(
+  '/records/red-flags/:id/comment',
+  checkIncidentPost.validID,
+  checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.checkComment,
+  redFlagController.patchRedFlagRecordComment,
+);
+
+// API route to update a single red-flag record status
+router.patch(
+  '/records/red-flags/:id/status',
+  checkIncidentPost.validID,
+  checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.checkUsernameAndPasswordMatch,
+  checkIncidentPost.isAdmin,
+  redFlagController.patchRedFlagRecordStatus,
+);
+
+// // PUT Routes
+//  API route to update a single Red-flag record
+// router.put(
+//   '/records/red-flags/:id',
+//   checkIncidentPost.validID,
+//   checkIncidentPost.completeBody,
+//   redFlagController.putRedFlagRecord,
+// );
+
+// // DELETE Routes
+// API route to delete a single Red-flag record
+router.delete(
+  '/records/red-flags/:id',
+  checkIncidentPost.validID,
+  checkIncidentPost.findRedFlagRecord,
+  redFlagController.deleteRedFlagRecord,
+);
+
+// Intervention Routes
+// Get routes
+//  API route to get all intervention record
+router.get(
+  '/records/interventions',
+  interventionController.getAllInterventionRecords,
+);
+
+//  API route to get single intervention record
+router.get(
+  '/records/interventions/:id',
+  checkIncidentPost.validID,
+  interventionController.getSingleInterventionRecord,
+);
+
+// Post routes
+// API route to post single intervention record
+router.post(
+  '/records/interventions',
+  checkIncidentPost.completeBody,
+  interventionController.postSingleInterventionRecord,
+);
+
+// Patch Routes
 
 // API route to update a single intervention record location
 router.patch(
@@ -110,31 +154,24 @@ router.patch(
   interventionController.patchInterventionRecordComment,
 );
 
-// API route to update a single Red-flag record comment
-router.patch(
-  '/records/red-flags/:id/comment',
-  checkIncidentPost.validID,
-  checkIncidentPost.findRedFlagRecord,
-  checkIncidentPost.checkComment,
-  redFlagController.patchRedFlagRecordComment,
-);
 
-// // PUT Routes
-//  API route to update a single Red-flag record
-router.put(
-  '/records/red-flags/:id',
+// API route to update a single intervention record status
+router.patch(
+  '/records/interventions/:id/status',
   checkIncidentPost.validID,
-  checkIncidentPost.completeBody,
-  redFlagController.putRedFlagRecord,
+  checkIncidentPost.findInterventionRecord,
+  checkIncidentPost.checkUsernameAndPasswordMatch,
+  checkIncidentPost.isAdmin,
+  interventionController.patchInterventionRecordStatus,
 );
 
 // // DELETE Routes
-// API route to delete a single Red-flag record
+// API route to delete a single intervention record
 router.delete(
-  '/records/red-flags/:id',
+  '/records/interventions/:id',
   checkIncidentPost.validID,
-  checkIncidentPost.findRedFlagRecord,
-  redFlagController.deleteRedFlagRecord,
+  checkIncidentPost.findInterventionRecord,
+  interventionController.deleteInterventionRecord,
 );
 
 module.exports = router;
