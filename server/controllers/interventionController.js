@@ -132,6 +132,30 @@ async function patchInterventionRecordComment(req, res) {
   }
 }
 
+// // Admin patch an intervention record status
+async function patchInterventionRecordStatus(req, res) {
+  const requestId = parseInt(req.params.id, 10);
+  const updatedStatus = req.body.status;
+  const updateInterventionRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'intervention' returning *`;
+  const values = [
+    requestId,
+    updatedStatus,
+  ];
+  try {
+    const response = await db.query(updateInterventionRecord, values);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: [{
+          id: response.rows[0].id,
+          message: 'Updated intervention record’s status',
+        }],
+      });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+}
+
 // // Delete a single intervention record
 async function deleteInterventionRecord(req, res) {
   const queryId = parseInt(req.params.id, 10);
@@ -140,7 +164,7 @@ async function deleteInterventionRecord(req, res) {
     const { rows } = await db.query(text, [queryId]);
     return res.status(200)
       .send({
-        status: 205,
+        status: 204,
         data: [{
           id: rows[0].id,
           message: 'Intervention record has been deleted',
@@ -150,18 +174,6 @@ async function deleteInterventionRecord(req, res) {
     return res.status(400).send(error);
   }
 }
-
-//
-// // //  Delete a record
-// const deleteRedFlagRecord = (req, res) => {
-//   const id = parseInt(req.params.id, 10);
-//   redFlagRecords.set(id, null);
-//   return res.status(200).send({
-//     status: 200,
-//     message: 'Red-flag record has been successfully deleted',
-//   });
-// };
-//
 // // //  Update a record
 // const putRedFlagRecord = (req, res) => {
 //   const requestId = parseInt(req.params.id, 10);
@@ -226,5 +238,6 @@ export {
   getSingleInterventionRecord,
   patchInterventionRecordLocation,
   patchInterventionRecordComment,
+  patchInterventionRecordStatus,
   deleteInterventionRecord,
 };
