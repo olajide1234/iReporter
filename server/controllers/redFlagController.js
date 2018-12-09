@@ -31,7 +31,7 @@ const getAllRedFlagRecords = (req, res) => {
 // // Create new Red-flag record
 async function postSingleRedFlagRecord(req, res) {
   const values = [
-    newID,
+    // ID is auto generated sequence by db
     Date(),
     req.body.createdBy,
     req.body.type,
@@ -45,28 +45,25 @@ async function postSingleRedFlagRecord(req, res) {
   ];
 
   const text = `INSERT INTO
-     incidents(id, createdOn, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
-     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+     incidents(createdOn, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
+     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
      returning *`;
 
   try {
     const { rows } = await db.query(text, values);
-    return res.status(201).send(rows[0]);
+    return res.status(201)
+      .send({
+        status: 201,
+        data: [{
+          id: rows[0].id,
+          message: 'Created red-flag record',
+          new_record: rows[0],
+        }],
+      });
   } catch (error) {
     return res.status(400).send(error);
   }
 }
-
-//   redFlagRecords.set(newID, record);
-//   return res.status(201).send({
-//     status: 201,
-//     data: [{
-//       id: newID,
-//       message: 'Created red-flag record',
-//       new_record: record,
-//     }],
-//   });
-// };
 
 // // Get a single Red-flag record
 const getSingleRedFlagRecord = (req, res) => {

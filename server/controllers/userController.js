@@ -14,10 +14,10 @@ const router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
-// // Create new user - sign up
+// Create new user - sign up
 async function signUp(req, res) {
   const values = [
-    1234,
+    req.body.id,
     req.body.firstname,
     req.body.lastname,
     req.body.othernames,
@@ -26,7 +26,7 @@ async function signUp(req, res) {
     req.body.username,
     req.body.date,
     req.body.isAdmin,
-    'testpassword',
+    req.body.password,
   ];
 
   const text = `INSERT INTO
@@ -36,7 +36,50 @@ async function signUp(req, res) {
 
   try {
     const { rows } = await db.query(text, values);
-    return res.status(201).send(rows[0]);
+    return res.status(201)
+      .send({
+        status: 201,
+        data: [{
+          token: 'Put token here',
+          user: rows[0],
+        }],
+      });
+  } catch (err) {
+    return res.status(400)
+      .send({
+        status: 500,
+        error: err,
+      });
+  }
+}
+
+// // Returning user sign in
+async function signIn(req, res) {
+  const queryPassword = req.body.password;
+
+  const text = `SELECT * FROM users WHERE username = $1`;
+
+  try {
+    const { rows } = await db.query(text, [req.body.username]);
+
+    if (rows[0].password !== queryPassword) {
+      return res
+        .send({
+          status: 404,
+          data: 'Username and password do not match',
+        });
+    }
+
+    if (rows[0].password === queryPassword) {
+      return res.status(200)
+        .send({
+          status: 200,
+          data: [{
+            token: 'Put token here',
+            user: rows[0],
+          }],
+        });
+    }
   } catch (error) {
     return res.status(400).send(error);
   }
@@ -44,4 +87,5 @@ async function signUp(req, res) {
 
 export {
   signUp,
+  signIn,
 };

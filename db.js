@@ -18,7 +18,7 @@ const createIncidentTables = () => {
   const queryText =
     `CREATE TABLE IF NOT EXISTS
       incidents(
-        id INTEGER PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         createdOn VARCHAR,
         createdBy VARCHAR,
         type VARCHAR,
@@ -49,7 +49,7 @@ const createUserTables = () => {
   const queryText =
     `CREATE TABLE IF NOT EXISTS
       users(
-        id INTEGER PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         firstname VARCHAR,
         lastname VARCHAR,
         othernames VARCHAR,
