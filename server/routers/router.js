@@ -10,7 +10,7 @@ import {
   putRedFlagRecord,
 } from '../controllers/redFlagController';
 
-import { signUp } from '../controllers/userController';
+import { signUp, signIn } from '../controllers/userController';
 
 const router = express.Router();
 
@@ -61,6 +61,11 @@ router.post(
 router.post(
   '/auth/signup',
   signUp,
+);
+
+router.post(
+  '/auth/signin',
+  signIn,
 );
 
 
