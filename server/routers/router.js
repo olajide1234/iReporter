@@ -174,4 +174,12 @@ router.delete(
   interventionController.deleteInterventionRecord,
 );
 
+// API route to delete a single intervention record
+router.delete(
+  '/records/interventions/:id',
+  checkIncidentPost.validID,
+  checkIncidentPost.findInterventionRecord,
+  interventionController.deleteInterventionRecord,
+);
+
 module.exports = router;
