@@ -84,7 +84,54 @@ async function getSingleInterventionRecord(req, res) {
   }
 }
 
-//
+// // Patch an intervention record location
+async function patchInterventionRecordLocation(req, res) {
+  const requestId = parseInt(req.params.id, 10);
+  const updatedLocation = req.body.location;
+  const updateInterventionRecord = `UPDATE incidents SET location=$2 WHERE id=$1 AND type = 'intervention' returning *`;
+  const values = [
+    requestId,
+    updatedLocation,
+  ];
+  try {
+    const response = await db.query(updateInterventionRecord, values);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: [{
+          id: response.rows[0].id,
+          message: 'Updated intervention record’s location',
+        }],
+      });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+}
+
+// // Patch an intervention record comment
+async function patchInterventionRecordComment(req, res) {
+  const requestId = parseInt(req.params.id, 10);
+  const updatedComment = req.body.comment;
+  const updateInterventionRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'intervention' returning *`;
+  const values = [
+    requestId,
+    updatedComment,
+  ];
+  try {
+    const response = await db.query(updateInterventionRecord, values);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: [{
+          id: response.rows[0].id,
+          message: 'Updated intervention record’s comment',
+        }],
+      });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+}
+
 // // // Patch a red-flag record location
 // const patchRedFlagRecordLocation = (req, res) => {
 //   const requestId = parseInt(req.params.id, 10);
@@ -217,4 +264,6 @@ export {
   postSingleInterventionRecord,
   getAllInterventionRecords,
   getSingleInterventionRecord,
+  patchInterventionRecordLocation,
+  patchInterventionRecordComment,
 };
