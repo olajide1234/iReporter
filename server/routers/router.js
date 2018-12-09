@@ -1,5 +1,5 @@
 import express from 'express';
-import checkIncidentPost from '../middlewares/checkIncidentPost';
+import * as checkIncidentPost from '../middlewares/checkIncidentPost';
 import * as redFlagController from '../controllers/redFlagController';
 import * as interventionController from '../controllers/interventionController';
 
@@ -90,6 +90,24 @@ router.patch(
   checkIncidentPost.findRedFlagRecord,
   checkIncidentPost.checkLocation,
   redFlagController.patchRedFlagRecordLocation,
+);
+
+// API route to update a single intervention record location
+router.patch(
+  '/records/interventions/:id/location',
+  checkIncidentPost.validID,
+  checkIncidentPost.findInterventionRecord,
+  checkIncidentPost.checkLocation,
+  interventionController.patchInterventionRecordLocation,
+);
+
+// API route to update a single intervention record comment
+router.patch(
+  '/records/interventions/:id/comment',
+  checkIncidentPost.validID,
+  checkIncidentPost.findInterventionRecord,
+  checkIncidentPost.checkComment,
+  interventionController.patchInterventionRecordComment,
 );
 
 // API route to update a single Red-flag record comment

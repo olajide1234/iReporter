@@ -1,4 +1,5 @@
 import redFlagRecords from '../models/incidents';
+import db from '../database/main';
 
 /**
  * @file This is the middleware file for validating
@@ -10,7 +11,7 @@ import redFlagRecords from '../models/incidents';
  * @return {void}
  */
 
-exports.completeBody = (req, res, next) => {
+const completeBody = (req, res, next) => {
   let errorMessage;
 
   if (!req.body.createdBy) {
@@ -83,7 +84,7 @@ exports.completeBody = (req, res, next) => {
   return next();
 };
 
-exports.validID = (req, res, next) => {
+const validID = (req, res, next) => {
   //  Check that a valid record id is supplied
   const requestId = parseInt(req.params.id, 10);
 
@@ -97,7 +98,7 @@ exports.validID = (req, res, next) => {
   return next();
 };
 
-exports.findRedFlagRecord = (req, res, next) => {
+const findRedFlagRecord = (req, res, next) => {
   // Find RedFlagRecord
   const requestId = parseInt(req.params.id, 10);
 
@@ -113,7 +114,28 @@ exports.findRedFlagRecord = (req, res, next) => {
   return next();
 };
 
-exports.checkLocation = (req, res, next) => {
+async function findInterventionRecord(req, res, next) {
+  // Find Intervention Record
+  const requestId = parseInt(req.params.id, 10);
+
+  const findInterventionRecordQuery = `SELECT * FROM incidents WHERE type = 'intervention' AND id=$1`;
+
+  try {
+    const { rows } = await db.query(findInterventionRecordQuery, [requestId]);
+    if (!rows[0]) {
+      return res.status(404).send({
+        status: 404,
+        error: 'Record not found',
+      });
+    }
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+
+  return next();
+}
+
+const checkLocation = (req, res, next) => {
   let errorMessage;
 
   if (!req.body.location) {
@@ -128,7 +150,7 @@ exports.checkLocation = (req, res, next) => {
   return next();
 };
 
-exports.checkComment = (req, res, next) => {
+const checkComment = (req, res, next) => {
   let errorMessage;
 
   if (!req.body.comment) {
@@ -141,4 +163,13 @@ exports.checkComment = (req, res, next) => {
   if (errorMessage) return res.status(errorMessage.status).send(errorMessage);
 
   return next();
+};
+
+export {
+  completeBody,
+  validID,
+  findRedFlagRecord,
+  findInterventionRecord,
+  checkLocation,
+  checkComment,
 };
