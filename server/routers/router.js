@@ -10,6 +10,10 @@ import {
   putRedFlagRecord,
 } from '../controllers/redFlagController';
 
+import {
+  postSingleInterventionRecord,
+} from '../controllers/interventionController';
+
 import { signUp, signIn } from '../controllers/userController';
 
 const router = express.Router();
@@ -63,11 +67,18 @@ router.post(
   signUp,
 );
 
+// API route to sign in
 router.post(
   '/auth/signin',
   signIn,
 );
 
+// API route to post single intervention record
+router.post(
+  '/records/interventions',
+  checkIncidentPost.completeBody,
+  postSingleInterventionRecord,
+);
 
 // // PATCH Routes:
 // API route to update a single Red-flag record location
