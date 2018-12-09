@@ -1,18 +1,7 @@
 import express from 'express';
 import checkIncidentPost from '../middlewares/checkIncidentPost';
-import {
-  getAllRedFlagRecords,
-  postSingleRedFlagRecord,
-  getSingleRedFlagRecord,
-  patchRedFlagRecordLocation,
-  patchRedFlagRecordComment,
-  deleteRedFlagRecord,
-  putRedFlagRecord,
-} from '../controllers/redFlagController';
-
-import {
-  postSingleInterventionRecord,
-} from '../controllers/interventionController';
+import * as redFlagController from '../controllers/redFlagController';
+import * as interventionController from '../controllers/interventionController';
 
 import { signUp, signIn } from '../controllers/userController';
 
@@ -41,7 +30,7 @@ const router = express.Router();
 // API route to get all Red-flag records
 router.get(
   '/records/red-flags',
-  getAllRedFlagRecords,
+  redFlagController.getAllRedFlagRecords,
 );
 
 //  API route to get single Red-flag record
@@ -49,7 +38,12 @@ router.get(
   '/records/red-flags/:id',
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
-  getSingleRedFlagRecord,
+  redFlagController.getSingleRedFlagRecord,
+);
+
+router.get(
+  '/records/interventions',
+  interventionController.getAllInterventionRecords,
 );
 
 
@@ -58,7 +52,7 @@ router.get(
 router.post(
   '/records/red-flags',
   checkIncidentPost.completeBody,
-  postSingleRedFlagRecord,
+  redFlagController.postSingleRedFlagRecord,
 );
 
 // API route to sign up
@@ -77,7 +71,7 @@ router.post(
 router.post(
   '/records/interventions',
   checkIncidentPost.completeBody,
-  postSingleInterventionRecord,
+  interventionController.postSingleInterventionRecord,
 );
 
 // // PATCH Routes:
@@ -87,7 +81,7 @@ router.patch(
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
   checkIncidentPost.checkLocation,
-  patchRedFlagRecordLocation,
+  redFlagController.patchRedFlagRecordLocation,
 );
 
 // API route to update a single Red-flag record comment
@@ -96,7 +90,7 @@ router.patch(
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
   checkIncidentPost.checkComment,
-  patchRedFlagRecordComment,
+  redFlagController.patchRedFlagRecordComment,
 );
 
 // // PUT Routes
@@ -105,7 +99,7 @@ router.put(
   '/records/red-flags/:id',
   checkIncidentPost.validID,
   checkIncidentPost.completeBody,
-  putRedFlagRecord,
+  redFlagController.putRedFlagRecord,
 );
 
 // // DELETE Routes
@@ -114,7 +108,7 @@ router.delete(
   '/records/red-flags/:id',
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
-  deleteRedFlagRecord,
+  redFlagController.deleteRedFlagRecord,
 );
 
 module.exports = router;
