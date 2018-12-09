@@ -15,6 +15,21 @@ const router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
+// // Get all intervention records
+async function getAllInterventionRecords(req, res) {
+  const text = `SELECT * FROM incidents WHERE type = 'intervention'`;
+
+  try {
+    const { rows } = await db.query(text);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
 
 // // Create new intervention record
 async function postSingleInterventionRecord(req, res) {
@@ -192,4 +207,5 @@ async function postSingleInterventionRecord(req, res) {
 
 export {
   postSingleInterventionRecord,
+  getAllInterventionRecords,
 };
