@@ -41,6 +41,14 @@ router.get(
   redFlagController.getSingleRedFlagRecord,
 );
 
+//  API route to get single intervention record
+router.get(
+  '/records/interventions/:id',
+  checkIncidentPost.validID,
+  interventionController.getSingleInterventionRecord,
+);
+
+//  API route to get all intervention record
 router.get(
   '/records/interventions',
   interventionController.getAllInterventionRecords,

@@ -68,14 +68,22 @@ async function postSingleInterventionRecord(req, res) {
   }
 }
 
-// // // Get a single Red-flag record
-// const getSingleRedFlagRecord = (req, res) => {
-//   const id = parseInt(req.params.id, 10);
-//   return res.status(200).send({
-//     status: 200,
-//     data: [redFlagRecords.get(id)],
-//   });
-// };
+// // Get a single intervention record
+async function getSingleInterventionRecord(req, res) {
+  const queryId = parseInt(req.params.id, 10);
+  const text = `SELECT * FROM incidents WHERE type = 'intervention' AND id = $1 `;
+  try {
+    const { rows } = await db.query(text, [queryId]);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
 //
 // // // Patch a red-flag record location
 // const patchRedFlagRecordLocation = (req, res) => {
@@ -208,4 +216,5 @@ async function postSingleInterventionRecord(req, res) {
 export {
   postSingleInterventionRecord,
   getAllInterventionRecords,
+  getSingleInterventionRecord,
 };
