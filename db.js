@@ -19,6 +19,7 @@ const createIncidentTables = () => {
     `CREATE TABLE IF NOT EXISTS
       incidents(
         id SERIAL PRIMARY KEY,
+        owner_id INTEGER NOT NULL,
         createdOn VARCHAR,
         createdBy VARCHAR,
         type VARCHAR,
@@ -28,7 +29,8 @@ const createIncidentTables = () => {
         images VARCHAR,
         videos VARCHAR,
         location VARCHAR,
-        status VARCHAR
+        status VARCHAR,
+        FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
       )`;
 
   pool.query(queryText)
@@ -40,7 +42,7 @@ const createIncidentTables = () => {
       console.log(err);
       pool.end();
     });
-}
+};
 
 /**
  * Create user tables
@@ -53,12 +55,12 @@ const createUserTables = () => {
         firstname VARCHAR,
         lastname VARCHAR,
         othernames VARCHAR,
-        email VARCHAR,
+        email VARCHAR UNIQUE NOT NULL,
         phoneNumber INTEGER,
-        username VARCHAR,
+        username VARCHAR UNIQUE NOT NULL,
         registered TIMESTAMP,
         isAdmin BOOL,
-        password VARCHAR
+        password VARCHAR NOT NULL
       )`;
 
   pool.query(queryText)
@@ -70,7 +72,7 @@ const createUserTables = () => {
       console.log(err);
       pool.end();
     });
-}
+};
 
 /**
  * Drop incident tables
@@ -86,7 +88,7 @@ const dropIncidentTables = () => {
       console.log(err);
       pool.end();
     });
-}
+};
 
 /**
  * Drop user tables
@@ -102,7 +104,7 @@ const dropUserTables = () => {
       console.log(err);
       pool.end();
     });
-}
+};
 
 pool.on('remove', () => {
   console.log('client removed');

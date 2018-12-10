@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import db from '../database/main';
+import * as helpers from './helpers';
 
 const router = express.Router();
 /**
@@ -16,8 +17,10 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 // Create new user - sign up
 async function signUp(req, res) {
+  const hashPassword = helpers.generateHashPassword(req.body.password);
+
   const values = [
-    req.body.id,
+    // ID is auto-generated sequence by DB
     req.body.firstname,
     req.body.lastname,
     req.body.othernames,
@@ -26,26 +29,27 @@ async function signUp(req, res) {
     req.body.username,
     req.body.date,
     req.body.isAdmin,
-    req.body.password,
+    hashPassword,
   ];
 
   const text = `INSERT INTO
-     users(id, firstname, lastname, othernames, email, phoneNumber, username, registered, isAdmin, password)
-     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+     users(firstname, lastname, othernames, email, phoneNumber, username, registered, isAdmin, password)
+     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
      returning *`;
 
   try {
     const { rows } = await db.query(text, values);
+    const userToken = helpers.generateToken(rows[0].id);
     return res.status(201)
       .send({
         status: 201,
         data: [{
-          token: 'Put token here',
+          token: userToken,
           user: rows[0],
         }],
       });
   } catch (err) {
-    return res.status(400)
+    return res.status(500)
       .send({
         status: 500,
         error: err,
@@ -55,31 +59,20 @@ async function signUp(req, res) {
 
 // // Returning user sign in
 async function signIn(req, res) {
-  const queryPassword = req.body.password;
-
+  const queryUsername = req.body.username;
   const text = `SELECT * FROM users WHERE username = $1`;
 
   try {
-    const { rows } = await db.query(text, [req.body.username]);
-
-    if (rows[0].password !== queryPassword) {
-      return res
-        .send({
-          status: 404,
-          data: 'Username and password do not match',
-        });
-    }
-
-    if (rows[0].password === queryPassword) {
-      return res.status(200)
-        .send({
-          status: 200,
-          data: [{
-            token: 'Put token here',
-            user: rows[0],
-          }],
-        });
-    }
+    const { rows } = await db.query(text, [queryUsername]);
+    const userToken = helpers.generateToken(rows[0].id);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: [{
+          token: userToken,
+          user: rows[0],
+        }],
+      });
   } catch (error) {
     return res.status(400).send(error);
   }

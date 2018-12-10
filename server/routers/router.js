@@ -4,6 +4,7 @@ import * as redFlagController from '../controllers/redFlagController';
 import * as interventionController from '../controllers/interventionController';
 
 import * as userController from '../controllers/userController';
+import verifyToken from '../middlewares/auth';
 
 const router = express.Router();
 
@@ -45,12 +46,14 @@ router.post(
 // API route to get all Red-flag records
 router.get(
   '/records/red-flags',
+  verifyToken,
   redFlagController.getAllRedFlagRecords,
 );
 
 //  API route to get single Red-flag record
 router.get(
   '/records/red-flags/:id',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
   redFlagController.getSingleRedFlagRecord,
@@ -60,6 +63,7 @@ router.get(
 // API route to post a single Red-flag record
 router.post(
   '/records/red-flags',
+  verifyToken,
   checkIncidentPost.completeBody,
   redFlagController.postSingleRedFlagRecord,
 );
@@ -68,6 +72,7 @@ router.post(
 // API route to update a single Red-flag record location
 router.patch(
   '/records/red-flags/:id/location',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
   checkIncidentPost.checkLocation,
@@ -77,6 +82,7 @@ router.patch(
 // API route to update a single Red-flag record comment
 router.patch(
   '/records/red-flags/:id/comment',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
   checkIncidentPost.checkComment,
@@ -86,6 +92,7 @@ router.patch(
 // API route to update a single red-flag record status
 router.patch(
   '/records/red-flags/:id/status',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
   checkIncidentPost.checkUsernameAndPasswordMatch,
@@ -106,6 +113,7 @@ router.patch(
 // API route to delete a single Red-flag record
 router.delete(
   '/records/red-flags/:id',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
   redFlagController.deleteRedFlagRecord,
@@ -116,13 +124,16 @@ router.delete(
 //  API route to get all intervention record
 router.get(
   '/records/interventions',
+  verifyToken,
   interventionController.getAllInterventionRecords,
 );
 
 //  API route to get single intervention record
 router.get(
   '/records/interventions/:id',
+  verifyToken,
   checkIncidentPost.validID,
+  checkIncidentPost.findInterventionRecord,
   interventionController.getSingleInterventionRecord,
 );
 
@@ -130,6 +141,7 @@ router.get(
 // API route to post single intervention record
 router.post(
   '/records/interventions',
+  verifyToken,
   checkIncidentPost.completeBody,
   interventionController.postSingleInterventionRecord,
 );
@@ -139,6 +151,7 @@ router.post(
 // API route to update a single intervention record location
 router.patch(
   '/records/interventions/:id/location',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
   checkIncidentPost.checkLocation,
@@ -148,6 +161,7 @@ router.patch(
 // API route to update a single intervention record comment
 router.patch(
   '/records/interventions/:id/comment',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
   checkIncidentPost.checkComment,
@@ -158,6 +172,7 @@ router.patch(
 // API route to update a single intervention record status
 router.patch(
   '/records/interventions/:id/status',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
   checkIncidentPost.checkUsernameAndPasswordMatch,
@@ -169,6 +184,7 @@ router.patch(
 // API route to delete a single intervention record
 router.delete(
   '/records/interventions/:id',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
   interventionController.deleteInterventionRecord,
@@ -177,6 +193,7 @@ router.delete(
 // API route to delete a single intervention record
 router.delete(
   '/records/interventions/:id',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
   interventionController.deleteInterventionRecord,

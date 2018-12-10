@@ -1,5 +1,5 @@
-import redFlagRecords from '../models/incidents';
 import db from '../database/main';
+import * as helpers from '../controllers/helpers';
 
 /**
  * @file This is the middleware file for validating
@@ -175,8 +175,7 @@ const checkComment = (req, res, next) => {
 async function checkUsernameAndPasswordMatch(req, res, next) {
   const queryUsername = req.body.username;
   const queryPassword = req.body.password;
-
-  const text = `SELECT * FROM users WHERE username = $1`;
+  const text = `SELECT * FROM users WHERE username = $1 `;
 
   try {
     const { rows } = await db.query(text, [queryUsername]);
@@ -189,11 +188,11 @@ async function checkUsernameAndPasswordMatch(req, res, next) {
         });
     }
 
-    if (rows[0].password !== queryPassword) {
-      return res.status(401)
+    if (!helpers.compareHashAndTextPassword(rows[0].password, queryPassword)) {
+      return res.status(404)
         .send({
-          status: 401,
-          error: 'Username and password do not match',
+          status: 404,
+          data: 'Username and password do not match',
         });
     }
   } catch (error) {

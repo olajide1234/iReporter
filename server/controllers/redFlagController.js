@@ -17,15 +17,15 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // Global constants
-const newID = ([...redFlagRecords.keys()].length + 1) || 1;
+// const newID = ([...redFlagRecords.keys()].length + 1) || 1;
 
 // // Get all Red-flag records
 
 async function getAllRedFlagRecords(req, res) {
-  const text = `SELECT * FROM incidents WHERE type = 'red-flag'`;
+  const text = `SELECT * FROM incidents WHERE type = 'red-flag' AND owner_id = $1`;
 
   try {
-    const { rows } = await db.query(text);
+    const { rows } = await db.query(text, [req.user.id]);
     return res.status(200)
       .send({
         status: 200,
@@ -41,6 +41,7 @@ async function postSingleRedFlagRecord(req, res) {
   const values = [
     // ID is auto generated sequence by db
     Date(),
+    req.user.id,
     req.body.createdBy,
     req.body.type,
     req.body.dateOfIncident,
@@ -53,8 +54,8 @@ async function postSingleRedFlagRecord(req, res) {
   ];
 
   const text = `INSERT INTO
-     incidents(createdOn, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
-     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+     incidents(createdOn, owner_id, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
+     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
      returning *`;
 
   try {
@@ -76,9 +77,9 @@ async function postSingleRedFlagRecord(req, res) {
 // // Get a single Red-flag record
 async function getSingleRedFlagRecord(req, res) {
   const queryId = parseInt(req.params.id, 10);
-  const text = `SELECT * FROM incidents WHERE type = 'red-flag' AND id = $1 `;
+  const text = `SELECT * FROM incidents WHERE type = 'red-flag' AND id = $1 AND owner_id = $2`;
   try {
-    const { rows } = await db.query(text, [queryId]);
+    const { rows } = await db.query(text, [queryId, req.user.id]);
     return res.status(200)
       .send({
         status: 200,
@@ -93,10 +94,11 @@ async function getSingleRedFlagRecord(req, res) {
 async function patchRedFlagRecordLocation(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedLocation = req.body.location;
-  const updateRedFlagRecord = `UPDATE incidents SET location=$2 WHERE id=$1 AND type = 'red-flag' returning *`;
+  const updateRedFlagRecord = `UPDATE incidents SET location=$2 WHERE id=$1 AND type = 'red-flag' AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedLocation,
+    req.user.id,
   ];
   try {
     const response = await db.query(updateRedFlagRecord, values);
@@ -117,10 +119,11 @@ async function patchRedFlagRecordLocation(req, res) {
 async function patchRedFlagRecordComment(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedComment = req.body.comment;
-  const updateRedFlagRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'red-flag' returning *`;
+  const updateRedFlagRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'red-flag' AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedComment,
+    req.user.id,
   ];
   try {
     const response = await db.query(updateRedFlagRecord, values);
@@ -141,10 +144,11 @@ async function patchRedFlagRecordComment(req, res) {
 async function patchRedFlagRecordStatus(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedStatus = req.body.status;
-  const updateRedFlagRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'red-flag' returning *`;
+  const updateRedFlagRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'red-flag' AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedStatus,
+    req.user.id,
   ];
   try {
     const response = await db.query(updateRedFlagRecord, values);
@@ -164,9 +168,9 @@ async function patchRedFlagRecordStatus(req, res) {
 // // Delete a single red-flag record
 async function deleteRedFlagRecord(req, res) {
   const queryId = parseInt(req.params.id, 10);
-  const text = `DELETE FROM incidents WHERE type = 'red-flag' AND id = $1 returning * `;
+  const text = `DELETE FROM incidents WHERE type = 'red-flag' AND id = $1 AND owner_id = $2 returning * `;
   try {
-    const { rows } = await db.query(text, [queryId]);
+    const { rows } = await db.query(text, [queryId, req.user.id]);
     return res.status(200)
       .send({
         status: 204,

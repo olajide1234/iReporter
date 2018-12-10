@@ -17,10 +17,10 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 // // Get all intervention records
 async function getAllInterventionRecords(req, res) {
-  const text = `SELECT * FROM incidents WHERE type = 'intervention'`;
+  const text = `SELECT * FROM incidents WHERE type = 'intervention' AND owner_id =$1`;
 
   try {
-    const { rows } = await db.query(text);
+    const { rows } = await db.query(text, [req.user.id]);
     return res.status(200)
       .send({
         status: 200,
@@ -36,6 +36,7 @@ async function postSingleInterventionRecord(req, res) {
   const values = [
     // ID is auto generated sequence by db
     Date(),
+    req.user.id,
     req.body.createdBy,
     req.body.type,
     req.body.dateOfIncident,
@@ -48,8 +49,8 @@ async function postSingleInterventionRecord(req, res) {
   ];
 
   const text = `INSERT INTO
-     incidents(createdOn, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
-     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+     incidents(createdOn, owner_id, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
+     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
      returning *`;
 
   try {
@@ -71,9 +72,9 @@ async function postSingleInterventionRecord(req, res) {
 // // Get a single intervention record
 async function getSingleInterventionRecord(req, res) {
   const queryId = parseInt(req.params.id, 10);
-  const text = `SELECT * FROM incidents WHERE type = 'intervention' AND id = $1 `;
+  const text = `SELECT * FROM incidents WHERE type = 'intervention' AND id = $1 AND owner_id = $2 `;
   try {
-    const { rows } = await db.query(text, [queryId]);
+    const { rows } = await db.query(text, [queryId, req.user.id]);
     return res.status(200)
       .send({
         status: 200,
@@ -88,10 +89,11 @@ async function getSingleInterventionRecord(req, res) {
 async function patchInterventionRecordLocation(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedLocation = req.body.location;
-  const updateInterventionRecord = `UPDATE incidents SET location=$2 WHERE id=$1 AND type = 'intervention' returning *`;
+  const updateInterventionRecord = `UPDATE incidents SET location=$2 WHERE id=$1 AND type = 'intervention' AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedLocation,
+    req.user.id,
   ];
   try {
     const response = await db.query(updateInterventionRecord, values);
@@ -112,10 +114,11 @@ async function patchInterventionRecordLocation(req, res) {
 async function patchInterventionRecordComment(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedComment = req.body.comment;
-  const updateInterventionRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'intervention' returning *`;
+  const updateInterventionRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'intervention' AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedComment,
+    req.user.id,
   ];
   try {
     const response = await db.query(updateInterventionRecord, values);
@@ -136,10 +139,11 @@ async function patchInterventionRecordComment(req, res) {
 async function patchInterventionRecordStatus(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedStatus = req.body.status;
-  const updateInterventionRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'intervention' returning *`;
+  const updateInterventionRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'intervention' AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedStatus,
+    req.user.id,
   ];
   try {
     const response = await db.query(updateInterventionRecord, values);
@@ -159,9 +163,9 @@ async function patchInterventionRecordStatus(req, res) {
 // // Delete a single intervention record
 async function deleteInterventionRecord(req, res) {
   const queryId = parseInt(req.params.id, 10);
-  const text = `DELETE FROM incidents WHERE type = 'intervention' AND id = $1 returning * `;
+  const text = `DELETE FROM incidents WHERE type = 'intervention' AND id = $1 AND owner_id = $2 returning * `;
   try {
-    const { rows } = await db.query(text, [queryId]);
+    const { rows } = await db.query(text, [queryId, req.user.id]);
     return res.status(200)
       .send({
         status: 204,
