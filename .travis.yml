@@ -6,7 +6,6 @@ services:
   - postgresql
 env:
   global:
-    - DATABASE_URL=postgres://postgres@localhost:5432/ireporter
     - CC_TEST_REPORTER_ID=034ace5e361c9479e0be470c2128c4f485802fa1816e45d72f91d6ac0088b7f8
 
 before_script:
