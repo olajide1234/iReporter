@@ -13,9 +13,14 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-  - psql -c 'create database ireporter;' -U postgres
-  - psql -c "CREATE USER me WITH PASSWORD 'olajide';" -U postgres
-  - psql -c 'CREATE TABLE
+  - psql postgres
+  - CREATE ROLE me WITH PASSWORD 'olajide'
+  - ALTER ROLE me CREATEDB;
+  - \q
+  - psql -d postgres -U me
+  - create database ireporter;
+  - \c ireporter
+  - CREATE TABLE
        users(
         id SERIAL PRIMARY KEY,
         firstname VARCHAR,
@@ -27,9 +32,9 @@ before_script:
         registered TIMESTAMP,
         isAdmin BOOL,
         password VARCHAR NOT NULL
-      );'
+      );
       
-  - psql -c 'CREATE TABLE
+  - CREATE TABLE
       incidents(
         id SERIAL PRIMARY KEY,
         owner_id INTEGER NOT NULL,
@@ -44,9 +49,11 @@ before_script:
         location VARCHAR,
         status VARCHAR,
         FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
-      );'
+      );
+  - \q
 
 script:
+ - npm test
  - nyc --reporter=lcov yarn run test
 
 after_script:
