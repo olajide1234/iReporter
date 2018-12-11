@@ -15,8 +15,36 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
   - psql -c 'create database ireporter;' -U postgres
-  - node db createIncidentTables
-  - node db createUserTables
+  - psql CREATE TABLE
+       users(
+        id SERIAL PRIMARY KEY,
+        firstname VARCHAR,
+        lastname VARCHAR,
+        othernames VARCHAR,
+        email VARCHAR UNIQUE NOT NULL,
+        phoneNumber BIGINT,
+        username VARCHAR UNIQUE NOT NULL,
+        registered TIMESTAMP,
+        isAdmin BOOL,
+        password VARCHAR NOT NULL
+      );
+      
+  - psql CREATE TABLE
+      incidents(
+        id SERIAL PRIMARY KEY,
+        owner_id INTEGER NOT NULL,
+        createdOn DATE DEFAULT CURRENT_DATE,
+        createdBy VARCHAR,
+        type VARCHAR,
+        dateOfIncident VARCHAR,
+        title VARCHAR,
+        comment VARCHAR,
+        images VARCHAR,
+        videos VARCHAR,
+        location VARCHAR,
+        status VARCHAR,
+        FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
+      );
 
 script:
  - nyc --reporter=lcov yarn run test
