@@ -84,6 +84,48 @@ const completeBody = (req, res, next) => {
   return next();
 };
 
+const checkRequestTypeIsRedFlag = (req, res, next) => {
+  let errorMessage;
+  if (!(req.body.type === 'red-flag')) {
+    errorMessage = {
+      status: 400,
+      error: 'Incident type can only be red-flag',
+    };
+  }
+
+  if (errorMessage) return res.status(errorMessage.status).send(errorMessage);
+
+  return next();
+};
+
+const checkRequestTypeIsIntervention = (req, res, next) => {
+  let errorMessage;
+  if (!(req.body.type === 'intervention')) {
+    errorMessage = {
+      status: 400,
+      error: 'Incident type can only be intervention',
+    };
+  }
+
+  if (errorMessage) return res.status(errorMessage.status).send(errorMessage);
+
+  return next();
+};
+
+const checkStatusChangeType = (req, res, next) => {
+  let errorMessage;
+  if (!(req.body.status === 'under-investigation' || req.body.status === 'rejected' || req.body.status === 'resolved')) {
+    errorMessage = {
+      status: 400,
+      error: 'Status can only be under-investigation, rejected or resolved',
+    };
+  }
+
+  if (errorMessage) return res.status(errorMessage.status).send(errorMessage);
+
+  return next();
+};
+
 const validID = (req, res, next) => {
   //  Check that a valid record id is supplied
   const requestId = parseInt(req.params.id, 10);
@@ -156,6 +198,21 @@ const checkLocation = (req, res, next) => {
   return next();
 };
 
+const checkStatus = (req, res, next) => {
+  let errorMessage;
+
+  if (!req.body.status) {
+    errorMessage = {
+      status: 400,
+      error: 'Include new status in body of request',
+    };
+  }
+
+  if (errorMessage) return res.status(errorMessage.status).send(errorMessage);
+
+  return next();
+};
+
 const checkComment = (req, res, next) => {
   let errorMessage;
 
@@ -189,9 +246,9 @@ async function checkUsernameAndPasswordMatch(req, res, next) {
     }
 
     if (!helpers.compareHashAndTextPassword(rows[0].password, queryPassword)) {
-      return res.status(404)
+      return res.status(400)
         .send({
-          status: 404,
+          status: 400,
           data: 'Username and password do not match',
         });
     }
@@ -203,12 +260,12 @@ async function checkUsernameAndPasswordMatch(req, res, next) {
 
 // // Check if admin
 async function isAdmin(req, res, next) {
-  const queryUsername = req.body.username;
+  const userId = req.user.id;
 
-  const text = `SELECT * FROM users WHERE username = $1`;
+  const text = `SELECT * FROM users WHERE id = $1`;
 
   try {
-    const { rows } = await db.query(text, [queryUsername]);
+    const { rows } = await db.query(text, [userId]);
     if (rows[0].isadmin === false) {
       return res.status(403)
         .send({
@@ -222,6 +279,21 @@ async function isAdmin(req, res, next) {
   return next();
 }
 
+
+//   check for valid email input
+
+const checkValidEmail = (req, res, next) => {
+  const { email } = req.body;
+  if (!(/\S+@\S+\.\S+/.test(email))) {
+    return res.status(400)
+      .send({
+        status: 400,
+        data: 'Please enter a valid email',
+      });
+  }
+  return next();
+};
+
 export {
   completeBody,
   validID,
@@ -231,4 +303,9 @@ export {
   checkComment,
   isAdmin,
   checkUsernameAndPasswordMatch,
+  checkRequestTypeIsRedFlag,
+  checkRequestTypeIsIntervention,
+  checkValidEmail,
+  checkStatusChangeType,
+  checkStatus,
 };

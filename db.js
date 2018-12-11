@@ -20,7 +20,7 @@ const createIncidentTables = () => {
       incidents(
         id SERIAL PRIMARY KEY,
         owner_id INTEGER NOT NULL,
-        createdOn VARCHAR,
+        createdOn DATE DEFAULT CURRENT_DATE,
         createdBy VARCHAR,
         type VARCHAR,
         dateOfIncident VARCHAR,
@@ -56,7 +56,7 @@ const createUserTables = () => {
         lastname VARCHAR,
         othernames VARCHAR,
         email VARCHAR UNIQUE NOT NULL,
-        phoneNumber INTEGER,
+        phoneNumber BIGINT,
         username VARCHAR UNIQUE NOT NULL,
         registered TIMESTAMP,
         isAdmin BOOL,
@@ -111,11 +111,22 @@ pool.on('remove', () => {
   process.exit(0);
 });
 
+
+const initializeDbForTest = () => {
+  dropIncidentTables();
+  dropUserTables();
+  createUserTables();
+  createIncidentTables();
+};
+
+
 module.exports = {
   createIncidentTables,
   createUserTables,
   dropIncidentTables,
   dropUserTables,
+  initializeDbForTest,
+
 };
 
 require('make-runnable');

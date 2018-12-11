@@ -14,12 +14,6 @@ function compareHashAndTextPassword(hashPassword, password) {
   return bcrypt.compareSync(password, hashPassword);
 }
 
-//   check for valid email input
-
-function checkValidEmail(email) {
-  return /\S+@\S+\.\S+/.test(email);
-}
-
 //  To generate new token
 
 function generateToken(id) {
@@ -30,6 +24,5 @@ function generateToken(id) {
 export {
   generateHashPassword,
   compareHashAndTextPassword,
-  checkValidEmail,
   generateToken,
 };

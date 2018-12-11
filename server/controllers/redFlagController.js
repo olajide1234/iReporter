@@ -40,7 +40,7 @@ async function getAllRedFlagRecords(req, res) {
 async function postSingleRedFlagRecord(req, res) {
   const values = [
     // ID is auto generated sequence by db
-    Date(),
+    req.body.date,
     req.user.id,
     req.body.createdBy,
     req.body.type,
@@ -127,9 +127,9 @@ async function patchRedFlagRecordComment(req, res) {
   ];
   try {
     const response = await db.query(updateRedFlagRecord, values);
-    return res.status(200)
+    return res.status(205)
       .send({
-        status: 200,
+        status: 205,
         data: [{
           id: response.rows[0].id,
           message: 'Updated red-flag record’s comment',
@@ -183,64 +183,6 @@ async function deleteRedFlagRecord(req, res) {
     return res.status(400).send(error);
   }
 }
-
-// // //  Update a record
-// const putRedFlagRecord = (req, res) => {
-//   const requestId = parseInt(req.params.id, 10);
-//   const recordFound = ([...redFlagRecords.keys()].includes(requestId)
-//   && redFlagRecords.get(requestId) !== null);
-//
-//   // Create new record if all parameters above are supplied and record not found
-//   if (!recordFound) {
-//     const newRecord = {
-//       id: newID,
-//       createdOn: Date(),
-//       createdBy: req.body.createdBy, // represents the user who created this record
-//       type: req.body.type, // [red-flag, intervention]
-//       dateOfIncident: req.body.dateOfIncident,
-//       title: req.body.title,
-//       comment: req.body.comment,
-//       images: req.body.images,
-//       videos: req.body.videos,
-//       location: req.body.location, // Lat Long coordinates
-//       status: 'draft', // [draft, under investigation, resolved, rejected]
-//     };
-//     redFlagRecords.set(newID, newRecord);
-//     return res.status(201).send({
-//       status: 201,
-//       data: [{
-//         id: newID,
-//         message: 'Created red-flag record',
-//         new_record: newRecord,
-//       }],
-//     });
-//   }
-//
-//   //  Or update record with details
-//   //  Update record with details
-//   const updatedRecord = {
-//     id: requestId,
-//     createdOn: Date(),
-//     createdBy: req.body.createdBy, // represents the user who created this record
-//     type: req.body.type, // [red-flag, intervention]
-//     dateOfIncident: req.body.dateOfIncident,
-//     title: req.body.title,
-//     comment: req.body.comment,
-//     images: req.body.images,
-//     videos: req.body.videos,
-//     location: req.body.location, // Lat Long coordinates
-//     status: 'draft', // [draft, under investigation, resolved, rejected]
-//   };
-//
-//   redFlagRecords.set(requestId, updatedRecord);
-//   return res.status(200).send({
-//     status: 200,
-//     data: [{
-//       id: requestId,
-//       message: 'Updated red-flag record successfully',
-//     }],
-//   });
-// };
 
 export {
   getAllRedFlagRecords,

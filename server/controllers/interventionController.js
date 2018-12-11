@@ -35,7 +35,7 @@ async function getAllInterventionRecords(req, res) {
 async function postSingleInterventionRecord(req, res) {
   const values = [
     // ID is auto generated sequence by db
-    Date(),
+    req.body.date,
     req.user.id,
     req.body.createdBy,
     req.body.type,
@@ -97,9 +97,9 @@ async function patchInterventionRecordLocation(req, res) {
   ];
   try {
     const response = await db.query(updateInterventionRecord, values);
-    return res.status(200)
+    return res.status(205)
       .send({
-        status: 200,
+        status: 205,
         data: [{
           id: response.rows[0].id,
           message: 'Updated intervention record’s location',
@@ -122,9 +122,9 @@ async function patchInterventionRecordComment(req, res) {
   ];
   try {
     const response = await db.query(updateInterventionRecord, values);
-    return res.status(200)
+    return res.status(205)
       .send({
-        status: 200,
+        status: 205,
         data: [{
           id: response.rows[0].id,
           message: 'Updated intervention record’s comment',

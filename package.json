@@ -4,7 +4,7 @@
   "description": "iReporter back-end",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit --require @babel/register",
+    "test": "mocha --recursive --exit --require @babel/register",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "start": "babel-node index.js",
     "localTest": "nyc --reporter=text --reporter=html mocha --exit --require @babel/register"

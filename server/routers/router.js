@@ -31,6 +31,7 @@ const router = express.Router();
 // API route to sign up
 router.post(
   '/auth/signup',
+  checkIncidentPost.checkValidEmail,
   userController.signUp,
 );
 
@@ -65,6 +66,7 @@ router.post(
   '/records/red-flags',
   verifyToken,
   checkIncidentPost.completeBody,
+  checkIncidentPost.checkRequestTypeIsRedFlag,
   redFlagController.postSingleRedFlagRecord,
 );
 
@@ -95,8 +97,9 @@ router.patch(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
-  checkIncidentPost.checkUsernameAndPasswordMatch,
+  checkIncidentPost.checkStatus,
   checkIncidentPost.isAdmin,
+  checkIncidentPost.checkStatusChangeType,
   redFlagController.patchRedFlagRecordStatus,
 );
 
@@ -143,6 +146,7 @@ router.post(
   '/records/interventions',
   verifyToken,
   checkIncidentPost.completeBody,
+  checkIncidentPost.checkRequestTypeIsIntervention,
   interventionController.postSingleInterventionRecord,
 );
 
@@ -175,20 +179,12 @@ router.patch(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
-  checkIncidentPost.checkUsernameAndPasswordMatch,
   checkIncidentPost.isAdmin,
+  checkIncidentPost.checkStatusChangeType,
   interventionController.patchInterventionRecordStatus,
 );
 
 // // DELETE Routes
-// API route to delete a single intervention record
-router.delete(
-  '/records/interventions/:id',
-  verifyToken,
-  checkIncidentPost.validID,
-  checkIncidentPost.findInterventionRecord,
-  interventionController.deleteInterventionRecord,
-);
 
 // API route to delete a single intervention record
 router.delete(
