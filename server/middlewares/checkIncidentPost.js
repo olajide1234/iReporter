@@ -116,7 +116,7 @@ const checkRequestTypeIsIntervention = (req, res, next) => {
 
 const checkStatusChangeType = (req, res, next) => {
   let errorMessage;
-  if (!(req.body.status === 'under-investigation' || req.body.status === 'rejected' || req.body.status === 'resolved')) {
+  if (!(req.body.status === 'under-investigation' || req.body.status === 'rejected' || req.body.status === 'resolved' || req.body.status === 'draft')) {
     errorMessage = {
       status: 400,
       error: 'Status can only be under-investigation, rejected or resolved',

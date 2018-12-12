@@ -78,7 +78,7 @@ describe('POST /api/v1/auth/signup', () => {
 describe('POST /api/v1/auth/signin', () => {
   it('Signin user successfully', (done) => {
     const signInData = {
-      username: 'testUser',
+      username: 'testuser',
       password: 'testPassword1@',
     };
 
@@ -97,7 +97,7 @@ describe('POST /api/v1/auth/signin', () => {
 
   it('Return wrong credentials complain', (done) => {
     const signInData = {
-      username: 'testUser',
+      username: 'testuser',
       password: 'wrongPassword',
     };
 
@@ -149,7 +149,7 @@ describe('POST /api/v1/records/red-flags', () => {
       createdBy: 'Tester',
       type: 'red-flag',
       dateOfIncident: '24 April 2020',
-      title: 'Abacha loot',
+      title: 'لوحة',
       comment: 'where is Abacha loot?',
       images: 'www.image.com',
       videos: 'www.location.com',
@@ -161,7 +161,7 @@ describe('POST /api/v1/records/red-flags', () => {
       .set('x-access-token', userToken)
       .send(record)
       .end((err, res) => {
-        expect(res.body.status).to.be.equal(400);
+        expect(res.status).to.be.equal(400);
         done(err);
       });
   });
@@ -589,7 +589,7 @@ describe('PATCH /api/v1/records/red-flags/:id/status', () => {
 
   it('Successfully update red-flag record status', (done) => {
     const newComment = {
-      status: 'under-investigation',
+      status: 'draft',
     };
 
     chai.request(app)
@@ -675,10 +675,10 @@ describe('POST /api/v1/records/interventions', () => {
       createdBy: 'Tester',
       type: 'intervention',
       dateOfIncident: '24 April 2017',
-      title: 'Abacha loot',
+      title: 'لوحة',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.image.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -1114,7 +1114,7 @@ describe('PATCH /api/v1/records/interventions/:id/status', () => {
 
   it('Successfully update intervention record status', (done) => {
     const newComment = {
-      status: 'under-investigation',
+      status: 'draft',
     };
 
     chai.request(app)
