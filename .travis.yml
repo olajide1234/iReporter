@@ -14,7 +14,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
   - psql -c 'create database ireporter;' -U postgres
-  - CREATE TABLE
+  - psql -c 'CREATE TABLE
        users(
         id SERIAL PRIMARY KEY,
         firstname VARCHAR,
@@ -26,9 +26,9 @@ before_script:
         registered TIMESTAMP,
         isAdmin BOOL,
         password VARCHAR NOT NULL
-      );
+      );'
       
-  - CREATE TABLE
+  - psql -c 'CREATE TABLE
       incidents(
         id SERIAL PRIMARY KEY,
         owner_id INTEGER NOT NULL,
@@ -43,7 +43,7 @@ before_script:
         location VARCHAR,
         status VARCHAR,
         FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
-      );
+      );'
       
 script:
  - nyc --reporter=lcov yarn run test
