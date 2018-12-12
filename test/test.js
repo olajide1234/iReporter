@@ -52,11 +52,11 @@ describe('POST /api/v1/auth/signup', () => {
       firstname: 'testFirstName',
       lastname: 'testLastName',
       othernames: 'testOtherNames',
-      email: 'test@test.com',
+      email: 'test@testt.com',
       phoneNumber: '08185334904',
-      username: 'testUser',
+      username: 'testUserr',
       isAdmin: true,
-      password: 'testPassword1@',
+      password: 'testPassword1@@',
     };
 
     chai.request(app)
@@ -78,8 +78,8 @@ describe('POST /api/v1/auth/signup', () => {
 describe('POST /api/v1/auth/signin', () => {
   it('Signin user successfully', (done) => {
     const signInData = {
-      username: 'testUser',
-      password: 'testPassword',
+      username: 'testUserr',
+      password: 'testPassword1@@',
     };
 
     chai.request(app)
@@ -119,11 +119,11 @@ describe('POST /api/v1/records/red-flags', () => {
     const record = {
       createdBy: 'Tester',
       type: 'red-flag',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -138,7 +138,7 @@ describe('POST /api/v1/records/red-flags', () => {
         expect(res.body.data[0].message).to.have.string('Created');
         expect(res.body.data[0].new_record.title).to.have.string('Abacha');
         expect(res.body.data[0].new_record.comment).to.have.string('where');
-        expect(res.body.data[0].new_record.images).to.have.string('image-location.cm');
+        expect(res.body.data[0].new_record.images).to.have.string('www.image.cm');
         done(err);
       });
   });
@@ -146,13 +146,13 @@ describe('POST /api/v1/records/red-flags', () => {
   it('Return server error', (done) => {
     const record = {
       date: 'non-date-entry',
-      createdBy: true,
+      createdBy: 'Tester',
       type: 'red-flag',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -161,7 +161,7 @@ describe('POST /api/v1/records/red-flags', () => {
       .set('x-access-token', userToken)
       .send(record)
       .end((err, res) => {
-        expect(res.status).to.be.equal(400);
+        expect(res.body.status).to.be.equal(400);
         done(err);
       });
   });
@@ -170,11 +170,11 @@ describe('POST /api/v1/records/red-flags', () => {
     const record = {
       //  createdBy: 'Test',
       type: 'red-flag',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -195,11 +195,11 @@ describe('POST /api/v1/records/red-flags', () => {
     const record = {
       createdBy: 'Test',
       //  type: 'Red-flag',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -220,11 +220,11 @@ describe('POST /api/v1/records/red-flags', () => {
     const record = {
       createdBy: 'Test',
       type: 'red-flag',
-      //  dateOfIncident: '24 April 2017',
+      //  dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -245,11 +245,11 @@ describe('POST /api/v1/records/red-flags', () => {
     const record = {
       createdBy: 'Test',
       type: 'red-flag',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       //  title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -270,11 +270,11 @@ describe('POST /api/v1/records/red-flags', () => {
     const record = {
       createdBy: 'Test',
       type: 'red-flag',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       //  comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -295,11 +295,11 @@ describe('POST /api/v1/records/red-flags', () => {
     const record = {
       createdBy: 'Test',
       type: 'red-flag',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      //  images: 'image-location.cm',
-      videos: 'video-location,cm',
+      //  images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -320,11 +320,11 @@ describe('POST /api/v1/records/red-flags', () => {
     const record = {
       createdBy: 'Test',
       type: 'red-flag',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      //  videos: 'video-location,cm',
+      images: 'www.image.com',
+      //  videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -345,11 +345,11 @@ describe('POST /api/v1/records/red-flags', () => {
     const record = {
       createdBy: 'Test',
       type: 'red-flag',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       // location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -370,11 +370,11 @@ describe('POST /api/v1/records/red-flags', () => {
     const record = {
       createdBy: 'Test',
       type: 'red-flag',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575',
       status: 'draft',
     };
@@ -476,20 +476,6 @@ describe('PATCH /api/v1/records/red-flags/:id/location', () => {
       });
   });
 
-  // it('Return server error', (done) => {
-  //   const newLocation = {
-  //     location: 'រៀfន',
-  //   };
-  //
-  //   chai.request(app)
-  //     .patch('/api/v1/records/red-flags/1/location')
-  //     .set('x-access-token', userToken)
-  //     .send(newLocation)
-  //     .end((err, res) => {
-  //       expect(res.status).to.be.equal(400);
-  //       done(err);
-  //     });
-  // });
 
   it('Successfully update red-flag record location', (done) => {
     const newLocation = {
@@ -659,11 +645,11 @@ describe('POST /api/v1/records/interventions', () => {
     const record = {
       createdBy: 'Tester',
       type: 'intervention',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -686,7 +672,7 @@ describe('POST /api/v1/records/interventions', () => {
   it('Return server error', (done) => {
     const record = {
       date: 'non-date-entry',
-      createdBy: true,
+      createdBy: 'Tester',
       type: 'intervention',
       dateOfIncident: '24 April 2017',
       title: 'Abacha loot',
@@ -710,11 +696,11 @@ describe('POST /api/v1/records/interventions', () => {
     const record = {
       //  createdBy: 'Test',
       type: 'intervention',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -735,11 +721,11 @@ describe('POST /api/v1/records/interventions', () => {
     const record = {
       createdBy: 'Test',
       //  type: 'intervention',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -760,11 +746,11 @@ describe('POST /api/v1/records/interventions', () => {
     const record = {
       createdBy: 'Test',
       type: 'intervention',
-      //  dateOfIncident: '24 April 2017',
+      //  dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -785,11 +771,11 @@ describe('POST /api/v1/records/interventions', () => {
     const record = {
       createdBy: 'Test',
       type: 'intervention',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       //  title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -810,11 +796,11 @@ describe('POST /api/v1/records/interventions', () => {
     const record = {
       createdBy: 'Test',
       type: 'intervention',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       //  comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -835,11 +821,11 @@ describe('POST /api/v1/records/interventions', () => {
     const record = {
       createdBy: 'Test',
       type: 'intervention',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      //  images: 'image-location.cm',
-      videos: 'video-location,cm',
+      //  images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -860,11 +846,11 @@ describe('POST /api/v1/records/interventions', () => {
     const record = {
       createdBy: 'Test',
       type: 'intervention',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      //  videos: 'video-location,cm',
+      images: 'www.image.com',
+      //  videos: 'www.location.com',
       location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -885,11 +871,11 @@ describe('POST /api/v1/records/interventions', () => {
     const record = {
       createdBy: 'Test',
       type: 'intervention',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       // location: 'long -14131, lat 6575', // Lat Long coordinates
     };
 
@@ -910,11 +896,11 @@ describe('POST /api/v1/records/interventions', () => {
     const record = {
       createdBy: 'Test',
       type: 'intervention',
-      dateOfIncident: '24 April 2017',
+      dateOfIncident: '24 April 2020',
       title: 'Abacha loot',
       comment: 'where is Abacha loot?',
-      images: 'image-location.cm',
-      videos: 'video-location,cm',
+      images: 'www.image.com',
+      videos: 'www.location.com',
       location: 'long -14131, lat 6575',
       status: 'draft',
     };
@@ -1015,21 +1001,6 @@ describe('PATCH /api/v1/records/interventions/:id/location', () => {
         done(err);
       });
   });
-
-  // it('Return server error', (done) => {
-  //   const newLocation = {
-  //     location: 'រៀfន',
-  //   };
-  //
-  //   chai.request(app)
-  //     .patch('/api/v1/records/interventions/1/location')
-  //     .set('x-access-token', userToken)
-  //     .send(newLocation)
-  //     .end((err, res) => {
-  //       expect(res.status).to.be.equal(400);
-  //       done(err);
-  //     });
-  // });
 
   it('Successfully update intervention record location', (done) => {
     const newLocation = {
