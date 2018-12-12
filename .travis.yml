@@ -13,13 +13,7 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-  - psql postgres
-  - CREATE ROLE me WITH PASSWORD 'olajide'
-  - ALTER ROLE me CREATEDB;
-  - \q
-  - psql -d postgres -U me
-  - create database ireporter;
-  - \c ireporter
+  - psql -c 'create database ireporter;' -U postgres
   - CREATE TABLE
        users(
         id SERIAL PRIMARY KEY,
@@ -50,10 +44,8 @@ before_script:
         status VARCHAR,
         FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
       );
-  - \q
-
+      
 script:
- - npm test
  - nyc --reporter=lcov yarn run test
 
 after_script:
