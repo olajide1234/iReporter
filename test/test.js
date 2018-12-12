@@ -56,7 +56,7 @@ describe('POST /api/v1/auth/signup', () => {
       phoneNumber: '08185334904',
       username: 'testUser',
       isAdmin: true,
-      password: 'testPassword',
+      password: 'testPassword1@',
     };
 
     chai.request(app)
