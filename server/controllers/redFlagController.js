@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import es6mapimplement from 'es6-map/implement'; // eslint-disable-line no-unused-vars
-import redFlagRecords from '../models/incidents';
 import db from '../database/main';
 
 const router = express.Router();
@@ -42,13 +41,13 @@ async function postSingleRedFlagRecord(req, res) {
     // ID is auto generated sequence by db
     req.body.date,
     req.user.id,
-    req.body.createdBy,
+    req.body.createdBy.trim(),
     req.body.type,
     req.body.dateOfIncident,
-    req.body.title,
-    req.body.comment,
-    req.body.images,
-    req.body.videos,
+    req.body.title.trim(),
+    req.body.comment.trim(),
+    req.body.images.trim(),
+    req.body.videos.trim(),
     req.body.location,
     'draft',
   ];
@@ -118,7 +117,7 @@ async function patchRedFlagRecordLocation(req, res) {
 // // Patch a red-flag record comment
 async function patchRedFlagRecordComment(req, res) {
   const requestId = parseInt(req.params.id, 10);
-  const updatedComment = req.body.comment;
+  const updatedComment = req.body.comment.trim();
   const updateRedFlagRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'red-flag' AND owner_id = $3 returning *`;
   const values = [
     requestId,

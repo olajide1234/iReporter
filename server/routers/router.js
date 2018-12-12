@@ -16,22 +16,26 @@ const router = express.Router();
  * @param {object} res
  */
 
-// // Welcome
-// const welcomeMessage = (req, res) => {
-//   const welcome = 'Welcome to Andela Bootcamp iReporter Project API, you can view the documentation here: https://olajideireporter.docs.apiary.io/';
-//   res.status(200).send({
-//     status: 200,
-//     data: welcome,
-//   });
-// };
-//
-// router.get('/', welcomeMessage);
+// Welcome
+const welcomeMessage = (req, res) => {
+  const welcome = 'Welcome to Andela Bootcamp iReporter Project API, you can view the documentation here: https://olajideireporter.docs.apiary.io/';
+  res.status(200).send({
+    status: 200,
+    data: welcome,
+  });
+};
+
+router.get('/', welcomeMessage);
 
 // user Routes
 // API route to sign up
 router.post(
   '/auth/signup',
+  checkIncidentPost.completeSignUpBody,
+  checkIncidentPost.checkUsernameExists,
+  checkIncidentPost.checkEmailExists,
   checkIncidentPost.checkValidEmail,
+  checkIncidentPost.checkValidPassword,
   userController.signUp,
 );
 
@@ -77,6 +81,7 @@ router.patch(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   checkIncidentPost.checkLocation,
   redFlagController.patchRedFlagRecordLocation,
 );
@@ -87,6 +92,7 @@ router.patch(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   checkIncidentPost.checkComment,
   redFlagController.patchRedFlagRecordComment,
 );
@@ -103,14 +109,6 @@ router.patch(
   redFlagController.patchRedFlagRecordStatus,
 );
 
-// // PUT Routes
-//  API route to update a single Red-flag record
-// router.put(
-//   '/records/red-flags/:id',
-//   checkIncidentPost.validID,
-//   checkIncidentPost.completeBody,
-//   redFlagController.putRedFlagRecord,
-// );
 
 // // DELETE Routes
 // API route to delete a single Red-flag record
@@ -119,6 +117,7 @@ router.delete(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   redFlagController.deleteRedFlagRecord,
 );
 
@@ -158,6 +157,7 @@ router.patch(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   checkIncidentPost.checkLocation,
   interventionController.patchInterventionRecordLocation,
 );
@@ -168,6 +168,7 @@ router.patch(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   checkIncidentPost.checkComment,
   interventionController.patchInterventionRecordComment,
 );
@@ -192,6 +193,7 @@ router.delete(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   interventionController.deleteInterventionRecord,
 );
 

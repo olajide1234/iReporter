@@ -1,6 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+/**
+ * @file This is the primary helper file for
+ * authentication
+ */
 
 //  To generate hash password
 

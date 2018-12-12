@@ -37,13 +37,13 @@ async function postSingleInterventionRecord(req, res) {
     // ID is auto generated sequence by db
     req.body.date,
     req.user.id,
-    req.body.createdBy,
+    req.body.createdBy.trim(),
     req.body.type,
     req.body.dateOfIncident,
-    req.body.title,
-    req.body.comment,
-    req.body.images,
-    req.body.videos,
+    req.body.title.trim(),
+    req.body.comment.trim(),
+    req.body.images.trim(),
+    req.body.videos.trim(),
     req.body.location,
     'draft',
   ];
@@ -113,7 +113,7 @@ async function patchInterventionRecordLocation(req, res) {
 // // Patch an intervention record comment
 async function patchInterventionRecordComment(req, res) {
   const requestId = parseInt(req.params.id, 10);
-  const updatedComment = req.body.comment;
+  const updatedComment = req.body.comment.trim();
   const updateInterventionRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'intervention' AND owner_id = $3 returning *`;
   const values = [
     requestId,
@@ -178,63 +178,7 @@ async function deleteInterventionRecord(req, res) {
     return res.status(400).send(error);
   }
 }
-// // //  Update a record
-// const putRedFlagRecord = (req, res) => {
-//   const requestId = parseInt(req.params.id, 10);
-//   const recordFound = ([...redFlagRecords.keys()].includes(requestId)
-//   && redFlagRecords.get(requestId) !== null);
-//
-//   // Create new record if all parameters above are supplied and record not found
-//   if (!recordFound) {
-//     const newRecord = {
-//       id: newID,
-//       createdOn: Date(),
-//       createdBy: req.body.createdBy, // represents the user who created this record
-//       type: req.body.type, // [red-flag, intervention]
-//       dateOfIncident: req.body.dateOfIncident,
-//       title: req.body.title,
-//       comment: req.body.comment,
-//       images: req.body.images,
-//       videos: req.body.videos,
-//       location: req.body.location, // Lat Long coordinates
-//       status: 'draft', // [draft, under investigation, resolved, rejected]
-//     };
-//     redFlagRecords.set(newID, newRecord);
-//     return res.status(201).send({
-//       status: 201,
-//       data: [{
-//         id: newID,
-//         message: 'Created red-flag record',
-//         new_record: newRecord,
-//       }],
-//     });
-//   }
-//
-//   //  Or update record with details
-//   //  Update record with details
-//   const updatedRecord = {
-//     id: requestId,
-//     createdOn: Date(),
-//     createdBy: req.body.createdBy, // represents the user who created this record
-//     type: req.body.type, // [red-flag, intervention]
-//     dateOfIncident: req.body.dateOfIncident,
-//     title: req.body.title,
-//     comment: req.body.comment,
-//     images: req.body.images,
-//     videos: req.body.videos,
-//     location: req.body.location, // Lat Long coordinates
-//     status: 'draft', // [draft, under investigation, resolved, rejected]
-//   };
-//
-//   redFlagRecords.set(requestId, updatedRecord);
-//   return res.status(200).send({
-//     status: 200,
-//     data: [{
-//       id: requestId,
-//       message: 'Updated red-flag record successfully',
-//     }],
-//   });
-// };
+
 
 export {
   postSingleInterventionRecord,

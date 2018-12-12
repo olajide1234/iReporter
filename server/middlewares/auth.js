@@ -30,6 +30,12 @@ async function verifyToken(req, res, next) {
     req.user = { id: decoded.userId };
     next();
   } catch (error) {
+    if (error.message === 'invalid signature') {
+      return res.status(400).send({
+        status: 400,
+        error: 'Please use a correct token string',
+      });
+    }
     return res.status(400).send(error);
   }
 }

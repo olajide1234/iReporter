@@ -1,7 +1,8 @@
+
 import express from 'express';
 import bodyParser from 'body-parser';
 import db from '../database/main';
-import * as helpers from './helpers';
+import { generateHashPassword, generateToken } from './helpers';
 
 const router = express.Router();
 /**
@@ -17,16 +18,16 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 // Create new user - sign up
 async function signUp(req, res) {
-  const hashPassword = helpers.generateHashPassword(req.body.password);
+  const hashPassword = generateHashPassword(req.body.password.trim());
 
   const values = [
     // ID is auto-generated sequence by DB
-    req.body.firstname,
-    req.body.lastname,
-    req.body.othernames,
-    req.body.email,
-    req.body.phoneNumber,
-    req.body.username,
+    req.body.firstname.trim(),
+    req.body.lastname.trim(),
+    req.body.othernames.trim(),
+    req.body.email.trim(),
+    req.body.phoneNumber.trim(),
+    req.body.username.trim().toLowerCase(),
     req.body.date,
     req.body.isAdmin,
     hashPassword,
@@ -39,7 +40,7 @@ async function signUp(req, res) {
 
   try {
     const { rows } = await db.query(text, values);
-    const userToken = helpers.generateToken(rows[0].id);
+    const userToken = generateToken(rows[0].id);
     return res.status(201)
       .send({
         status: 201,
@@ -57,14 +58,14 @@ async function signUp(req, res) {
   }
 }
 
-// // Returning user sign in
+// Returning user sign in
 async function signIn(req, res) {
-  const queryUsername = req.body.username;
+  const queryUsername = req.body.username.trim();
   const text = `SELECT * FROM users WHERE username = $1`;
 
   try {
     const { rows } = await db.query(text, [queryUsername]);
-    const userToken = helpers.generateToken(rows[0].id);
+    const userToken = generateToken(rows[0].id);
     return res.status(200)
       .send({
         status: 200,

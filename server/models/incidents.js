@@ -1,3 +1,6 @@
+// File is redundant and will be deleted
+
+
 // const redFlagRecords = new Map([
 //   [1, {
 //     id: 1,
