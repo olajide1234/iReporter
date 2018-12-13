@@ -47,7 +47,7 @@ async function postSingleInterventionRecord(req, res) {
     // ID is auto generated sequence by db
     req.user.id,
     req.user.id,
-    req.body.type,
+    'intervention',
     req.body.dateOfIncident,
     req.body.title,
     req.body.comment,

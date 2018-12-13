@@ -49,7 +49,7 @@ async function postSingleRedFlagRecord(req, res) {
     // ID is auto generated sequence by db
     req.user.id,
     req.user.id,
-    req.body.type,
+    'red-flag',
     req.body.dateOfIncident,
     req.body.title,
     req.body.comment,

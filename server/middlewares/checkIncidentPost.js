@@ -15,11 +15,6 @@ import { compareHashAndTextPassword } from '../controllers/helpers';
 const completeBody = (req, res, next) => {
   let errorMessage = [];
 
-  if (!req.body.type) {
-    errorMessage.push('Include record type as type in body of request, alphabets only');
-  }
-
-
   if ((!req.body.dateOfIncident) || !(validator.isISO8601(req.body.dateOfIncident))) {
     errorMessage.push('Include valid date as date of incident as YYYY-MM-DD in body of request');
   }
