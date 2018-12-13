@@ -69,7 +69,6 @@ router.post(
   '/records/red-flags',
   verifyToken,
   checkIncidentPost.completeBody,
-  checkIncidentPost.checkRequestTypeIsRedFlag,
   redFlagController.postSingleRedFlagRecord,
 );
 
@@ -144,7 +143,6 @@ router.post(
   '/records/interventions',
   verifyToken,
   checkIncidentPost.completeBody,
-  checkIncidentPost.checkRequestTypeIsIntervention,
   interventionController.postSingleInterventionRecord,
 );
 
