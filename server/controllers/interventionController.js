@@ -17,10 +17,10 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 // // Get all intervention records
 async function getAllInterventionRecords(req, res) {
-  const text = `SELECT * FROM incidents WHERE type = 'intervention'`;
+  const text = `SELECT * FROM incidents WHERE type = 'intervention' AND owner_id =$1`;
 
   try {
-    const { rows } = await db.query(text);
+    const { rows } = await db.query(text, [req.user.id]);
     return res.status(200)
       .send({
         status: 200,
@@ -35,21 +35,22 @@ async function getAllInterventionRecords(req, res) {
 async function postSingleInterventionRecord(req, res) {
   const values = [
     // ID is auto generated sequence by db
-    Date(),
-    req.body.createdBy,
+    req.body.date,
+    req.user.id,
+    req.body.createdBy.trim(),
     req.body.type,
     req.body.dateOfIncident,
-    req.body.title,
-    req.body.comment,
-    req.body.images,
-    req.body.videos,
+    req.body.title.trim(),
+    req.body.comment.trim(),
+    req.body.images.trim(),
+    req.body.videos.trim(),
     req.body.location,
     'draft',
   ];
 
   const text = `INSERT INTO
-     incidents(createdOn, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
-     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+     incidents(createdOn, owner_id, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
+     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
      returning *`;
 
   try {
@@ -71,9 +72,9 @@ async function postSingleInterventionRecord(req, res) {
 // // Get a single intervention record
 async function getSingleInterventionRecord(req, res) {
   const queryId = parseInt(req.params.id, 10);
-  const text = `SELECT * FROM incidents WHERE type = 'intervention' AND id = $1 `;
+  const text = `SELECT * FROM incidents WHERE type = 'intervention' AND id = $1 AND owner_id = $2 `;
   try {
-    const { rows } = await db.query(text, [queryId]);
+    const { rows } = await db.query(text, [queryId, req.user.id]);
     return res.status(200)
       .send({
         status: 200,
@@ -88,16 +89,17 @@ async function getSingleInterventionRecord(req, res) {
 async function patchInterventionRecordLocation(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedLocation = req.body.location;
-  const updateInterventionRecord = `UPDATE incidents SET location=$2 WHERE id=$1 AND type = 'intervention' returning *`;
+  const updateInterventionRecord = `UPDATE incidents SET location=$2 WHERE id=$1 AND type = 'intervention' AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedLocation,
+    req.user.id,
   ];
   try {
     const response = await db.query(updateInterventionRecord, values);
-    return res.status(200)
+    return res.status(205)
       .send({
-        status: 200,
+        status: 205,
         data: [{
           id: response.rows[0].id,
           message: 'Updated intervention record’s location',
@@ -111,17 +113,18 @@ async function patchInterventionRecordLocation(req, res) {
 // // Patch an intervention record comment
 async function patchInterventionRecordComment(req, res) {
   const requestId = parseInt(req.params.id, 10);
-  const updatedComment = req.body.comment;
-  const updateInterventionRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'intervention' returning *`;
+  const updatedComment = req.body.comment.trim();
+  const updateInterventionRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'intervention' AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedComment,
+    req.user.id,
   ];
   try {
     const response = await db.query(updateInterventionRecord, values);
-    return res.status(200)
+    return res.status(205)
       .send({
-        status: 200,
+        status: 205,
         data: [{
           id: response.rows[0].id,
           message: 'Updated intervention record’s comment',
@@ -136,10 +139,11 @@ async function patchInterventionRecordComment(req, res) {
 async function patchInterventionRecordStatus(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedStatus = req.body.status;
-  const updateInterventionRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'intervention' returning *`;
+  const updateInterventionRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'intervention' AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedStatus,
+    req.user.id,
   ];
   try {
     const response = await db.query(updateInterventionRecord, values);
@@ -159,9 +163,9 @@ async function patchInterventionRecordStatus(req, res) {
 // // Delete a single intervention record
 async function deleteInterventionRecord(req, res) {
   const queryId = parseInt(req.params.id, 10);
-  const text = `DELETE FROM incidents WHERE type = 'intervention' AND id = $1 returning * `;
+  const text = `DELETE FROM incidents WHERE type = 'intervention' AND id = $1 AND owner_id = $2 returning * `;
   try {
-    const { rows } = await db.query(text, [queryId]);
+    const { rows } = await db.query(text, [queryId, req.user.id]);
     return res.status(200)
       .send({
         status: 204,
@@ -174,63 +178,7 @@ async function deleteInterventionRecord(req, res) {
     return res.status(400).send(error);
   }
 }
-// // //  Update a record
-// const putRedFlagRecord = (req, res) => {
-//   const requestId = parseInt(req.params.id, 10);
-//   const recordFound = ([...redFlagRecords.keys()].includes(requestId)
-//   && redFlagRecords.get(requestId) !== null);
-//
-//   // Create new record if all parameters above are supplied and record not found
-//   if (!recordFound) {
-//     const newRecord = {
-//       id: newID,
-//       createdOn: Date(),
-//       createdBy: req.body.createdBy, // represents the user who created this record
-//       type: req.body.type, // [red-flag, intervention]
-//       dateOfIncident: req.body.dateOfIncident,
-//       title: req.body.title,
-//       comment: req.body.comment,
-//       images: req.body.images,
-//       videos: req.body.videos,
-//       location: req.body.location, // Lat Long coordinates
-//       status: 'draft', // [draft, under investigation, resolved, rejected]
-//     };
-//     redFlagRecords.set(newID, newRecord);
-//     return res.status(201).send({
-//       status: 201,
-//       data: [{
-//         id: newID,
-//         message: 'Created red-flag record',
-//         new_record: newRecord,
-//       }],
-//     });
-//   }
-//
-//   //  Or update record with details
-//   //  Update record with details
-//   const updatedRecord = {
-//     id: requestId,
-//     createdOn: Date(),
-//     createdBy: req.body.createdBy, // represents the user who created this record
-//     type: req.body.type, // [red-flag, intervention]
-//     dateOfIncident: req.body.dateOfIncident,
-//     title: req.body.title,
-//     comment: req.body.comment,
-//     images: req.body.images,
-//     videos: req.body.videos,
-//     location: req.body.location, // Lat Long coordinates
-//     status: 'draft', // [draft, under investigation, resolved, rejected]
-//   };
-//
-//   redFlagRecords.set(requestId, updatedRecord);
-//   return res.status(200).send({
-//     status: 200,
-//     data: [{
-//       id: requestId,
-//       message: 'Updated red-flag record successfully',
-//     }],
-//   });
-// };
+
 
 export {
   postSingleInterventionRecord,

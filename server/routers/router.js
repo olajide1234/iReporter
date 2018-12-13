@@ -4,6 +4,7 @@ import * as redFlagController from '../controllers/redFlagController';
 import * as interventionController from '../controllers/interventionController';
 
 import * as userController from '../controllers/userController';
+import verifyToken from '../middlewares/auth';
 
 const router = express.Router();
 
@@ -15,21 +16,26 @@ const router = express.Router();
  * @param {object} res
  */
 
-// // Welcome
-// const welcomeMessage = (req, res) => {
-//   const welcome = 'Welcome to Andela Bootcamp iReporter Project API, you can view the documentation here: https://olajideireporter.docs.apiary.io/';
-//   res.status(200).send({
-//     status: 200,
-//     data: welcome,
-//   });
-// };
-//
-// router.get('/', welcomeMessage);
+// Welcome
+const welcomeMessage = (req, res) => {
+  const welcome = 'Welcome to Andela Bootcamp iReporter Project API, you can view the documentation here: https://olajideireporter.docs.apiary.io/';
+  res.status(200).send({
+    status: 200,
+    data: welcome,
+  });
+};
+
+router.get('/', welcomeMessage);
 
 // user Routes
 // API route to sign up
 router.post(
   '/auth/signup',
+  checkIncidentPost.completeSignUpBody,
+  checkIncidentPost.checkUsernameExists,
+  checkIncidentPost.checkEmailExists,
+  checkIncidentPost.checkValidEmail,
+  checkIncidentPost.checkValidPassword,
   userController.signUp,
 );
 
@@ -45,12 +51,14 @@ router.post(
 // API route to get all Red-flag records
 router.get(
   '/records/red-flags',
+  verifyToken,
   redFlagController.getAllRedFlagRecords,
 );
 
 //  API route to get single Red-flag record
 router.get(
   '/records/red-flags/:id',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
   redFlagController.getSingleRedFlagRecord,
@@ -60,7 +68,9 @@ router.get(
 // API route to post a single Red-flag record
 router.post(
   '/records/red-flags',
+  verifyToken,
   checkIncidentPost.completeBody,
+  checkIncidentPost.checkRequestTypeIsRedFlag,
   redFlagController.postSingleRedFlagRecord,
 );
 
@@ -68,8 +78,10 @@ router.post(
 // API route to update a single Red-flag record location
 router.patch(
   '/records/red-flags/:id/location',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   checkIncidentPost.checkLocation,
   redFlagController.patchRedFlagRecordLocation,
 );
@@ -77,8 +89,10 @@ router.patch(
 // API route to update a single Red-flag record comment
 router.patch(
   '/records/red-flags/:id/comment',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   checkIncidentPost.checkComment,
   redFlagController.patchRedFlagRecordComment,
 );
@@ -86,28 +100,24 @@ router.patch(
 // API route to update a single red-flag record status
 router.patch(
   '/records/red-flags/:id/status',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
-  checkIncidentPost.checkUsernameAndPasswordMatch,
+  checkIncidentPost.checkStatus,
   checkIncidentPost.isAdmin,
+  checkIncidentPost.checkStatusChangeType,
   redFlagController.patchRedFlagRecordStatus,
 );
 
-// // PUT Routes
-//  API route to update a single Red-flag record
-// router.put(
-//   '/records/red-flags/:id',
-//   checkIncidentPost.validID,
-//   checkIncidentPost.completeBody,
-//   redFlagController.putRedFlagRecord,
-// );
 
 // // DELETE Routes
 // API route to delete a single Red-flag record
 router.delete(
   '/records/red-flags/:id',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   redFlagController.deleteRedFlagRecord,
 );
 
@@ -116,13 +126,16 @@ router.delete(
 //  API route to get all intervention record
 router.get(
   '/records/interventions',
+  verifyToken,
   interventionController.getAllInterventionRecords,
 );
 
 //  API route to get single intervention record
 router.get(
   '/records/interventions/:id',
+  verifyToken,
   checkIncidentPost.validID,
+  checkIncidentPost.findInterventionRecord,
   interventionController.getSingleInterventionRecord,
 );
 
@@ -130,7 +143,9 @@ router.get(
 // API route to post single intervention record
 router.post(
   '/records/interventions',
+  verifyToken,
   checkIncidentPost.completeBody,
+  checkIncidentPost.checkRequestTypeIsIntervention,
   interventionController.postSingleInterventionRecord,
 );
 
@@ -139,8 +154,10 @@ router.post(
 // API route to update a single intervention record location
 router.patch(
   '/records/interventions/:id/location',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   checkIncidentPost.checkLocation,
   interventionController.patchInterventionRecordLocation,
 );
@@ -148,8 +165,10 @@ router.patch(
 // API route to update a single intervention record comment
 router.patch(
   '/records/interventions/:id/comment',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   checkIncidentPost.checkComment,
   interventionController.patchInterventionRecordComment,
 );
@@ -158,27 +177,23 @@ router.patch(
 // API route to update a single intervention record status
 router.patch(
   '/records/interventions/:id/status',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
-  checkIncidentPost.checkUsernameAndPasswordMatch,
   checkIncidentPost.isAdmin,
+  checkIncidentPost.checkStatusChangeType,
   interventionController.patchInterventionRecordStatus,
 );
 
 // // DELETE Routes
-// API route to delete a single intervention record
-router.delete(
-  '/records/interventions/:id',
-  checkIncidentPost.validID,
-  checkIncidentPost.findInterventionRecord,
-  interventionController.deleteInterventionRecord,
-);
 
 // API route to delete a single intervention record
 router.delete(
   '/records/interventions/:id',
+  verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
+  checkIncidentPost.checkIfCurrentStatusIsDraft,
   interventionController.deleteInterventionRecord,
 );
 
