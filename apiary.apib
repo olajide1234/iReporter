@@ -14,23 +14,24 @@ Users can also report on things that needs government intervention.
 
 The API interface always returns a status code in the body of the response and additional data or error message.
 
-#### These are the allowed HTTP requests: 
+#### Allowed HTTP requests 
 
 - POST: To create a resource
 - GET: Get a resource or list of resources
 - DELETE: To delete resource
-- PUT: To completely update a resource or create a new one where resource does not exist
 - PATCH: To partially update a resource
 
-#### Expected server responses:
+#### Expected server responses
 
 - 200 `OK` - the request was successful.
 - 201 `Created` - the request was successful and a resource was created.
+- 205 `Updated` - the request was successful and a resource was updated.
 - 400 `Bad Request` - the request could not be understood or was missing required parameters.
 - 403 `Forbidden` - user does not have permissions for requested operation.
 - 404 `Not Found` - resource was not found.
+- 500 `Server error` - error with the server.
 
-## Welcome messages [/records]
+## Welcome messages [/]
 
 ### API welcome message [GET]
 
@@ -43,25 +44,113 @@ This displays the API welcome message.
             "data": "Welcome to Andela Bootcamp iReporter Project API"
         }
 
-## Create new Red-flag record and get all records [/records/red-flags]
+## Create new user [/auth/signup]
 
-### Create a single Red-flag record [POST]
+### Signup [POST]
 
-This allows you to create a new Red-flag record. Record IDs are automaically assigned and returned in body of response. 
-All information listed in the body of the request (e.g. createdBy, dateOfIncident, etc.) are required.
+This endpoint allows you to signup a new user. All fields specified in the test are required
+except 'othernames' and "PhoneNumber". Please use a new username and email in test to create a new account.
 
 + Request (application/json)
 
         {
-            "createdBy": "Tester 1",
-            "type": "Red-flag",
-            "dateOfIncident" : "1 April 2018",
-            "title": "Atikulate or Buharify",
-            "comment": "Should I Atikulate or Buharify?",
-            "images": "testimage.cn",
-            "videos": "testvideo.cn",
-            "location": "Abuja" 
+            "firstname": "Olajide",
+            "lastname": "Ayinla",
+            "othernames": "Tolani",
+            "email": "ayinlaolajide@yahoo.com",
+            "phoneNumber": "08185334904",
+            "username": "olajideayinla",
+            "password": "tolanI1@",
+            "isAdmin": "true"
         }
+
++ Response 201 (application/json)
+
+        {
+            "status": 201,
+            "data": [
+                {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY0Nzg5OSwiZXhwIjoxNTQ1MjUyNjk5fQ.zC2g-B80GTCdi5JVBsI3JvzipzWYxMQNLcPkuJlMVFo",
+                    "user": {
+                        "id": 9,
+                        "firstname": "Olajide",
+                        "lastname": "Ayinla",
+                        "othernames": "Tolani",
+                        "email": "ayinlaolajide@yahoo.com",
+                        "phonenumber": "8185334904",
+                        "username": "olajideayinla",
+                        "registered": null,
+                        "isadmin": true,
+                        "password": "$2b$08$oSS0l.m0KA7c7iz4Ub1/ue.i/6KrgT8GT5n4hKF53jcLTrZDe28iC"
+                    }
+                }
+            ]
+        }
+
+
+## Signin returning user [/auth/signin]
+
+### Signin [POST]
+
+This endpoint allows you to signin a returning user. Only the username and password is required.
+Please use the returned token as authentication header for all subsequent requests.
+
++ Request (application/json)
+
+        {
+            "username": "olajideayinla",
+            "password": "tolanI1@"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "status": 200pd,
+            "data": [
+                {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY0Nzg5OSwiZXhwIjoxNTQ1MjUyNjk5fQ.zC2g-B80GTCdi5JVBsI3JvzipzWYxMQNLcPkuJlMVFo",
+                    "user": {
+                        "id": 9,
+                        "firstname": "Olajide",
+                        "lastname": "Ayinla",
+                        "othernames": "Tolani",
+                        "email": "ayinlaolajide@yahoo.com",
+                        "phonenumber": "8185334904",
+                        "username": "olajideayinla",
+                        "registered": null,
+                        "isadmin": true,
+                        "password": "$2b$08$oSS0l.m0KA7c7iz4Ub1/ue.i/6KrgT8GT5n4hKF53jcLTrZDe28iC"
+                    }
+                }
+            ]
+        }
+
+## Create and get routes for red-flag records [/records/red-flags]
+
+### Create a single red-flag record [POST]
+
+This allows you to create a new red-flag record. Record IDs are automatically assigned and returned in body of response. 
+All information listed in the body of the request (e.g. createdBy, dateOfIncident, etc.) are required.
+
++ Request (application/json)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+        
+    + Body
+    
+            {
+                "createdBy": "Tester 1",
+                "type": "red-flag",
+                "dateOfIncident" : "1 April 2020",
+                "title": "Atikulate or Buharify",
+                "comment": "Should I Atikulate or Buharify?",
+                "images": "www.testimage.com",
+                "videos": "www.testvideo.com",
+                "location": "Abuja" 
+            }
+        
 
 + Response 200 (application/json)
 
@@ -69,18 +158,18 @@ All information listed in the body of the request (e.g. createdBy, dateOfInciden
             "status": 201,
             "data": [
                 {
-                "id": 2,
+                "id": $,
                 "message": "Created red-flag record",
                 "new_record": {
-                    "id": 2,
-                    "createdOn": "Thu Dec 06 2018 03:06:08 GMT+0000 (Coordinated Universal Time)",
+                    "id": $,
+                    "createdOn": "Timestamp",
                     "createdBy": "Tester 1",
-                    "type": "Red-flag",
-                    "dateOfIncident": "1 April 2018",
+                    "type": "red-flag",
+                    "dateOfIncident": "1 April 2020",
                     "title": "Atikulate or Buharify",
                     "comment": "Should I Atikulate or Buharify?",
-                    "images": "testimage.cn",
-                    "videos": "testvideo.cn",
+                    "images": "www.testimage.com",
+                    "videos": "www.testvideo.com",
                     "location": "Abuja",
                     "status": "draft"
                 }
@@ -89,40 +178,54 @@ All information listed in the body of the request (e.g. createdBy, dateOfInciden
         }
  
 
-### Get all Red-flag records [GET]
+### Get all red-flag records [GET]
 
-This fetches all Red-flag records available.
+This fetches all red-flag records available.
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+
 
 + Response 200 (application/json)
 
         {
-            "status":200,   
-            "data"  : [
-                { 
-                    "id":1,
-                    "createdOn":"Sample date",
-                    "createdBy":"Sample Creator",
-                    "type":"Sample record type",
-                    "dateOfIncident":"Sample date",
-                    "title":"Sample title",
-                    "comment":"Sample comment",
-                    "Images":["Sample Image"],
-                    "Videos":["Sample Video"],
-                    "location":"Sample record location",
-                    "status":"Sample status"
-                }   
+            "status": 201,
+            "data": [
+                {
+                "id": $,
+                "message": "Created red-flag record",
+                "new_record": {
+                    "id": $,
+                    "createdOn": "Timestamp",
+                    "createdBy": "Tester 1",
+                    "type": "red-flag",
+                    "dateOfIncident": "1 April 2020",
+                    "title": "Atikulate or Buharify",
+                    "comment": "Should I Atikulate or Buharify?",
+                    "images": "www.testimage.com",
+                    "videos": "www.testvideo.com",
+                    "location": "Abuja",
+                    "status": "draft"
+                }
+                }
             ]
         }
-
    
-## Get and edit individual Red-flag records [/records/red-flags/{id}]
+## Get and edit single red-flag records [/records/red-flags/{id}]
 
-### Get a single Red-flag record [GET]
+### Get a single red-flag record [GET]
 
-This fetches an individual Red-flag record specified by ID.
-ID parameter is important, please specify under URI parameters. 
+This fetches an individual red-flag record specified by ID.
+ID parameter is important, please specify under URI parameters. User can only fetch records created by him/her. 
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
 
     + Parameters
 
@@ -151,10 +254,15 @@ ID parameter is important, please specify under URI parameters.
 
 ### Delete a single red-flag record [DELETE]
 
-This deletes an individual Red-flag record specified by ID.
-ID parameter is important, please specify under URI parameters. 
+This deletes an individual red-flag record specified by ID.
+ID parameter is important, please specify under URI parameters.
+Only records yet to be designated as under-invetigation, resolved or rejected can be deleted.
 
-+ Request (application/json)
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
 
     + Parameters
 
@@ -163,58 +271,22 @@ ID parameter is important, please specify under URI parameters.
 + Response 200 (application/json)
 
         {
-            "status": 200,   
+            "status": 204,   
             "message" : "No content: Red-flag record has been deleted"
         } 
     
-    
-### Update a single Red-flag records [PUT]
+## Edit individual red-flag record location [/records/red-flags/{id}/location]
+### Update a red-flag record location [PATCH]
 
-- This updates an individual Red-flag record or creates a new one where record does not exist.
-- ID parameter is important, please specify under URI parameters. 
-- Record IDs are automaically assigned and returned in body of response for newly created records 
-- All information listed in the body of the request (e.g. createdBy, dateOfIncident, etc.) are required.
-- This method cannot be used to updated record status as only admins can do this.
-
-+ Request (application/json)
-
-    + Parameters
-
-         + id: 100 (required, number)
-    
-    + Body
-
-            {
-                "createdBy": "Tester 1",
-                "type" : "Red-flag",
-                "dateOfIncident" : "Updated date: 1 jan 2017",
-                "title": "Updated title: Atikulate or Buharify",
-                "comment": "Updated comment: Should I Atikulate or Buharify?",
-                "images": "Updated: testimage.cn",
-                "videos": "Updated: testvideo.cn",
-                "location": "Updated: Abuja"
-            }
-
-+ Response 200 (application/json)
-
-        {
-            "status":200,   
-            "data"  : [
-                { 
-                    "id":$,
-                    "message":"Created: Created red-flag record"
-                }   
-            ]
-        }
-
-## Edit individual Red-flag record location [/records/red-flags/{id}/location]
-### Update a Red-flag record location [PATCH]
-
-This updates a specified Red-flag record's location. 
+This updates a specified red-flag record's location. 
 ID parameter is important, please specify under URI parameters. 
 
 + Request (application/json)
 
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+        
     + Parameters
 
      + id: 1 (required, number)
@@ -228,7 +300,7 @@ ID parameter is important, please specify under URI parameters.
 + Response 200 (application/json)
 
         {
-            "status":200,   
+            "status":205,   
             "data"  : [
                 { 
                     "id" : $,
@@ -237,13 +309,17 @@ ID parameter is important, please specify under URI parameters.
             ]
         } 
 
-## Edit individual Red-flag record comment [/records/red-flags/{id}/comment]
-### Update a Red-flag record comments [PATCH]
+## Edit individual red-flag record comment [/records/red-flags/{id}/comment]
+### Update a red-flag record comments [PATCH]
 
 This updates a specified Red-flag record's location.
 ID parameter is important, please specify under URI parameters. 
 
 + Request (application/json)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
 
     + Parameters
 
@@ -258,11 +334,302 @@ ID parameter is important, please specify under URI parameters.
 + Response 200 (application/json)
 
         {
-            "status": 200,   
+            "status": 205,   
             "data"  : [
                 { 
                     "id" : 1,
                     "message" : "Updated red-flag record's comment"
+                }   
+            ]
+        }
+
+## Edit individual red-flag record's status [/records/red-flags/{id}/status]
+### Update a red-flag record's status [PATCH]
+
+This updates a specified red-flag record's status.
+ID parameter is important, please specify under URI parameters. 
+Only admins have access to this route
+
++ Request (application/json)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+
+    + Parameters
+
+     + id: 1 (required, number)
+    
+    + Body
+    
+            {
+                "status": "under-investigation"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 205,   
+            "data"  : [
+                { 
+                    "id" : 1,
+                    "message" : "Updated red-flag record's status"
+                }   
+            ]
+        }    
+
+
+
+
+## Create and get routes for intervention records [/records/interventions]
+
+### Create a single intervention record [POST]
+
+This allows you to create a new intervention record. Record IDs are automatically assigned and returned in body of response. 
+All information listed in the body of the request (e.g. createdBy, dateOfIncident, etc.) are required.
+
++ Request (application/json)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+        
+    + Body
+    
+            {
+                "createdBy": "Tester 2",
+                "type": "intervention",
+                "dateOfIncident" : "1 April 2020",
+                "title": "Ikorodu road",
+                "comment": "Please fix ikorodu road",
+                "images": "www.testimage.com",
+                "videos": "www.testvideo.com",
+                "location": "Abuja" 
+            }
+        
+
++ Response 200 (application/json)
+
+        {
+            "status": 201,
+            "data": [
+                {
+                "id": $,
+                "message": "Created intervention record",
+                "new_record": {
+                    "id": $,
+                    "createdOn": "Timestamp",
+                    "createdBy": "Tester 1",
+                    "type": "red-flag",
+                    "dateOfIncident": "1 April 2020",
+                    "title": "Ikorodu road",
+                    "comment": "Please fix ikorodu road",
+                    "images": "www.testimage.com",
+                    "videos": "www.testvideo.com",
+                    "location": "Abuja",
+                    "status": "draft"
+                }
+                }
+            ]
+        }
+ 
+
+### Get all intervention records [GET]
+
+This fetches all intervention records available.
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+
+
++ Response 200 (application/json)
+
+        {
+            "status": 201,
+            "data": [
+                {
+                "id": $,
+                "message": "Created red-flag record",
+                "new_record": {
+                    "id": $,
+                    "createdOn": "Timestamp",
+                    "createdBy": "Tester 1",
+                    "type": "red-flag",
+                    "dateOfIncident": "1 April 2020",
+                    "title": "Atikulate or Buharify",
+                    "comment": "Should I Atikulate or Buharify?",
+                    "images": "www.testimage.com",
+                    "videos": "www.testvideo.com",
+                    "location": "Abuja",
+                    "status": "draft"
+                }
+                }
+            ]
+        }
+   
+## Get and edit single intervention record [/records/interventions/{id}]
+
+### Get a single intervention record [GET]
+
+This fetches an individual intervention record specified by ID.
+ID parameter is important, please specify under URI parameters. User can only fetch records created by him/her. 
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+
+    + Parameters
+
+     + id: 1 (required, number)
+
++ Response 200 (application/json)
+
+        {
+            "status":200,   
+            "data"  : [
+                { 
+                    "id":1,
+                    "createdOn":"Sample date",
+                    "createdBy":"Sample Creator",
+                    "type":"Sample record type",
+                    "dateOfIncident":"Sample date",
+                    "title":"Sample title",
+                    "comment":"Sample comment",
+                    "Images":["Sample Image"],
+                    "Videos":["Sample Video"],
+                    "location":"Sample record location",
+                    "status":"Sample status"
+                }   
+            ]
+        } 
+
+### Delete a single intervention record [DELETE]
+
+This deletes an individual intervention record specified by ID.
+ID parameter is important, please specify under URI parameters.
+Only records yet to be designated as under-invetigation, resolved or rejected can be deleted.
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+
+    + Parameters
+
+     + id: 2 (required, number)
+
++ Response 200 (application/json)
+
+        {
+            "status": 204,   
+            "message" : "No content: Intervention record has been deleted"
+        } 
+    
+## Edit individual individual record location [/records/interventions/{id}/location]
+### Update an intervention record location [PATCH]
+
+This updates a specified intervention record's location. 
+ID parameter is important, please specify under URI parameters. 
+
++ Request (application/json)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+        
+    + Parameters
+
+     + id: 1 (required, number)
+    
+    + Body
+    
+            {
+                "location" : "Sambisa forest"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status":205,   
+            "data"  : [
+                { 
+                    "id" : $,
+                    "message" : "Updated intervention record's location",
+                }   
+            ]
+        } 
+
+## Edit individual intervention record comment [/records/interventions/{id}/comment]
+### Update a intervention record comments [PATCH]
+
+This updates a specified intervention record's location.
+ID parameter is important, please specify under URI parameters. 
+
++ Request (application/json)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+
+    + Parameters
+
+     + id: 1 (required, number)
+    
+    + Body
+    
+            {
+                "comment": "Gandollar is real!"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 205,   
+            "data"  : [
+                { 
+                    "id" : 1,
+                    "message" : "Updated red-flag record's comment"
+                }   
+            ]
+        }
+
+## Edit individual intervention record's status [/records/interventions/{id}/status]
+### Update a intervention record's status [PATCH]
+
+This updates a specified intervention record's status.
+ID parameter is important, please specify under URI parameters. 
+Only admins have access to this route
+
++ Request (application/json)
+
+    + Headers
+        
+            x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU0NDY5NDU4NCwiZXhwIjoxNTQ1Mjk5Mzg0fQ.S_9xCP6RccomVyVeLCxnFp5XvyLiju7EaVDLAlgQaYs  
+
+    + Parameters
+
+     + id: 1 (required, number)
+    
+    + Body
+    
+            {
+                "status": "under-investigation"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "status": 205,   
+            "data"  : [
+                { 
+                    "id" : 1,
+                    "message" : "Updated intervention record's status"
                 }   
             ]
         }
