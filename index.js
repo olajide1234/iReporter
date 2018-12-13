@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import nodemailer from 'nodemailer';
 
 /**
  * This is the prmary application file
@@ -12,6 +13,15 @@ import bodyParser from 'body-parser';
  *
  */
 
+// Setup nodemailer
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'andelatester@gmail.com',
+    pass: 'andelatester1@',
+  },
+});
 
 //  Set up the express app
 const app = express();

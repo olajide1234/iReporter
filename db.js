@@ -58,7 +58,7 @@ const createUserTables = () => {
         email VARCHAR UNIQUE NOT NULL,
         phoneNumber BIGINT,
         username VARCHAR UNIQUE NOT NULL,
-        registered TIMESTAMP,
+        registered DATE DEFAULT CURRENT_DATE,
         isAdmin BOOL,
         password VARCHAR NOT NULL
       )`;

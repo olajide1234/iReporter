@@ -34,14 +34,13 @@ router.post(
   checkIncidentPost.completeSignUpBody,
   checkIncidentPost.checkUsernameExists,
   checkIncidentPost.checkEmailExists,
-  checkIncidentPost.checkValidEmail,
-  checkIncidentPost.checkValidPassword,
   userController.signUp,
 );
 
 // API route to sign in
 router.post(
   '/auth/signin',
+  checkIncidentPost.completeSignInBody,
   checkIncidentPost.checkUsernameAndPasswordMatch,
   userController.signIn,
 );
@@ -81,7 +80,7 @@ router.patch(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
-  checkIncidentPost.checkIfCurrentStatusIsDraft,
+  checkIncidentPost.checkIfCurrentStatusIsPending,
   checkIncidentPost.checkLocation,
   redFlagController.patchRedFlagRecordLocation,
 );
@@ -92,7 +91,7 @@ router.patch(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
-  checkIncidentPost.checkIfCurrentStatusIsDraft,
+  checkIncidentPost.checkIfCurrentStatusIsPending,
   checkIncidentPost.checkComment,
   redFlagController.patchRedFlagRecordComment,
 );
@@ -117,7 +116,7 @@ router.delete(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findRedFlagRecord,
-  checkIncidentPost.checkIfCurrentStatusIsDraft,
+  checkIncidentPost.checkIfCurrentStatusIsPending,
   redFlagController.deleteRedFlagRecord,
 );
 
@@ -157,7 +156,7 @@ router.patch(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
-  checkIncidentPost.checkIfCurrentStatusIsDraft,
+  checkIncidentPost.checkIfCurrentStatusIsPending,
   checkIncidentPost.checkLocation,
   interventionController.patchInterventionRecordLocation,
 );
@@ -168,7 +167,7 @@ router.patch(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
-  checkIncidentPost.checkIfCurrentStatusIsDraft,
+  checkIncidentPost.checkIfCurrentStatusIsPending,
   checkIncidentPost.checkComment,
   interventionController.patchInterventionRecordComment,
 );
@@ -193,7 +192,7 @@ router.delete(
   verifyToken,
   checkIncidentPost.validID,
   checkIncidentPost.findInterventionRecord,
-  checkIncidentPost.checkIfCurrentStatusIsDraft,
+  checkIncidentPost.checkIfCurrentStatusIsPending,
   interventionController.deleteInterventionRecord,
 );
 

@@ -1,7 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import es6mapimplement from 'es6-map/implement'; // eslint-disable-line no-unused-vars
+import transporter from 'nodemailer';
 import db from '../database/main';
+
 
 const router = express.Router();
 /**
@@ -21,13 +22,22 @@ async function getAllInterventionRecords(req, res) {
 
   try {
     const { rows } = await db.query(text, [req.user.id]);
+
+    if (!rows.length) {
+      return res.status(200)
+        .send({
+          status: 200,
+          error: 'No records yet',
+        });
+    }
+
     return res.status(200)
       .send({
         status: 200,
         data: rows,
       });
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(500).send(error);
   }
 }
 
@@ -35,22 +45,21 @@ async function getAllInterventionRecords(req, res) {
 async function postSingleInterventionRecord(req, res) {
   const values = [
     // ID is auto generated sequence by db
-    req.body.date,
     req.user.id,
-    req.body.createdBy.trim(),
+    req.user.id,
     req.body.type,
     req.body.dateOfIncident,
-    req.body.title.trim(),
-    req.body.comment.trim(),
-    req.body.images.trim(),
-    req.body.videos.trim(),
+    req.body.title,
+    req.body.comment,
+    req.body.images,
+    req.body.videos,
     req.body.location,
-    'draft',
+    'pending',
   ];
 
   const text = `INSERT INTO
-     incidents(createdOn, owner_id, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
-     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+     incidents(owner_id, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
+     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
      returning *`;
 
   try {
@@ -65,7 +74,7 @@ async function postSingleInterventionRecord(req, res) {
         }],
       });
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(500).send(error);
   }
 }
 
@@ -81,7 +90,7 @@ async function getSingleInterventionRecord(req, res) {
         data: rows,
       });
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(500).send(error);
   }
 }
 
@@ -106,14 +115,14 @@ async function patchInterventionRecordLocation(req, res) {
         }],
       });
   } catch (err) {
-    return res.status(400).send(err);
+    return res.status(500).send(err);
   }
 }
 
 // // Patch an intervention record comment
 async function patchInterventionRecordComment(req, res) {
   const requestId = parseInt(req.params.id, 10);
-  const updatedComment = req.body.comment.trim();
+  const updatedComment = req.body.comment;
   const updateInterventionRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'intervention' AND owner_id = $3 returning *`;
   const values = [
     requestId,
@@ -131,7 +140,7 @@ async function patchInterventionRecordComment(req, res) {
         }],
       });
   } catch (err) {
-    return res.status(400).send(err);
+    return res.status(500).send(err);
   }
 }
 
@@ -139,14 +148,23 @@ async function patchInterventionRecordComment(req, res) {
 async function patchInterventionRecordStatus(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedStatus = req.body.status;
-  const updateInterventionRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'intervention' AND owner_id = $3 returning *`;
+  const updateInterventionRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'intervention' returning *`;
   const values = [
     requestId,
     updatedStatus,
-    req.user.id,
   ];
   try {
     const response = await db.query(updateInterventionRecord, values);
+
+    // const mailOptions = {
+    //   from: 'andelatester@gmail.com',
+    //   to: 'ayinlaolajide@gmail.com',
+    //   subject: 'iReporter: Admin has updated your status', // Subject line
+    //   html: 'Hooray! The admin at iReporter has updated the status of your record',
+    // };
+    //
+    // transporter.sendMail(mailOptions);
+
     return res.status(200)
       .send({
         status: 200,
@@ -156,7 +174,7 @@ async function patchInterventionRecordStatus(req, res) {
         }],
       });
   } catch (err) {
-    return res.status(400).send(err);
+    return res.status(500).send(err);
   }
 }
 
@@ -175,7 +193,7 @@ async function deleteInterventionRecord(req, res) {
         }],
       });
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(500).send(error);
   }
 }
 

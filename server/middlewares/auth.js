@@ -28,6 +28,7 @@ async function verifyToken(req, res, next) {
       });
     }
     req.user = { id: decoded.userId };
+    req.username = (rows[0].username);
     next();
   } catch (error) {
     if (error.message === 'invalid signature') {

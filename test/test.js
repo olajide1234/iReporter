@@ -376,7 +376,7 @@ describe('POST /api/v1/records/red-flags', () => {
       images: 'www.image.com',
       videos: 'www.location.com',
       location: 'long -14131, lat 6575',
-      status: 'draft',
+      status: 'pending',
     };
 
 
@@ -589,7 +589,7 @@ describe('PATCH /api/v1/records/red-flags/:id/status', () => {
 
   it('Successfully update red-flag record status', (done) => {
     const newComment = {
-      status: 'draft',
+      status: 'pending',
     };
 
     chai.request(app)
@@ -902,7 +902,7 @@ describe('POST /api/v1/records/interventions', () => {
       images: 'www.image.com',
       videos: 'www.location.com',
       location: 'long -14131, lat 6575',
-      status: 'draft',
+      status: 'pending',
     };
 
 
@@ -1114,7 +1114,7 @@ describe('PATCH /api/v1/records/interventions/:id/status', () => {
 
   it('Successfully update intervention record status', (done) => {
     const newComment = {
-      status: 'draft',
+      status: 'pending',
     };
 
     chai.request(app)

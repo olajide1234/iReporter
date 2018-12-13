@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import es6mapimplement from 'es6-map/implement'; // eslint-disable-line no-unused-vars
 import db from '../database/main';
 
 const router = express.Router();
@@ -25,13 +24,22 @@ async function getAllRedFlagRecords(req, res) {
 
   try {
     const { rows } = await db.query(text, [req.user.id]);
+
+    if (!rows.length) {
+      return res.status(200)
+        .send({
+          status: 200,
+          error: 'No records yet',
+        });
+    }
+
     return res.status(200)
       .send({
         status: 200,
         data: rows,
       });
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(500).send(error);
   }
 }
 
@@ -39,22 +47,21 @@ async function getAllRedFlagRecords(req, res) {
 async function postSingleRedFlagRecord(req, res) {
   const values = [
     // ID is auto generated sequence by db
-    req.body.date,
     req.user.id,
-    req.body.createdBy.trim(),
+    req.user.id,
     req.body.type,
     req.body.dateOfIncident,
-    req.body.title.trim(),
-    req.body.comment.trim(),
-    req.body.images.trim(),
-    req.body.videos.trim(),
+    req.body.title,
+    req.body.comment,
+    req.body.images,
+    req.body.videos,
     req.body.location,
-    'draft',
+    'pending',
   ];
 
   const text = `INSERT INTO
-     incidents(createdOn, owner_id, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
-     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+     incidents(owner_id, createdBy, type, dateOfIncident, title, comment, images, videos, location, status)
+     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
      returning *`;
 
   try {
@@ -69,7 +76,7 @@ async function postSingleRedFlagRecord(req, res) {
         }],
       });
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(500).send(error);
   }
 }
 
@@ -85,7 +92,7 @@ async function getSingleRedFlagRecord(req, res) {
         data: rows,
       });
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(500).send(error);
   }
 }
 
@@ -110,14 +117,14 @@ async function patchRedFlagRecordLocation(req, res) {
         }],
       });
   } catch (err) {
-    return res.status(400).send(err);
+    return res.status(500).send(err);
   }
 }
 
 // // Patch a red-flag record comment
 async function patchRedFlagRecordComment(req, res) {
   const requestId = parseInt(req.params.id, 10);
-  const updatedComment = req.body.comment.trim();
+  const updatedComment = req.body.comment;
   const updateRedFlagRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'red-flag' AND owner_id = $3 returning *`;
   const values = [
     requestId,
@@ -135,7 +142,7 @@ async function patchRedFlagRecordComment(req, res) {
         }],
       });
   } catch (err) {
-    return res.status(400).send(err);
+    return res.status(500).send(err);
   }
 }
 
@@ -143,11 +150,10 @@ async function patchRedFlagRecordComment(req, res) {
 async function patchRedFlagRecordStatus(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedStatus = req.body.status;
-  const updateRedFlagRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'red-flag' AND owner_id = $3 returning *`;
+  const updateRedFlagRecord = `UPDATE incidents SET status=$2 WHERE id=$1 AND type = 'red-flag' returning *`;
   const values = [
     requestId,
     updatedStatus,
-    req.user.id,
   ];
   try {
     const response = await db.query(updateRedFlagRecord, values);
@@ -160,7 +166,7 @@ async function patchRedFlagRecordStatus(req, res) {
         }],
       });
   } catch (err) {
-    return res.status(400).send(err);
+    return res.status(500).send(err);
   }
 }
 
@@ -179,7 +185,7 @@ async function deleteRedFlagRecord(req, res) {
         }],
       });
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(500).send(error);
   }
 }
 
