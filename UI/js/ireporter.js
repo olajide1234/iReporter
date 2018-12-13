@@ -35,11 +35,10 @@ function redirectToDraftRecords () {
 //  Submission of forms
 
 function redFlagSubmission () {
-  document.getElementsByClassName('autolocate_button')[0].style.visibility = 'hidden';
   document.getElementsByClassName('container_form container_form_red-flag container_form_red-flag--redflagform')[0].innerHTML = 'Your record is successfully submitted, you will now be automatically redirected to view the record.';
   setTimeout(function () {
     window.location.href = 'single_draft_record.html'
-  }, 5000);
+  }, 2000);
 }
 //maps
 
