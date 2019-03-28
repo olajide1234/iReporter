@@ -15,6 +15,9 @@ import bodyParser from 'body-parser';
 
 //  Set up the express app
 const app = express();
+var cors = require('cors');
+app.options('*', cors());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const router = require('./server/routers/router');
