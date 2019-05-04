@@ -46,6 +46,68 @@ router.post(
   userController.signIn,
 );
 
+// General routes
+router.get(
+  '/records/:id',
+  verifyToken,
+  checkIncidentPost.validID,
+  checkIncidentPost.findRecord,
+  redFlagController.getSingleRecord,
+);
+
+router.get(
+  '/records',
+  redFlagController.getAllRecords,
+);
+
+router.get(
+  '/stats/rfdr',
+  verifyToken,
+  redFlagController.getRfDrStats,
+);
+
+router.get(
+  '/stats/rfrs',
+  verifyToken,
+  redFlagController.getRfRsStats,
+);
+
+router.get(
+  '/stats/rfiv',
+  verifyToken,
+  redFlagController.getRfIvStats,
+);
+
+router.get(
+  '/stats/rfrj',
+  verifyToken,
+  redFlagController.getRfRjStats,
+);
+
+router.get(
+  '/stats/indr',
+  verifyToken,
+  redFlagController.getInDrStats,
+);
+
+router.get(
+  '/stats/iniv',
+  verifyToken,
+  redFlagController.getInIvStats,
+);
+
+router.get(
+  '/stats/inrj',
+  verifyToken,
+  redFlagController.getInRjStats,
+);
+
+router.get(
+  '/stats/inrs',
+  verifyToken,
+  redFlagController.getInRsStats,
+);
+
 // Red-flag routes
 // // GET Routes:
 // API route to get all Red-flag records
@@ -77,24 +139,24 @@ router.post(
 // // PATCH Routes:
 // API route to update a single Red-flag record location
 router.patch(
-  '/records/red-flags/:id/location',
+  '/records/:id/location',
   verifyToken,
   checkIncidentPost.validID,
-  checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.findRecord,
   checkIncidentPost.checkIfCurrentStatusIsDraft,
   checkIncidentPost.checkLocation,
-  redFlagController.patchRedFlagRecordLocation,
+  redFlagController.patchRecordLocation,
 );
 
 // API route to update a single Red-flag record comment
 router.patch(
-  '/records/red-flags/:id/comment',
+  '/records/:id/comment',
   verifyToken,
   checkIncidentPost.validID,
-  checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.findRecord,
   checkIncidentPost.checkIfCurrentStatusIsDraft,
   checkIncidentPost.checkComment,
-  redFlagController.patchRedFlagRecordComment,
+  redFlagController.patchRecordComment,
 );
 
 // API route to update a single red-flag record status
@@ -113,12 +175,12 @@ router.patch(
 // // DELETE Routes
 // API route to delete a single Red-flag record
 router.delete(
-  '/records/red-flags/:id',
+  '/records/:id',
   verifyToken,
   checkIncidentPost.validID,
-  checkIncidentPost.findRedFlagRecord,
+  checkIncidentPost.findRecord,
   checkIncidentPost.checkIfCurrentStatusIsDraft,
-  redFlagController.deleteRedFlagRecord,
+  redFlagController.deleteRecord,
 );
 
 // Intervention Routes

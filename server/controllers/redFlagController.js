@@ -35,6 +35,127 @@ async function getAllRedFlagRecords(req, res) {
   }
 }
 
+async function getRfDrStats(req, res) {
+  const text = `SELECT COUNT (id) FROM incidents WHERE type='red-flag' AND owner_id = $1 AND status = 'draft'`;
+
+  try {
+    const { rows } = await db.query(text, [req.user.id]);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
+async function getRfRsStats(req, res) {
+  const text = `SELECT COUNT (id) FROM incidents WHERE type='red-flag' AND owner_id = $1 AND status = 'resolved'`;
+
+  try {
+    const { rows } = await db.query(text, [req.user.id]);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
+async function getRfIvStats(req, res) {
+  const text = `SELECT COUNT (id) FROM incidents WHERE type='red-flag' AND owner_id = $1 AND status = 'under-investigation'`;
+
+  try {
+    const { rows } = await db.query(text, [req.user.id]);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
+async function getRfRjStats(req, res) {
+  const text = `SELECT COUNT (id) FROM incidents WHERE type='red-flag' AND owner_id = $1 AND status = 'rejected'`;
+
+  try {
+    const { rows } = await db.query(text, [req.user.id]);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
+
+async function getInDrStats(req, res) {
+  const text = `SELECT COUNT (id) FROM incidents WHERE type='intervention' AND owner_id = $1 AND status = 'draft'`;
+
+  try {
+    const { rows } = await db.query(text, [req.user.id]);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
+async function getInRsStats(req, res) {
+  const text = `SELECT COUNT (id) FROM incidents WHERE type='intervention' AND owner_id = $1 AND status = 'resolved'`;
+
+  try {
+    const { rows } = await db.query(text, [req.user.id]);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
+async function getInIvStats(req, res) {
+  const text = `SELECT COUNT (id) FROM incidents WHERE type='intervention' AND owner_id = $1 AND status = 'under-investigation'`;
+
+  try {
+    const { rows } = await db.query(text, [req.user.id]);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
+async function getInRjStats(req, res) {
+  const text = `SELECT COUNT (id) FROM incidents WHERE type='intervention' AND owner_id = $1 AND status = 'rejected'`;
+
+  try {
+    const { rows } = await db.query(text, [req.user.id]);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
 // // Create new Red-flag record
 async function postSingleRedFlagRecord(req, res) {
   const values = [
@@ -46,8 +167,8 @@ async function postSingleRedFlagRecord(req, res) {
     req.body.dateOfIncident,
     req.body.title.trim(),
     req.body.comment.trim(),
-    req.body.images.trim(),
-    req.body.videos.trim(),
+    req.body.images,
+    req.body.videos,
     req.body.location,
     'draft',
   ];
@@ -89,11 +210,40 @@ async function getSingleRedFlagRecord(req, res) {
   }
 }
 
+async function getSingleRecord(req, res) {
+  const queryId = parseInt(req.params.id, 10);
+  const text = `SELECT * FROM incidents WHERE id = $1`;
+  try {
+    const { rows } = await db.query(text, [queryId]);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
+async function getAllRecords(req, res) {
+  const text = `SELECT * FROM incidents`;
+  try {
+    const { rows } = await db.query(text);
+    return res.status(200)
+      .send({
+        status: 200,
+        data: rows,
+      });
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+}
+
 // // Patch an red-flag record location
-async function patchRedFlagRecordLocation(req, res) {
+async function patchRecordLocation(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedLocation = req.body.location;
-  const updateRedFlagRecord = `UPDATE incidents SET location=$2 WHERE id=$1 AND type = 'red-flag' AND owner_id = $3 returning *`;
+  const updateRedFlagRecord = `UPDATE incidents SET location=$2 WHERE id=$1 AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedLocation,
@@ -106,7 +256,7 @@ async function patchRedFlagRecordLocation(req, res) {
         status: 205,
         data: [{
           id: response.rows[0].id,
-          message: 'Updated red-flag record’s location',
+          message: 'Updated record’s location',
         }],
       });
   } catch (err) {
@@ -115,10 +265,10 @@ async function patchRedFlagRecordLocation(req, res) {
 }
 
 // // Patch a red-flag record comment
-async function patchRedFlagRecordComment(req, res) {
+async function patchRecordComment(req, res) {
   const requestId = parseInt(req.params.id, 10);
   const updatedComment = req.body.comment.trim();
-  const updateRedFlagRecord =`UPDATE incidents SET comment=$2 WHERE id=$1 AND type = 'red-flag' AND owner_id = $3 returning *`;
+  const updateRedFlagRecord = `UPDATE incidents SET comment=$2 WHERE id=$1 AND owner_id = $3 returning *`;
   const values = [
     requestId,
     updatedComment,
@@ -131,7 +281,7 @@ async function patchRedFlagRecordComment(req, res) {
         status: 205,
         data: [{
           id: response.rows[0].id,
-          message: 'Updated red-flag record’s comment',
+          message: 'Updated record’s comment',
         }],
       });
   } catch (err) {
@@ -165,9 +315,9 @@ async function patchRedFlagRecordStatus(req, res) {
 }
 
 // // Delete a single red-flag record
-async function deleteRedFlagRecord(req, res) {
+async function deleteRecord(req, res) {
   const queryId = parseInt(req.params.id, 10);
-  const text = `DELETE FROM incidents WHERE type = 'red-flag' AND id = $1 AND owner_id = $2 returning * `;
+  const text = `DELETE FROM incidents WHERE id = $1 AND owner_id = $2 returning * `;
   try {
     const { rows } = await db.query(text, [queryId, req.user.id]);
     return res.status(200)
@@ -175,7 +325,7 @@ async function deleteRedFlagRecord(req, res) {
         status: 204,
         data: [{
           id: rows[0].id,
-          message: 'Red-flag record has been deleted',
+          message: 'Record has been deleted',
         }],
       });
   } catch (error) {
@@ -185,10 +335,20 @@ async function deleteRedFlagRecord(req, res) {
 
 export {
   getAllRedFlagRecords,
+  getRfDrStats,
+  getRfRsStats,
+  getRfIvStats,
+  getRfRjStats,
+  getInDrStats,
+  getInIvStats,
+  getInRjStats,
+  getInRsStats,
+  getAllRecords,
+  getSingleRecord,
   postSingleRedFlagRecord,
   getSingleRedFlagRecord,
-  patchRedFlagRecordLocation,
-  patchRedFlagRecordComment,
-  deleteRedFlagRecord,
+  patchRecordLocation,
+  patchRecordComment,
+  deleteRecord,
   patchRedFlagRecordStatus,
 };

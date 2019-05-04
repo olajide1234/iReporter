@@ -54,13 +54,11 @@ const createUserTables = () => {
         id SERIAL PRIMARY KEY,
         firstname VARCHAR,
         lastname VARCHAR,
-        othernames VARCHAR,
         email VARCHAR UNIQUE NOT NULL,
-        phoneNumber BIGINT,
         username VARCHAR UNIQUE NOT NULL,
-        registered TIMESTAMP,
         isAdmin BOOL,
         password VARCHAR NOT NULL
+        registered TIMESTAMP,
       )`;
 
   pool.query(queryText)

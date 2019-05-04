@@ -24,18 +24,15 @@ async function signUp(req, res) {
     // ID is auto-generated sequence by DB
     req.body.firstname.trim(),
     req.body.lastname.trim(),
-    req.body.othernames.trim(),
     req.body.email.trim(),
-    req.body.phoneNumber.trim(),
     req.body.username.trim().toLowerCase(),
-    req.body.date,
     req.body.isAdmin,
     hashPassword,
   ];
 
   const text = `INSERT INTO
-     users(firstname, lastname, othernames, email, phoneNumber, username, registered, isAdmin, password)
-     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+     users(firstname, lastname, email, username, isAdmin, password)
+     VALUES($1, $2, $3, $4, $5, $6)
      returning *`;
 
   try {

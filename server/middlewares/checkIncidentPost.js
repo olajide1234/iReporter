@@ -16,59 +16,45 @@ const completeBody = (req, res, next) => {
   let errorMessage;
 
   if ((!req.body.createdBy)
-  || validator.isEmpty(req.body.createdBy, { ignore_whitespace: true })) {
+    || validator.isEmpty(req.body.createdBy, { ignore_whitespace: true })) {
     errorMessage = {
       status: 400,
-      error: 'Include alphanumeric username as createdBy in body of request',
+      error: 'Include alphanumeric username',
     };
   }
 
   if (!req.body.type) {
     errorMessage = {
       status: 400,
-      error: 'Include record type as type in body of request, alphabets only',
+      error: 'Include record type',
     };
   }
 
-  if ((!req.body.dateOfIncident) || !(validator.isAfter(req.body.dateOfIncident))) {
+  if ((!req.body.dateOfIncident) || !(validator.isBefore(req.body.dateOfIncident))) {
     errorMessage = {
       status: 400,
-      error: 'Include valid date as date of incident as dateOfIncident in body of request',
+      error: 'Include valid date incident occured.',
     };
   }
 
   if ((!req.body.title) || validator.isEmpty(req.body.title, { ignore_whitespace: true })) {
     errorMessage = {
       status: 400,
-      error: 'Include short title as title in body of request',
+      error: 'Include short title',
     };
   }
 
   if ((!req.body.comment) || validator.isEmpty(req.body.comment, { ignore_whitespace: true })) {
     errorMessage = {
       status: 400,
-      error: 'Include narration of incident as comment in body of request',
-    };
-  }
-
-  if ((!req.body.images) || (!validator.isURL(req.body.images))) {
-    errorMessage = {
-      status: 400,
-      error: 'Specify image locations as images in body of request',
-    };
-  }
-
-  if (!req.body.videos || (!validator.isURL(req.body.videos))) {
-    errorMessage = {
-      status: 400,
-      error: 'Specify video locations as videos in body of request',
+      error: 'Include narration of incident',
     };
   }
 
   if (!req.body.location) {
     errorMessage = {
       status: 400,
-      error: 'Specify location of incident as location in body of request',
+      error: 'Specify location of incident',
     };
   }
 
@@ -151,6 +137,27 @@ async function findRedFlagRecord(req, res, next) {
 
   try {
     const { rows } = await db.query(findRedFlagRecordQuery, [requestId]);
+    if (!rows[0]) {
+      return res.status(404).send({
+        status: 404,
+        error: 'Record not found',
+      });
+    }
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+
+  return next();
+}
+
+async function findRecord(req, res, next) {
+  // Find Intervention Record
+  const requestId = parseInt(req.params.id, 10);
+
+  const findRecordQuery = `SELECT * FROM incidents WHERE id=$1`;
+
+  try {
+    const { rows } = await db.query(findRecordQuery, [requestId]);
     if (!rows[0]) {
       return res.status(404).send({
         status: 404,
@@ -309,25 +316,32 @@ const completeSignUpBody = (req, res, next) => {
   let errorMessage;
 
   if ((!req.body.firstname)
-  || validator.isEmpty(req.body.firstname, { ignore_whitespace: true })) {
+    || validator.isEmpty(req.body.firstname, { ignore_whitespace: true })) {
     errorMessage = {
       status: 400,
-      error: 'Include firstname in body of request, alphabets only',
+      error: 'Please include your firstname, alphabets only',
     };
   }
 
   if ((!req.body.lastname)
-  || validator.isEmpty(req.body.lastname, { ignore_whitespace: true })) {
+    || validator.isEmpty(req.body.lastname, { ignore_whitespace: true })) {
     errorMessage = {
       status: 400,
-      error: 'Include lastname in body of request, alphabets only',
+      error: 'Please include your lastname, alphabets only',
+    };
+  }
+
+  if (!req.body.password) {
+    errorMessage = {
+      status: 400,
+      error: 'Please include a password',
     };
   }
 
   if (!req.body.email) {
     errorMessage = {
       status: 400,
-      error: 'Include email in body of request',
+      error: 'Please include email',
     };
   }
 
@@ -411,6 +425,7 @@ async function checkEmailExists(req, res, next) {
 export {
   completeBody,
   validID,
+  findRecord,
   findRedFlagRecord,
   findInterventionRecord,
   checkLocation,
