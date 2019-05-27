@@ -1,5 +1,5 @@
 # iReporter
-This is a Cycle 39 Bootcamp project for Andela applicants.
+This is a simple Node/Express project to fight corruption and government neglect.
 
 ## Summary
 Corruption is a huge bane to Africa’s development. African countries must develop novel and
